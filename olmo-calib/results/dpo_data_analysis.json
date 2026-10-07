@@ -1,0 +1,1883 @@
+{
+  "groups": {
+    "instruct/delta_learning": {
+      "pairs": 124942,
+      "mean_words_chosen": 293.9971987001969,
+      "mean_words_rejected": 250.7177890541211,
+      "hedge_per100_chosen": 0.2834962262544149,
+      "hedge_per100_rejected": 0.2648346726451032,
+      "boost_per100_chosen": 0.0866893314649319,
+      "boost_per100_rejected": 0.09445544564155463,
+      "chosen_longer": {
+        "p": 0.7028701317411279,
+        "se": 0.0012928748063527318,
+        "n": 124942
+      },
+      "chosen_less_hedged": {
+        "p": 0.4187806252981224,
+        "se": 0.0022972553215386458,
+        "n": 46122
+      },
+      "admit_rate_chosen": {
+        "p": 0.001544716748571337,
+        "se": 0.00011110523200453126,
+        "n": 124942
+      },
+      "admit_rate_rejected": {
+        "p": 0.0038337788733972564,
+        "se": 0.0001748337241873367,
+        "n": 124942
+      },
+      "admit_chosen": {
+        "p": 0.26166666666666666,
+        "se": 0.017944229444876433,
+        "n": 600
+      },
+      "top_model_pairs": [
+        "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 124942"
+      ]
+    },
+    "instruct/llm_judged": {
+      "pairs": 124980,
+      "mean_words_chosen": 386.2053688590174,
+      "mean_words_rejected": 354.6981677068331,
+      "hedge_per100_chosen": 0.30397341263835626,
+      "hedge_per100_rejected": 0.30248462195821846,
+      "boost_per100_chosen": 0.1139848786378624,
+      "boost_per100_rejected": 0.0919850521933817,
+      "chosen_longer": {
+        "p": 0.585885741718675,
+        "se": 0.0013933053229321741,
+        "n": 124980
+      },
+      "chosen_less_hedged": {
+        "p": 0.47646068766530414,
+        "se": 0.0019996228736962004,
+        "n": 62385
+      },
+      "admit_rate_chosen": {
+        "p": 0.0026164186269803168,
+        "se": 0.0001444988741559284,
+        "n": 124980
+      },
+      "admit_rate_rejected": {
+        "p": 0.0028084493518963035,
+        "se": 0.00014969328978292265,
+        "n": 124980
+      },
+      "admit_chosen": {
+        "p": 0.48013245033112584,
+        "se": 0.02032864421482257,
+        "n": 604
+      },
+      "top_model_pairs": [
+        "gpt-120b > olmo2-1b: 1510",
+        "gpt-4.1-2025-04-14 > olmo2-1b: 1476",
+        "gpt-20b > olmo2-1b: 1356",
+        "gpt-120b > qwen3-no_reasoning-0.6b: 1347",
+        "qwen3-no_reasoning-30b-3a > olmo2-1b: 1346"
+      ]
+    },
+    "instruct/multiturn_self_talk": {
+      "pairs": 5000,
+      "mean_words_chosen": 130.7332,
+      "mean_words_rejected": 142.4584,
+      "hedge_per100_chosen": 0.6757724406701453,
+      "hedge_per100_rejected": 0.409112441075109,
+      "boost_per100_chosen": 0.2282619806996412,
+      "boost_per100_rejected": 0.12738958812932266,
+      "chosen_longer": {
+        "p": 0.6938,
+        "se": 0.006518305914883099,
+        "n": 5000
+      },
+      "chosen_less_hedged": {
+        "p": 0.33287419651056016,
+        "se": 0.010097526399946507,
+        "n": 2178
+      },
+      "admit_rate_chosen": {
+        "p": 0.0084,
+        "se": 0.001290692837200238,
+        "n": 5000
+      },
+      "admit_rate_rejected": {
+        "p": 0.001,
+        "se": 0.0004469899327725402,
+        "n": 5000
+      },
+      "admit_chosen": {
+        "p": 0.9111111111111111,
+        "se": 0.04242317352081883,
+        "n": 45
+      },
+      "top_model_pairs": [
+        "gpt-4o > gpt-3.5: 2500",
+        "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 2500"
+      ]
+    },
+    "instruct/multiturn_synthetic_context": {
+      "pairs": 5000,
+      "mean_words_chosen": 109.9062,
+      "mean_words_rejected": 164.0138,
+      "hedge_per100_chosen": 0.42400965430787474,
+      "hedge_per100_rejected": 0.30722888197389175,
+      "boost_per100_chosen": 0.10788754450945949,
+      "boost_per100_rejected": 0.05478620508670915,
+      "chosen_longer": {
+        "p": 0.5486,
+        "se": 0.007037585381364833,
+        "n": 5000
+      },
+      "chosen_less_hedged": {
+        "p": 0.3871665465032444,
+        "se": 0.013079222083298783,
+        "n": 1387
+      },
+      "admit_rate_chosen": {
+        "p": 0.0026,
+        "se": 0.0007201722016295824,
+        "n": 5000
+      },
+      "admit_rate_rejected": {
+        "p": 0.0026,
+        "se": 0.0007201722016295824,
+        "n": 5000
+      },
+      "admit_chosen": {
+        "p": 0.5,
+        "se": 0.125,
+        "n": 16
+      },
+      "top_model_pairs": [
+        "gpt-4o > gpt-3.5: 2500",
+        "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 2500"
+      ]
+    },
+    "think/delta_learning": {
+      "pairs": 150000,
+      "mean_words_chosen": 342.6003733333333,
+      "mean_words_rejected": 227.37019333333333,
+      "hedge_per100_chosen": 0.31029783932035493,
+      "hedge_per100_rejected": 0.3035399011001848,
+      "boost_per100_chosen": 0.06918712043372517,
+      "boost_per100_rejected": 0.06653704960025994,
+      "chosen_longer": {
+        "p": 0.8231466666666667,
+        "se": 0.0009851437520220832,
+        "n": 150000
+      },
+      "chosen_less_hedged": {
+        "p": 0.42464783190367517,
+        "se": 0.001960987455139863,
+        "n": 63535
+      },
+      "admit_rate_chosen": {
+        "p": 0.0009733333333333333,
+        "se": 8.051442750859647e-05,
+        "n": 150000
+      },
+      "admit_rate_rejected": {
+        "p": 0.0019066666666666668,
+        "se": 0.00011263603002263201,
+        "n": 150000
+      },
+      "admit_chosen": {
+        "p": 0.31865284974093266,
+        "se": 0.023716438577280865,
+        "n": 386
+      },
+      "top_model_pairs": [
+        "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 150000"
+      ]
+    }
+  },
+  "by_source": {
+    "delta_learning": {
+      "valpy_if_qwq_reasoning_verified_no_reasoning-request": {
+        "pairs": 14600,
+        "mean_words_chosen": 297.8891780821918,
+        "mean_words_rejected": 220.22883561643835,
+        "hedge_per100_chosen": 0.29655335579312764,
+        "hedge_per100_rejected": 0.30101409908345916,
+        "boost_per100_chosen": 0.08737819373184473,
+        "boost_per100_rejected": 0.0838185103561835,
+        "chosen_longer": {
+          "p": 0.782945205479452,
+          "se": 0.0034117244534567015,
+          "n": 14600
+        },
+        "chosen_less_hedged": {
+          "p": 0.37834440653618245,
+          "se": 0.006498752129328897,
+          "n": 5569
+        },
+        "admit_rate_chosen": {
+          "p": 0.0009589041095890411,
+          "se": 0.0002561550007664257,
+          "n": 14600
+        },
+        "admit_rate_rejected": {
+          "p": 0.0014383561643835617,
+          "se": 0.00031364923431573255,
+          "n": 14600
+        },
+        "admit_chosen": {
+          "p": 0.3870967741935484,
+          "se": 0.08748324477412571,
+          "n": 31
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 14600"
+        ]
+      },
+      "ultrafeedback_cleaned_olmo2_7b-request": {
+        "pairs": 14188,
+        "mean_words_chosen": 102.1802932055258,
+        "mean_words_rejected": 167.9165491965041,
+        "hedge_per100_chosen": 0.3291792337817693,
+        "hedge_per100_rejected": 0.2512706696203249,
+        "boost_per100_chosen": 0.1083974614660712,
+        "boost_per100_rejected": 0.10378629359261737,
+        "chosen_longer": {
+          "p": 0.5062024245841557,
+          "se": 0.004197357851735835,
+          "n": 14188
+        },
+        "chosen_less_hedged": {
+          "p": 0.4140670982931136,
+          "se": 0.00844982309987251,
+          "n": 3398
+        },
+        "admit_rate_chosen": {
+          "p": 0.0011981956583027912,
+          "se": 0.0002904309798150216,
+          "n": 14188
+        },
+        "admit_rate_rejected": {
+          "p": 0.00211446292641669,
+          "se": 0.0003856379909465406,
+          "n": 14188
+        },
+        "admit_chosen": {
+          "p": 0.34146341463414637,
+          "se": 0.07405768205084984,
+          "n": 41
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 14188"
+        ]
+      },
+      "correct-python-sft-187k-request": {
+        "pairs": 11826,
+        "mean_words_chosen": 260.8385760189413,
+        "mean_words_rejected": 176.3573482157957,
+        "hedge_per100_chosen": 0.06252330091066595,
+        "hedge_per100_rejected": 0.04348262248524773,
+        "boost_per100_chosen": 0.04857209707646638,
+        "boost_per100_rejected": 0.051224857903187024,
+        "chosen_longer": {
+          "p": 0.9295619820733976,
+          "se": 0.0023530101615432722,
+          "n": 11826
+        },
+        "chosen_less_hedged": {
+          "p": 0.32217573221757323,
+          "se": 0.011425020774324657,
+          "n": 1673
+        },
+        "admit_rate_chosen": {
+          "p": 0.0005919161170302722,
+          "se": 0.0002236570407353897,
+          "n": 11826
+        },
+        "admit_rate_rejected": {
+          "p": 0.0005919161170302722,
+          "se": 0.0002236570407353897,
+          "n": 11826
+        },
+        "admit_chosen": {
+          "p": 0.5,
+          "se": 0.25,
+          "n": 4
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 11826"
+        ]
+      },
+      "flan_v2_converted-request": {
+        "pairs": 9796,
+        "mean_words_chosen": 40.182829726418944,
+        "mean_words_rejected": 66.03001224989792,
+        "hedge_per100_chosen": 0.3679425760034504,
+        "hedge_per100_rejected": 0.2242753876449105,
+        "boost_per100_chosen": 0.09669748343741581,
+        "boost_per100_rejected": 0.09465644616238152,
+        "chosen_longer": {
+          "p": 0.4531441404654961,
+          "se": 0.00502956275164878,
+          "n": 9796
+        },
+        "chosen_less_hedged": {
+          "p": 0.37900874635568516,
+          "se": 0.01171481125106802,
+          "n": 1715
+        },
+        "admit_rate_chosen": {
+          "p": 0.00010208248264597796,
+          "se": 0.00010207727209636652,
+          "n": 9796
+        },
+        "admit_rate_rejected": {
+          "p": 0.0005104124132298898,
+          "se": 0.00022820510884413467,
+          "n": 9796
+        },
+        "admit_chosen": {
+          "p": 0.16666666666666666,
+          "se": 0.15214515486254615,
+          "n": 6
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 9796"
+        ]
+      },
+      "OpenThoughts3-full-filtered-science-no-cot-request": {
+        "pairs": 7638,
+        "mean_words_chosen": 760.4681853888452,
+        "mean_words_rejected": 407.9334904425242,
+        "hedge_per100_chosen": 0.28763857615557714,
+        "hedge_per100_rejected": 0.2351381671267989,
+        "boost_per100_chosen": 0.05205710888472396,
+        "boost_per100_rejected": 0.04434312822181374,
+        "chosen_longer": {
+          "p": 0.939643885833988,
+          "se": 0.0027249118324220814,
+          "n": 7638
+        },
+        "chosen_less_hedged": {
+          "p": 0.3777695716395864,
+          "se": 0.006587942221566815,
+          "n": 5416
+        },
+        "admit_rate_chosen": {
+          "p": 0.0006546216286986122,
+          "se": 0.00029265985447136467,
+          "n": 7638
+        },
+        "admit_rate_rejected": {
+          "p": 0.0002618486514794449,
+          "se": 0.00018513071423065702,
+          "n": 7638
+        },
+        "admit_chosen": {
+          "p": 0.7142857142857143,
+          "se": 0.17074694419062766,
+          "n": 7
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 7638"
+        ]
+      },
+      "tulu_v3.9_wildjailbreak_decontaminated_50k-request": {
+        "pairs": 7288,
+        "mean_words_chosen": 377.994785949506,
+        "mean_words_rejected": 266.3138035126235,
+        "hedge_per100_chosen": 0.5385918069096236,
+        "hedge_per100_rejected": 0.6848520715501216,
+        "boost_per100_chosen": 0.09077170856078416,
+        "boost_per100_rejected": 0.13966196025380082,
+        "chosen_longer": {
+          "p": 0.7332601536772777,
+          "se": 0.005180465777632692,
+          "n": 7288
+        },
+        "chosen_less_hedged": {
+          "p": 0.5271611622450821,
+          "se": 0.0067070910020985,
+          "n": 5541
+        },
+        "admit_rate_chosen": {
+          "p": 0.004527991218441273,
+          "se": 0.0007864355414543838,
+          "n": 7288
+        },
+        "admit_rate_rejected": {
+          "p": 0.01907244785949506,
+          "se": 0.0016022028602857832,
+          "n": 7288
+        },
+        "admit_chosen": {
+          "p": 0.18072289156626506,
+          "se": 0.029865373433164498,
+          "n": 166
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 7288"
+        ]
+      },
+      "tulu_v3.9_synthetic_finalresp_wildguardmixtrain_decontaminated_50k-req": {
+        "pairs": 7083,
+        "mean_words_chosen": 439.560214598334,
+        "mean_words_rejected": 324.9481857969787,
+        "hedge_per100_chosen": 0.5348772438169985,
+        "hedge_per100_rejected": 0.671852303325776,
+        "boost_per100_chosen": 0.14558907090456155,
+        "boost_per100_rejected": 0.2224740772320339,
+        "chosen_longer": {
+          "p": 0.7156572073979952,
+          "se": 0.005360002793334825,
+          "n": 7083
+        },
+        "chosen_less_hedged": {
+          "p": 0.5187713310580204,
+          "se": 0.006696580891801169,
+          "n": 5567
+        },
+        "admit_rate_chosen": {
+          "p": 0.004941409007482705,
+          "se": 0.0008331843564000402,
+          "n": 7083
+        },
+        "admit_rate_rejected": {
+          "p": 0.015812508823944655,
+          "se": 0.0014822815057618094,
+          "n": 7083
+        },
+        "admit_chosen": {
+          "p": 0.21481481481481482,
+          "se": 0.035346895735760914,
+          "n": 135
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 7083"
+        ]
+      },
+      "filtered_wc_sample_500k-request": {
+        "pairs": 6897,
+        "mean_words_chosen": 180.78831375960561,
+        "mean_words_rejected": 310.87820791648545,
+        "hedge_per100_chosen": 0.33409480831402416,
+        "hedge_per100_rejected": 0.34119539344844674,
+        "boost_per100_chosen": 0.12336378597738544,
+        "boost_per100_rejected": 0.08974773033359588,
+        "chosen_longer": {
+          "p": 0.5073220240684355,
+          "se": 0.006019956034982347,
+          "n": 6897
+        },
+        "chosen_less_hedged": {
+          "p": 0.4530842745438749,
+          "se": 0.010375213451897092,
+          "n": 2302
+        },
+        "admit_rate_chosen": {
+          "p": 0.0027548209366391185,
+          "se": 0.0006311281440943414,
+          "n": 6897
+        },
+        "admit_rate_rejected": {
+          "p": 0.006379585326953748,
+          "se": 0.0009586859556142113,
+          "n": 6897
+        },
+        "admit_chosen": {
+          "p": 0.2727272727272727,
+          "se": 0.060052569006892396,
+          "n": 55
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 6897"
+        ]
+      },
+      "evol_codealpaca_heval_decontaminated-request": {
+        "pairs": 6886,
+        "mean_words_chosen": 480.4756026720883,
+        "mean_words_rejected": 331.1497240778391,
+        "hedge_per100_chosen": 0.16189892075806636,
+        "hedge_per100_rejected": 0.12474704690515827,
+        "boost_per100_chosen": 0.0778431631150781,
+        "boost_per100_rejected": 0.08469936789917973,
+        "chosen_longer": {
+          "p": 0.9286959047342433,
+          "se": 0.003101062311871509,
+          "n": 6886
+        },
+        "chosen_less_hedged": {
+          "p": 0.3412784398699892,
+          "se": 0.009010396193452392,
+          "n": 2769
+        },
+        "admit_rate_chosen": {
+          "p": 0.00130699970955562,
+          "se": 0.0004353817687225685,
+          "n": 6886
+        },
+        "admit_rate_rejected": {
+          "p": 0.0002904443799012489,
+          "se": 0.0002053453633848135,
+          "n": 6886
+        },
+        "admit_chosen": {
+          "p": 0.8181818181818182,
+          "se": 0.11629129983033296,
+          "n": 11
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 6886"
+        ]
+      },
+      "tulu_v3.9_sciriff_10k-request": {
+        "pairs": 6737,
+        "mean_words_chosen": 96.82529315719162,
+        "mean_words_rejected": 77.46608282618377,
+        "hedge_per100_chosen": 0.3016506602568868,
+        "hedge_per100_rejected": 0.21913351565734407,
+        "boost_per100_chosen": 0.009177277100638497,
+        "boost_per100_rejected": 0.003066655335047067,
+        "chosen_longer": {
+          "p": 0.5839394389194004,
+          "se": 0.006005219769403344,
+          "n": 6737
+        },
+        "chosen_less_hedged": {
+          "p": 0.3367579908675799,
+          "se": 0.011290883259511405,
+          "n": 1752
+        },
+        "admit_rate_chosen": {
+          "p": 0.000445302063232893,
+          "se": 0.0002570380171780175,
+          "n": 6737
+        },
+        "admit_rate_rejected": {
+          "p": 0.00014843402107763098,
+          "se": 0.0001484230043394945,
+          "n": 6737
+        },
+        "admit_chosen": {
+          "p": 1.0,
+          "se": 0.0,
+          "n": 2
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 6737"
+        ]
+      },
+      "tulu-3-sft-personas-math-request": {
+        "pairs": 5678,
+        "mean_words_chosen": 803.3307502641775,
+        "mean_words_rejected": 594.4934836209933,
+        "hedge_per100_chosen": 0.1192228047488981,
+        "hedge_per100_rejected": 0.10468015039518407,
+        "boost_per100_chosen": 0.04756674464822146,
+        "boost_per100_rejected": 0.05910387705000901,
+        "chosen_longer": {
+          "p": 0.8175413878126101,
+          "se": 0.005125536888450288,
+          "n": 5678
+        },
+        "chosen_less_hedged": {
+          "p": 0.42166771951989895,
+          "se": 0.008776441032306452,
+          "n": 3166
+        },
+        "admit_rate_chosen": {
+          "p": 0.0,
+          "se": 0.0,
+          "n": 5678
+        },
+        "admit_rate_rejected": {
+          "p": 0.0,
+          "se": 0.0,
+          "n": 5678
+        },
+        "admit_chosen": {
+          "p": NaN,
+          "se": NaN,
+          "n": 0
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 5678"
+        ]
+      },
+      "Wildchat-1M-gpt-4.1-regenerated-english-request": {
+        "pairs": 4803,
+        "mean_words_chosen": 227.19841765563189,
+        "mean_words_rejected": 363.6158650843223,
+        "hedge_per100_chosen": 0.3523721551694145,
+        "hedge_per100_rejected": 0.3283974241858783,
+        "boost_per100_chosen": 0.28050617144418943,
+        "boost_per100_rejected": 0.28331108858591053,
+        "chosen_longer": {
+          "p": 0.5854674161982094,
+          "se": 0.007108441738181306,
+          "n": 4803
+        },
+        "chosen_less_hedged": {
+          "p": 0.41636457793889176,
+          "se": 0.011218029344784932,
+          "n": 1931
+        },
+        "admit_rate_chosen": {
+          "p": 0.00416406412658755,
+          "se": 0.0009291724154236734,
+          "n": 4803
+        },
+        "admit_rate_rejected": {
+          "p": 0.008744534665833853,
+          "se": 0.0013433984905206276,
+          "n": 4803
+        },
+        "admit_chosen": {
+          "p": 0.28,
+          "se": 0.06349803146555018,
+          "n": 50
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 4803"
+        ]
+      }
+    },
+    "llm_judged": {
+      "OpenThoughts3-full-filtered-science-no-cot-request": {
+        "pairs": 18496,
+        "mean_words_chosen": 712.9206314878893,
+        "mean_words_rejected": 495.10240051903116,
+        "hedge_per100_chosen": 0.32023052293916016,
+        "hedge_per100_rejected": 0.42107012619193324,
+        "boost_per100_chosen": 0.07907888928612289,
+        "boost_per100_rejected": 0.08620874442817533,
+        "chosen_longer": {
+          "p": 0.6495458477508651,
+          "se": 0.0035081778489521633,
+          "n": 18496
+        },
+        "chosen_less_hedged": {
+          "p": 0.5584615384615385,
+          "se": 0.004061255457081334,
+          "n": 14950
+        },
+        "admit_rate_chosen": {
+          "p": 0.001189446366782007,
+          "se": 0.00025343995625258303,
+          "n": 18496
+        },
+        "admit_rate_rejected": {
+          "p": 0.0010813148788927337,
+          "se": 0.0002416585968558387,
+          "n": 18496
+        },
+        "admit_chosen": {
+          "p": 0.5238095238095238,
+          "se": 0.07706415178216067,
+          "n": 42
+        },
+        "top_model_pairs": [
+          "gpt-120b > olmo2-1b: 432",
+          "qwen3-no_reasoning-30b-3a > olmo2-1b: 372",
+          "gpt-20b > olmo2-1b: 358",
+          "gpt-4.1-2025-04-14 > olmo2-1b: 350",
+          "gpt-120b > qwen3-no_reasoning-0.6b: 340"
+        ]
+      },
+      "valpy_if_qwq_reasoning_verified_no_reasoning-request": {
+        "pairs": 13931,
+        "mean_words_chosen": 290.9153686023975,
+        "mean_words_rejected": 308.76620486684374,
+        "hedge_per100_chosen": 0.33746172104314154,
+        "hedge_per100_rejected": 0.32249178060517053,
+        "boost_per100_chosen": 0.09506775680836776,
+        "boost_per100_rejected": 0.0909017360385778,
+        "chosen_longer": {
+          "p": 0.6344124614169837,
+          "se": 0.004080284056608843,
+          "n": 13931
+        },
+        "chosen_less_hedged": {
+          "p": 0.42980492484809724,
+          "se": 0.0062599157214142985,
+          "n": 6254
+        },
+        "admit_rate_chosen": {
+          "p": 0.0012920824061445698,
+          "se": 0.0003043499304055182,
+          "n": 13931
+        },
+        "admit_rate_rejected": {
+          "p": 0.001220300050247649,
+          "se": 0.0002957855964874589,
+          "n": 13931
+        },
+        "admit_chosen": {
+          "p": 0.5142857142857142,
+          "se": 0.0844809223379282,
+          "n": 35
+        },
+        "top_model_pairs": [
+          "gpt-120b > qwen3-no_reasoning-0.6b: 173",
+          "gpt-4.1-2025-04-14 > qwen3-no_reasoning-0.6b: 163",
+          "gpt-20b > qwen3-no_reasoning-0.6b: 156",
+          "qwq-32b > qwen3-no_reasoning-0.6b: 153",
+          "gemma3-12b > qwen3-no_reasoning-0.6b: 147"
+        ]
+      },
+      "correct-python-sft-187k-request": {
+        "pairs": 12270,
+        "mean_words_chosen": 334.4616136919315,
+        "mean_words_rejected": 224.86251018744906,
+        "hedge_per100_chosen": 0.08498762372578895,
+        "hedge_per100_rejected": 0.0651408563547035,
+        "boost_per100_chosen": 0.14872747875819295,
+        "boost_per100_rejected": 0.06507631580620325,
+        "chosen_longer": {
+          "p": 0.6329258353708231,
+          "se": 0.004351420364940395,
+          "n": 12270
+        },
+        "chosen_less_hedged": {
+          "p": 0.37552363853979653,
+          "se": 0.008376708815506315,
+          "n": 3342
+        },
+        "admit_rate_chosen": {
+          "p": 0.0004889975550122249,
+          "se": 0.0001995836000246801,
+          "n": 12270
+        },
+        "admit_rate_rejected": {
+          "p": 0.0006519967400162999,
+          "se": 0.00023044049810671253,
+          "n": 12270
+        },
+        "admit_chosen": {
+          "p": 0.25,
+          "se": 0.21650635094610965,
+          "n": 4
+        },
+        "top_model_pairs": [
+          "gpt-120b > olmo2-1b: 230",
+          "gpt-20b > olmo2-1b: 207",
+          "phi4-mini-instruct > olmo2-1b: 175",
+          "qwen3-no_reasoning-1.7b > olmo2-1b: 170",
+          "qwen3-no_reasoning-30b-3a > olmo2-1b: 166"
+        ]
+      },
+      "tulu-3-sft-personas-math-request": {
+        "pairs": 9050,
+        "mean_words_chosen": 826.0153591160221,
+        "mean_words_rejected": 607.7300552486188,
+        "hedge_per100_chosen": 0.18925889224018905,
+        "hedge_per100_rejected": 0.191521813017889,
+        "boost_per100_chosen": 0.07969107428629221,
+        "boost_per100_rejected": 0.05688954829459425,
+        "chosen_longer": {
+          "p": 0.630939226519337,
+          "se": 0.005072457520697806,
+          "n": 9050
+        },
+        "chosen_less_hedged": {
+          "p": 0.48792041686404547,
+          "se": 0.006281140123354383,
+          "n": 6333
+        },
+        "admit_rate_chosen": {
+          "p": 0.0006629834254143647,
+          "se": 0.00027057211299505104,
+          "n": 9050
+        },
+        "admit_rate_rejected": {
+          "p": 0.00022099447513812155,
+          "se": 0.00015624942398305492,
+          "n": 9050
+        },
+        "admit_chosen": {
+          "p": 0.75,
+          "se": 0.15309310892394862,
+          "n": 8
+        },
+        "top_model_pairs": [
+          "gpt-20b > olmo2-1b: 167",
+          "gpt-120b > olmo2-1b: 167",
+          "gpt-4.1-2025-04-14 > olmo2-1b: 148",
+          "qwen3-no_reasoning-4b > olmo2-1b: 147",
+          "qwen3-no_reasoning-30b-3a > olmo2-1b: 133"
+        ]
+      },
+      "ultrafeedback_cleaned_olmo2_7b-request": {
+        "pairs": 8115,
+        "mean_words_chosen": 190.61860751694394,
+        "mean_words_rejected": 309.513123844732,
+        "hedge_per100_chosen": 0.4061808889459886,
+        "hedge_per100_rejected": 0.39277341279289635,
+        "boost_per100_chosen": 0.14014697405304438,
+        "boost_per100_rejected": 0.12704224865378513,
+        "chosen_longer": {
+          "p": 0.42747997535428217,
+          "se": 0.005491727336127181,
+          "n": 8115
+        },
+        "chosen_less_hedged": {
+          "p": 0.5057730216840327,
+          "se": 0.00839007258614264,
+          "n": 3551
+        },
+        "admit_rate_chosen": {
+          "p": 0.001971657424522489,
+          "se": 0.0004924281872478027,
+          "n": 8115
+        },
+        "admit_rate_rejected": {
+          "p": 0.001971657424522489,
+          "se": 0.0004924281872478027,
+          "n": 8115
+        },
+        "admit_chosen": {
+          "p": 0.5,
+          "se": 0.09128709291752768,
+          "n": 30
+        },
+        "top_model_pairs": [
+          "yi-34b > olmo2-1b: 115",
+          "olmo2-13b > olmo2-1b: 96",
+          "yi-9b > olmo2-1b: 95",
+          "gpt-4.1-2025-04-14 > olmo2-1b: 90",
+          "yi-34b > qwen3-no_reasoning-0.6b: 90"
+        ]
+      },
+      "filtered_wc_sample_500k-request": {
+        "pairs": 6809,
+        "mean_words_chosen": 244.0055808488765,
+        "mean_words_rejected": 456.5094727566456,
+        "hedge_per100_chosen": 0.44882245910983926,
+        "hedge_per100_rejected": 0.4506761031406604,
+        "boost_per100_chosen": 0.12340849603744974,
+        "boost_per100_rejected": 0.11602872599028115,
+        "chosen_longer": {
+          "p": 0.32427669261271846,
+          "se": 0.00567284150534203,
+          "n": 6809
+        },
+        "chosen_less_hedged": {
+          "p": 0.5203535083020889,
+          "se": 0.00817565812842199,
+          "n": 3734
+        },
+        "admit_rate_chosen": {
+          "p": 0.009839917755911294,
+          "se": 0.001196208197253968,
+          "n": 6809
+        },
+        "admit_rate_rejected": {
+          "p": 0.013070935526509031,
+          "se": 0.0013764316127490518,
+          "n": 6809
+        },
+        "admit_chosen": {
+          "p": 0.4140625,
+          "se": 0.043536510010075705,
+          "n": 128
+        },
+        "top_model_pairs": [
+          "olmo2-13b > qwen3-no_reasoning-1.7b: 122",
+          "olmo2-13b > olmo2-1b: 99",
+          "yi-34b > qwen3-no_reasoning-1.7b: 96",
+          "olmo2-13b > phi4-mini-instruct: 89",
+          "gpt-4.1-2025-04-14 > qwen3-no_reasoning-1.7b: 84"
+        ]
+      },
+      "flan_v2_converted-request": {
+        "pairs": 6324,
+        "mean_words_chosen": 47.53336495888678,
+        "mean_words_rejected": 74.54127134724858,
+        "hedge_per100_chosen": 0.4025562359415952,
+        "hedge_per100_rejected": 0.3738811920608656,
+        "boost_per100_chosen": 0.10419039734083657,
+        "boost_per100_rejected": 0.0663659625840823,
+        "chosen_longer": {
+          "p": 0.5792220113851992,
+          "se": 0.006208019961765626,
+          "n": 6324
+        },
+        "chosen_less_hedged": {
+          "p": 0.44969615124915596,
+          "se": 0.012926570858765267,
+          "n": 1481
+        },
+        "admit_rate_chosen": {
+          "p": 0.00015812776723592663,
+          "se": 0.00015811526454626598,
+          "n": 6324
+        },
+        "admit_rate_rejected": {
+          "p": 0.0011068943706514865,
+          "se": 0.00041813513947219706,
+          "n": 6324
+        },
+        "admit_chosen": {
+          "p": 0.0,
+          "se": 0.0,
+          "n": 6
+        },
+        "top_model_pairs": [
+          "yi-34b > olmo2-1b: 66",
+          "qwen3-no_reasoning-1.7b > qwen3-no_reasoning-0.6b: 65",
+          "yi-34b > qwen3-no_reasoning-0.6b: 63",
+          "gpt-4.1-2025-04-14 > olmo2-1b: 61",
+          "phi4-mini-instruct > qwen3-no_reasoning-0.6b: 60"
+        ]
+      },
+      "evol_codealpaca_heval_decontaminated-request": {
+        "pairs": 6067,
+        "mean_words_chosen": 519.0474699192353,
+        "mean_words_rejected": 336.19119828580847,
+        "hedge_per100_chosen": 0.2088230413618697,
+        "hedge_per100_rejected": 0.2519589551209246,
+        "boost_per100_chosen": 0.12897106392348684,
+        "boost_per100_rejected": 0.09235091500019756,
+        "chosen_longer": {
+          "p": 0.7582000988956651,
+          "se": 0.005497091682480441,
+          "n": 6067
+        },
+        "chosen_less_hedged": {
+          "p": 0.502929115407147,
+          "se": 0.008557182484938057,
+          "n": 3414
+        },
+        "admit_rate_chosen": {
+          "p": 0.0008241305422778968,
+          "se": 0.00036841047991171774,
+          "n": 6067
+        },
+        "admit_rate_rejected": {
+          "p": 0.0004944783253667381,
+          "se": 0.0002854166019163813,
+          "n": 6067
+        },
+        "admit_chosen": {
+          "p": 0.625,
+          "se": 0.1711632992203644,
+          "n": 8
+        },
+        "top_model_pairs": [
+          "gpt-120b > qwen3-no_reasoning-0.6b: 117",
+          "gpt-120b > olmo2-1b: 112",
+          "gpt-20b > olmo2-1b: 106",
+          "gpt-20b > qwen3-no_reasoning-0.6b: 103",
+          "qwen3-no_reasoning-4b > olmo2-1b: 88"
+        ]
+      },
+      "Wildchat-1M-gpt-4.1-regenerated-english-request": {
+        "pairs": 5374,
+        "mean_words_chosen": 281.73985857834015,
+        "mean_words_rejected": 501.9776702642352,
+        "hedge_per100_chosen": 0.4755323273750627,
+        "hedge_per100_rejected": 0.49943983428593686,
+        "boost_per100_chosen": 0.36732046305714294,
+        "boost_per100_rejected": 0.2613057092688602,
+        "chosen_longer": {
+          "p": 0.30591737997767027,
+          "se": 0.006285774971329118,
+          "n": 5374
+        },
+        "chosen_less_hedged": {
+          "p": 0.5215453194650818,
+          "se": 0.008611402634707215,
+          "n": 3365
+        },
+        "admit_rate_chosen": {
+          "p": 0.012653516933382954,
+          "se": 0.0015247252275292103,
+          "n": 5374
+        },
+        "admit_rate_rejected": {
+          "p": 0.017491626349088202,
+          "se": 0.0017882753695422627,
+          "n": 5374
+        },
+        "admit_chosen": {
+          "p": 0.4084507042253521,
+          "se": 0.041249731236270494,
+          "n": 142
+        },
+        "top_model_pairs": [
+          "olmo2-13b > qwen3-no_reasoning-1.7b: 89",
+          "olmo2-7b > qwen3-no_reasoning-1.7b: 88",
+          "gpt-4.1-2025-04-14 > olmo2-1b: 86",
+          "gpt-4.1-2025-04-14 > qwen3-no_reasoning-1.7b: 73",
+          "yi-34b > olmo2-1b: 69"
+        ]
+      },
+      "tulu_v3.9_wildjailbreak_decontaminated_50k-request": {
+        "pairs": 5143,
+        "mean_words_chosen": 464.32665759284464,
+        "mean_words_rejected": 256.77036748979197,
+        "hedge_per100_chosen": 0.6331410530990177,
+        "hedge_per100_rejected": 0.5073212928960084,
+        "boost_per100_chosen": 0.1301538598422623,
+        "boost_per100_rejected": 0.10548205310067559,
+        "chosen_longer": {
+          "p": 0.8069220299436127,
+          "se": 0.005503942474274146,
+          "n": 5143
+        },
+        "chosen_less_hedged": {
+          "p": 0.3757734412184674,
+          "se": 0.007471471397185247,
+          "n": 4202
+        },
+        "admit_rate_chosen": {
+          "p": 0.006610927474236827,
+          "se": 0.0011300108758152997,
+          "n": 5143
+        },
+        "admit_rate_rejected": {
+          "p": 0.0058331713007972,
+          "se": 0.0010618758338342526,
+          "n": 5143
+        },
+        "admit_chosen": {
+          "p": 0.5333333333333333,
+          "se": 0.06440611887195306,
+          "n": 60
+        },
+        "top_model_pairs": [
+          "gemma3-12b > qwen3-no_reasoning-0.6b: 75",
+          "olmo2-13b > qwen3-no_reasoning-0.6b: 71",
+          "gemma3-27b > qwen3-no_reasoning-0.6b: 71",
+          "olmo2-13b > phi4-mini-instruct: 70",
+          "olmo2-13b > yi-9b: 67"
+        ]
+      },
+      "tulu_v3.9_synthetic_finalresp_wildguardmixtrain_decontaminated_50k-req": {
+        "pairs": 4954,
+        "mean_words_chosen": 486.2081146548244,
+        "mean_words_rejected": 242.17521194993944,
+        "hedge_per100_chosen": 0.6253302551288187,
+        "hedge_per100_rejected": 0.5449743595362454,
+        "boost_per100_chosen": 0.17391559863119357,
+        "boost_per100_rejected": 0.15819910640304655,
+        "chosen_longer": {
+          "p": 0.8169156237383932,
+          "se": 0.005494602031058702,
+          "n": 4954
+        },
+        "chosen_less_hedged": {
+          "p": 0.38165458635341165,
+          "se": 0.007680094062314796,
+          "n": 4001
+        },
+        "admit_rate_chosen": {
+          "p": 0.006459426725878078,
+          "se": 0.0011381822027848577,
+          "n": 4954
+        },
+        "admit_rate_rejected": {
+          "p": 0.006055712555510699,
+          "se": 0.001102264057233263,
+          "n": 4954
+        },
+        "admit_chosen": {
+          "p": 0.5166666666666667,
+          "se": 0.06451385151296608,
+          "n": 60
+        },
+        "top_model_pairs": [
+          "gemma3-12b > qwen3-no_reasoning-0.6b: 73",
+          "qwq-32b > qwen3-no_reasoning-0.6b: 65",
+          "gemma3-27b > phi4-mini-instruct: 56",
+          "gemma3-27b > qwen3-no_reasoning-0.6b: 55",
+          "gemma3-12b > phi4-mini-instruct: 51"
+        ]
+      },
+      "tulu_v3.9_aya_100k-request": {
+        "pairs": 3912,
+        "mean_words_chosen": 123.73721881390593,
+        "mean_words_rejected": 750.1827709611451,
+        "hedge_per100_chosen": 0.12573662479869646,
+        "hedge_per100_rejected": 0.09160564685311123,
+        "boost_per100_chosen": 0.005528467984922655,
+        "boost_per100_rejected": 0.0036504143311857874,
+        "chosen_longer": {
+          "p": 0.21804703476482618,
+          "se": 0.006601855052306885,
+          "n": 3912
+        },
+        "chosen_less_hedged": {
+          "p": 0.4281524926686217,
+          "se": 0.026795518494860462,
+          "n": 341
+        },
+        "admit_rate_chosen": {
+          "p": 0.0010224948875255625,
+          "se": 0.0005109860029664656,
+          "n": 3912
+        },
+        "admit_rate_rejected": {
+          "p": 0.0005112474437627812,
+          "se": 0.00036141411288908703,
+          "n": 3912
+        },
+        "admit_chosen": {
+          "p": 0.6666666666666666,
+          "se": 0.19245008972987526,
+          "n": 6
+        },
+        "top_model_pairs": [
+          "gpt-4.1-2025-04-14 > qwen3-no_reasoning-1.7b: 81",
+          "gpt-4.1-2025-04-14 > yi-9b: 68",
+          "gpt-120b > qwen3-no_reasoning-1.7b: 65",
+          "gpt-4.1-2025-04-14 > phi4-mini-instruct: 63",
+          "gemma3-27b > qwen3-no_reasoning-1.7b: 63"
+        ]
+      }
+    },
+    "multiturn_self_talk": {
+      "multiturn_self_talk_gpt": {
+        "pairs": 2500,
+        "mean_words_chosen": 112.0888,
+        "mean_words_rejected": 107.1468,
+        "hedge_per100_chosen": 0.7119623344794636,
+        "hedge_per100_rejected": 0.4275928641650749,
+        "boost_per100_chosen": 0.2175152438754707,
+        "boost_per100_rejected": 0.1282169831438619,
+        "chosen_longer": {
+          "p": 0.6596,
+          "se": 0.009476873746125354,
+          "n": 2500
+        },
+        "chosen_less_hedged": {
+          "p": 0.2873980054397099,
+          "se": 0.013626290249204417,
+          "n": 1103
+        },
+        "admit_rate_chosen": {
+          "p": 0.0148,
+          "se": 0.0024150329190302977,
+          "n": 2500
+        },
+        "admit_rate_rejected": {
+          "p": 0.0016,
+          "se": 0.000799359743794995,
+          "n": 2500
+        },
+        "admit_chosen": {
+          "p": 0.9024390243902439,
+          "se": 0.04633989790398678,
+          "n": 41
+        },
+        "top_model_pairs": [
+          "gpt-4o > gpt-3.5: 2500"
+        ]
+      },
+      "multiturn_self_talk_qwen": {
+        "pairs": 2500,
+        "mean_words_chosen": 149.3776,
+        "mean_words_rejected": 177.77,
+        "hedge_per100_chosen": 0.6395825468608233,
+        "hedge_per100_rejected": 0.3906320179851453,
+        "boost_per100_chosen": 0.239008717523812,
+        "boost_per100_rejected": 0.12656219311478364,
+        "chosen_longer": {
+          "p": 0.728,
+          "se": 0.008899797750510963,
+          "n": 2500
+        },
+        "chosen_less_hedged": {
+          "p": 0.37953488372093025,
+          "se": 0.014800633416988115,
+          "n": 1075
+        },
+        "admit_rate_chosen": {
+          "p": 0.002,
+          "se": 0.000893532316147547,
+          "n": 2500
+        },
+        "admit_rate_rejected": {
+          "p": 0.0004,
+          "se": 0.0003999199919983996,
+          "n": 2500
+        },
+        "admit_chosen": {
+          "p": 1.0,
+          "se": 0.0,
+          "n": 4
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 2500"
+        ]
+      }
+    },
+    "multiturn_synthetic_context": {
+      "multiturn_related_query_gpt": {
+        "pairs": 1250,
+        "mean_words_chosen": 111.9928,
+        "mean_words_rejected": 108.08,
+        "hedge_per100_chosen": 0.4208515604085701,
+        "hedge_per100_rejected": 0.23417719645883675,
+        "boost_per100_chosen": 0.13371020200272657,
+        "boost_per100_rejected": 0.04212554255699172,
+        "chosen_longer": {
+          "p": 0.5784,
+          "se": 0.01396720272638727,
+          "n": 1250
+        },
+        "chosen_less_hedged": {
+          "p": 0.3611111111111111,
+          "se": 0.025315227989800584,
+          "n": 360
+        },
+        "admit_rate_chosen": {
+          "p": 0.0008,
+          "se": 0.0007996799359743873,
+          "n": 1250
+        },
+        "admit_rate_rejected": {
+          "p": 0.0024,
+          "se": 0.001383976878419578,
+          "n": 1250
+        },
+        "admit_chosen": {
+          "p": 0.25,
+          "se": 0.21650635094610965,
+          "n": 4
+        },
+        "top_model_pairs": [
+          "gpt-4o > gpt-3.5: 1250"
+        ]
+      },
+      "multiturn_related_query_qwen": {
+        "pairs": 1250,
+        "mean_words_chosen": 148.064,
+        "mean_words_rejected": 254.5088,
+        "hedge_per100_chosen": 0.313684821624537,
+        "hedge_per100_rejected": 0.24607080134558737,
+        "boost_per100_chosen": 0.056900552003886364,
+        "boost_per100_rejected": 0.06107823636639118,
+        "chosen_longer": {
+          "p": 0.58,
+          "se": 0.013959942693292118,
+          "n": 1250
+        },
+        "chosen_less_hedged": {
+          "p": 0.3836477987421384,
+          "se": 0.02726887813353884,
+          "n": 318
+        },
+        "admit_rate_chosen": {
+          "p": 0.0008,
+          "se": 0.0007996799359743873,
+          "n": 1250
+        },
+        "admit_rate_rejected": {
+          "p": 0.0008,
+          "se": 0.0007996799359743873,
+          "n": 1250
+        },
+        "admit_chosen": {
+          "p": 0.5,
+          "se": 0.3535533905932738,
+          "n": 2
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 1250"
+        ]
+      },
+      "multiturn_paraphrase_qwen": {
+        "pairs": 938,
+        "mean_words_chosen": 89.9594882729211,
+        "mean_words_rejected": 209.61727078891258,
+        "hedge_per100_chosen": 0.3819883163892123,
+        "hedge_per100_rejected": 0.35613352782595925,
+        "boost_per100_chosen": 0.07789987661236812,
+        "boost_per100_rejected": 0.04628664261685294,
+        "chosen_longer": {
+          "p": 0.5533049040511727,
+          "se": 0.016232538172656612,
+          "n": 938
+        },
+        "chosen_less_hedged": {
+          "p": 0.4256198347107438,
+          "se": 0.031783591003417024,
+          "n": 242
+        },
+        "admit_rate_chosen": {
+          "p": 0.005330490405117271,
+          "se": 0.002377505698104289,
+          "n": 938
+        },
+        "admit_rate_rejected": {
+          "p": 0.0042643923240938165,
+          "se": 0.0021276450444520263,
+          "n": 938
+        },
+        "admit_chosen": {
+          "p": 0.6,
+          "se": 0.21908902300206645,
+          "n": 5
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 938"
+        ]
+      },
+      "multiturn_paraphrase_gpt": {
+        "pairs": 938,
+        "mean_words_chosen": 84.66204690831556,
+        "mean_words_rejected": 85.2771855010661,
+        "hedge_per100_chosen": 0.6005407036082593,
+        "hedge_per100_rejected": 0.41907742518113605,
+        "boost_per100_chosen": 0.14278087976094905,
+        "boost_per100_rejected": 0.05561770192388659,
+        "chosen_longer": {
+          "p": 0.5191897654584222,
+          "se": 0.016313550586275538,
+          "n": 938
+        },
+        "chosen_less_hedged": {
+          "p": 0.397212543554007,
+          "se": 0.02888368713598057,
+          "n": 287
+        },
+        "admit_rate_chosen": {
+          "p": 0.0042643923240938165,
+          "se": 0.0021276450444520263,
+          "n": 938
+        },
+        "admit_rate_rejected": {
+          "p": 0.0031982942430703624,
+          "se": 0.001843580794557396,
+          "n": 938
+        },
+        "admit_chosen": {
+          "p": 0.6,
+          "se": 0.21908902300206645,
+          "n": 5
+        },
+        "top_model_pairs": [
+          "gpt-4o > gpt-3.5: 938"
+        ]
+      },
+      "multiturn_repeat_gpt": {
+        "pairs": 312,
+        "mean_words_chosen": 100.5801282051282,
+        "mean_words_rejected": 101.69551282051282,
+        "hedge_per100_chosen": 0.4588943997718329,
+        "hedge_per100_rejected": 0.3499034529325349,
+        "boost_per100_chosen": 0.06846082049906102,
+        "boost_per100_rejected": 0.05139110988720557,
+        "chosen_longer": {
+          "p": 0.4807692307692308,
+          "se": 0.028285981029545774,
+          "n": 312
+        },
+        "chosen_less_hedged": {
+          "p": 0.3979591836734694,
+          "se": 0.04944463733570446,
+          "n": 98
+        },
+        "admit_rate_chosen": {
+          "p": 0.003205128205128205,
+          "se": 0.0031999876593897148,
+          "n": 312
+        },
+        "admit_rate_rejected": {
+          "p": 0.003205128205128205,
+          "se": 0.0031999876593897148,
+          "n": 312
+        },
+        "admit_chosen": {
+          "p": NaN,
+          "se": NaN,
+          "n": 0
+        },
+        "top_model_pairs": [
+          "gpt-4o > gpt-3.5: 312"
+        ]
+      },
+      "multiturn_repeat_qwen": {
+        "pairs": 312,
+        "mean_words_chosen": 93.85897435897436,
+        "mean_words_rejected": 187.47756410256412,
+        "hedge_per100_chosen": 0.43939269394727076,
+        "hedge_per100_rejected": 0.31896365826385986,
+        "boost_per100_chosen": 0.2333844697601043,
+        "boost_per100_rejected": 0.10675000101056249,
+        "chosen_longer": {
+          "p": 0.44551282051282054,
+          "se": 0.028138345681030474,
+          "n": 312
+        },
+        "chosen_less_hedged": {
+          "p": 0.35365853658536583,
+          "se": 0.052797839950926954,
+          "n": 82
+        },
+        "admit_rate_chosen": {
+          "p": 0.003205128205128205,
+          "se": 0.0031999876593897148,
+          "n": 312
+        },
+        "admit_rate_rejected": {
+          "p": 0.003205128205128205,
+          "se": 0.0031999876593897148,
+          "n": 312
+        },
+        "admit_chosen": {
+          "p": NaN,
+          "se": NaN,
+          "n": 0
+        },
+        "top_model_pairs": [
+          "qwen3-no_reasoning-32b > qwen3-no_reasoning-0.6b: 312"
+        ]
+      }
+    },
+    "think": {
+      "ultrafeedback_cleaned_olmo2_7b": {
+        "pairs": 23202,
+        "mean_words_chosen": 331.8752262735971,
+        "mean_words_rejected": 204.6883889319886,
+        "hedge_per100_chosen": 0.38489360466906136,
+        "hedge_per100_rejected": 0.367630056421226,
+        "boost_per100_chosen": 0.06278782535180527,
+        "boost_per100_rejected": 0.05889833874964801,
+        "chosen_longer": {
+          "p": 0.8388500991293854,
+          "se": 0.002413762246380848,
+          "n": 23202
+        },
+        "chosen_less_hedged": {
+          "p": 0.4268686144470335,
+          "se": 0.004682534971122999,
+          "n": 11158
+        },
+        "admit_rate_chosen": {
+          "p": 0.0011636927851047323,
+          "se": 0.00022382243686259323,
+          "n": 23202
+        },
+        "admit_rate_rejected": {
+          "p": 0.0014222911817946729,
+          "se": 0.0002474129804548379,
+          "n": 23202
+        },
+        "admit_chosen": {
+          "p": 0.4482758620689655,
+          "se": 0.06530097606537921,
+          "n": 58
+        },
+        "top_model_pairs": [
+          "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 23202"
+        ]
+      },
+      "filtered_wc_sample_500k": {
+        "pairs": 17596,
+        "mean_words_chosen": 353.56876562855194,
+        "mean_words_rejected": 235.78517844964765,
+        "hedge_per100_chosen": 0.34451702410016755,
+        "hedge_per100_rejected": 0.36895212331449245,
+        "boost_per100_chosen": 0.1052823495174611,
+        "boost_per100_rejected": 0.06042974490927994,
+        "chosen_longer": {
+          "p": 0.8434871561718572,
+          "se": 0.00273909598694484,
+          "n": 17596
+        },
+        "chosen_less_hedged": {
+          "p": 0.4448407979918087,
+          "se": 0.005712047685483657,
+          "n": 7569
+        },
+        "admit_rate_chosen": {
+          "p": 0.0018754262332348261,
+          "se": 0.00032616352391510436,
+          "n": 17596
+        },
+        "admit_rate_rejected": {
+          "p": 0.0034666969765855876,
+          "se": 0.0004430950237622474,
+          "n": 17596
+        },
+        "admit_chosen": {
+          "p": 0.32051282051282054,
+          "se": 0.05284039252359799,
+          "n": 78
+        },
+        "top_model_pairs": [
+          "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 17596"
+        ]
+      },
+      "OpenThoughts3-full-filtered-science-no-cot": {
+        "pairs": 14967,
+        "mean_words_chosen": 476.1818667735685,
+        "mean_words_rejected": 275.4495890960112,
+        "hedge_per100_chosen": 0.28253216363825706,
+        "hedge_per100_rejected": 0.2881169550482615,
+        "boost_per100_chosen": 0.02789657973232488,
+        "boost_per100_rejected": 0.03391374535441362,
+        "chosen_longer": {
+          "p": 0.9187545934388989,
+          "se": 0.0022332214496738542,
+          "n": 14967
+        },
+        "chosen_less_hedged": {
+          "p": 0.4453403141361257,
+          "se": 0.0050857805955527415,
+          "n": 9550
+        },
+        "admit_rate_chosen": {
+          "p": 0.00020044097013429546,
+          "se": 0.0001157130495020662,
+          "n": 14967
+        },
+        "admit_rate_rejected": {
+          "p": 6.681365671143182e-05,
+          "se": 6.681142464178644e-05,
+          "n": 14967
+        },
+        "admit_chosen": {
+          "p": 0.75,
+          "se": 0.21650635094610965,
+          "n": 4
+        },
+        "top_model_pairs": [
+          "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 14967"
+        ]
+      },
+      "flan_v2_converted": {
+        "pairs": 14057,
+        "mean_words_chosen": 68.35789997865832,
+        "mean_words_rejected": 49.506509212492,
+        "hedge_per100_chosen": 0.39377010933097084,
+        "hedge_per100_rejected": 0.2519539467791943,
+        "boost_per100_chosen": 0.06194862573107693,
+        "boost_per100_rejected": 0.07783015805831506,
+        "chosen_longer": {
+          "p": 0.6622323397595504,
+          "se": 0.003989035516156754,
+          "n": 14057
+        },
+        "chosen_less_hedged": {
+          "p": 0.3269849785407725,
+          "se": 0.007683132589074181,
+          "n": 3728
+        },
+        "admit_rate_chosen": {
+          "p": 0.000355694671693818,
+          "se": 0.00015904320007098787,
+          "n": 14057
+        },
+        "admit_rate_rejected": {
+          "p": 0.000711389343387636,
+          "se": 0.0002248810311403163,
+          "n": 14057
+        },
+        "admit_chosen": {
+          "p": 0.2727272727272727,
+          "se": 0.13428162652290843,
+          "n": 11
+        },
+        "top_model_pairs": [
+          "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 14057"
+        ]
+      },
+      "Wildchat-1M-gpt-4.1-regenerated-english": {
+        "pairs": 13955,
+        "mean_words_chosen": 416.7969186671444,
+        "mean_words_rejected": 264.9675385166607,
+        "hedge_per100_chosen": 0.37677634429935514,
+        "hedge_per100_rejected": 0.40245513422389434,
+        "boost_per100_chosen": 0.09986124320276743,
+        "boost_per100_rejected": 0.08384911500399408,
+        "chosen_longer": {
+          "p": 0.9107846649946256,
+          "se": 0.002413029824682766,
+          "n": 13955
+        },
+        "chosen_less_hedged": {
+          "p": 0.4303779682450471,
+          "se": 0.005869078547579274,
+          "n": 7117
+        },
+        "admit_rate_chosen": {
+          "p": 0.0016481547832318166,
+          "se": 0.00034338070635642567,
+          "n": 13955
+        },
+        "admit_rate_rejected": {
+          "p": 0.004586169831601577,
+          "se": 0.0005719551586779528,
+          "n": 13955
+        },
+        "admit_chosen": {
+          "p": 0.24691358024691357,
+          "se": 0.047912892171667984,
+          "n": 81
+        },
+        "top_model_pairs": [
+          "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 13955"
+        ]
+      },
+      "valpy_if_qwq_reasoning_verified_no_reasoning": {
+        "pairs": 11101,
+        "mean_words_chosen": 268.7803801459328,
+        "mean_words_rejected": 263.72885325646337,
+        "hedge_per100_chosen": 0.3433414627706835,
+        "hedge_per100_rejected": 0.3385765212160456,
+        "boost_per100_chosen": 0.06427753581048985,
+        "boost_per100_rejected": 0.06306479968166417,
+        "chosen_longer": {
+          "p": 0.780290063958202,
+          "se": 0.003929812555642457,
+          "n": 11101
+        },
+        "chosen_less_hedged": {
+          "p": 0.3897021706208985,
+          "se": 0.007747830114793288,
+          "n": 3962
+        },
+        "admit_rate_chosen": {
+          "p": 0.0009008197459688316,
+          "se": 0.00028473588128821064,
+          "n": 11101
+        },
+        "admit_rate_rejected": {
+          "p": 0.0009008197459688316,
+          "se": 0.00028473588128821064,
+          "n": 11101
+        },
+        "admit_chosen": {
+          "p": 0.5,
+          "se": 0.125,
+          "n": 16
+        },
+        "top_model_pairs": [
+          "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 11101"
+        ]
+      },
+      "correct-python-sft-187k": {
+        "pairs": 9005,
+        "mean_words_chosen": 355.0568573014992,
+        "mean_words_rejected": 215.25252637423654,
+        "hedge_per100_chosen": 0.09232488405021627,
+        "hedge_per100_rejected": 0.05294162828661122,
+        "boost_per100_chosen": 0.08676760151062089,
+        "boost_per100_rejected": 0.05835194859185189,
+        "chosen_longer": {
+          "p": 0.8796224319822321,
+          "se": 0.0034290914863170374,
+          "n": 9005
+        },
+        "chosen_less_hedged": {
+          "p": 0.298148877510831,
+          "se": 0.0090783670593289,
+          "n": 2539
+        },
+        "admit_rate_chosen": {
+          "p": 0.0001110494169905608,
+          "se": 0.00011104325083286201,
+          "n": 9005
+        },
+        "admit_rate_rejected": {
+          "p": 0.0002220988339811216,
+          "se": 0.00015703015058972827,
+          "n": 9005
+        },
+        "admit_chosen": {
+          "p": 0.0,
+          "se": 0.0,
+          "n": 1
+        },
+        "top_model_pairs": [
+          "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 9005"
+        ]
+      },
+      "tulu-3-sft-personas-math": {
+        "pairs": 7252,
+        "mean_words_chosen": 473.52909542195255,
+        "mean_words_rejected": 399.62562051847766,
+        "hedge_per100_chosen": 0.13802237396523367,
+        "hedge_per100_rejected": 0.11919920172009223,
+        "boost_per100_chosen": 0.06295265526830142,
+        "boost_per100_rejected": 0.06741767150140203,
+        "chosen_longer": {
+          "p": 0.7497242140099283,
+          "se": 0.00508664334895311,
+          "n": 7252
+        },
+        "chosen_less_hedged": {
+          "p": 0.4370157819225251,
+          "se": 0.00840224381238062,
+          "n": 3485
+        },
+        "admit_rate_chosen": {
+          "p": 0.0,
+          "se": 0.0,
+          "n": 7252
+        },
+        "admit_rate_rejected": {
+          "p": 0.0,
+          "se": 0.0,
+          "n": 7252
+        },
+        "admit_chosen": {
+          "p": NaN,
+          "se": NaN,
+          "n": 0
+        },
+        "top_model_pairs": [
+          "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 7252"
+        ]
+      },
+      "Wildchat-1m-gpt-4.1-regeneration-not-english": {
+        "pairs": 5220,
+        "mean_words_chosen": 268.28563218390804,
+        "mean_words_rejected": 175.12241379310345,
+        "hedge_per100_chosen": 0.21893689155370868,
+        "hedge_per100_rejected": 0.1603670058393975,
+        "boost_per100_chosen": 0.007447352739418352,
+        "boost_per100_rejected": 0.06067818705799549,
+        "chosen_longer": {
+          "p": 0.8624521072796935,
+          "se": 0.004767154342236361,
+          "n": 5220
+        },
+        "chosen_less_hedged": {
+          "p": 0.33746130030959753,
+          "se": 0.026309727632961123,
+          "n": 323
+        },
+        "admit_rate_chosen": {
+          "p": 0.0007662835249042146,
+          "se": 0.0003829949367090449,
+          "n": 5220
+        },
+        "admit_rate_rejected": {
+          "p": 0.0009578544061302681,
+          "se": 0.0004281603078830841,
+          "n": 5220
+        },
+        "admit_chosen": {
+          "p": 0.4444444444444444,
+          "se": 0.16563466499998442,
+          "n": 9
+        },
+        "top_model_pairs": [
+          "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 5220"
+        ]
+      },
+      "evol_codealpaca_heval_decontaminated": {
+        "pairs": 5171,
+        "mean_words_chosen": 462.0193386192226,
+        "mean_words_rejected": 274.1928060336492,
+        "hedge_per100_chosen": 0.18158930145487645,
+        "hedge_per100_rejected": 0.16210486389847356,
+        "boost_per100_chosen": 0.06209855905633079,
+        "boost_per100_rejected": 0.04613727191446971,
+        "chosen_longer": {
+          "p": 0.9559079481725005,
+          "se": 0.0028549658784159716,
+          "n": 5171
+        },
+        "chosen_less_hedged": {
+          "p": 0.36944790369447905,
+          "se": 0.009833739291637129,
+          "n": 2409
+        },
+        "admit_rate_chosen": {
+          "p": 0.00019338619222587506,
+          "se": 0.00019336749221207842,
+          "n": 5171
+        },
+        "admit_rate_rejected": {
+          "p": 0.00038677238445175013,
+          "se": 0.00027343648163752153,
+          "n": 5171
+        },
+        "admit_chosen": {
+          "p": 0.3333333333333333,
+          "se": 0.2721655269759087,
+          "n": 3
+        },
+        "top_model_pairs": [
+          "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 5171"
+        ]
+      },
+      "tulu_v3.9_wildjailbreak_decontaminated_50k": {
+        "pairs": 3885,
+        "mean_words_chosen": 426.38841698841696,
+        "mean_words_rejected": 227.2888030888031,
+        "hedge_per100_chosen": 0.608012747754933,
+        "hedge_per100_rejected": 0.803351946091914,
+        "boost_per100_chosen": 0.12405409956510648,
+        "boost_per100_rejected": 0.14805650162694414,
+        "chosen_longer": {
+          "p": 0.833976833976834,
+          "se": 0.00596988310953584,
+          "n": 3885
+        },
+        "chosen_less_hedged": {
+          "p": 0.544327931363203,
+          "se": 0.008877856947412967,
+          "n": 3147
+        },
+        "admit_rate_chosen": {
+          "p": 0.0028314028314028314,
+          "se": 0.0008524906336225619,
+          "n": 3885
+        },
+        "admit_rate_rejected": {
+          "p": 0.00797940797940798,
+          "se": 0.0014274147079403059,
+          "n": 3885
+        },
+        "admit_chosen": {
+          "p": 0.23684210526315788,
+          "se": 0.06896755958184694,
+          "n": 38
+        },
+        "top_model_pairs": [
+          "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 3885"
+        ]
+      },
+      "tulu_v3.9_synthetic_finalresp_wildguardmixtrain_decontaminated_50k": {
+        "pairs": 3884,
+        "mean_words_chosen": 440.5275489186406,
+        "mean_words_rejected": 284.09037075180225,
+        "hedge_per100_chosen": 0.5570373775059991,
+        "hedge_per100_rejected": 0.7103530061738695,
+        "boost_per100_chosen": 0.14742677910934537,
+        "boost_per100_rejected": 0.17585063234953882,
+        "chosen_longer": {
+          "p": 0.8164263645726055,
+          "se": 0.006211894254366924,
+          "n": 3884
+        },
+        "chosen_less_hedged": {
+          "p": 0.5286228328426562,
+          "se": 0.009028373358230373,
+          "n": 3057
+        },
+        "admit_rate_chosen": {
+          "p": 0.0033470648815653965,
+          "se": 0.0009267539163019746,
+          "n": 3884
+        },
+        "admit_rate_rejected": {
+          "p": 0.006694129763130793,
+          "se": 0.0013084253621756339,
+          "n": 3884
+        },
+        "admit_chosen": {
+          "p": 0.32432432432432434,
+          "se": 0.07695875641236478,
+          "n": 37
+        },
+        "top_model_pairs": [
+          "qwen3-reasoning-32b > qwen3-reasoning-0.6b: 3884"
+        ]
+      }
+    }
+  }
+}

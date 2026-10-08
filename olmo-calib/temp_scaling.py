@@ -41,8 +41,8 @@ def nll(rows, t):
     return -sum(math.log(max(scaled(r["probs"], t)[r["answer"]], 1e-12)) for r in rows) / len(rows)
 
 
-def fit_t(rows):
-    lo, hi = math.log(0.2), math.log(10.0)  # golden-section search on log T
+def fit_t(rows, t_max=10.0):
+    lo, hi = math.log(0.2), math.log(t_max)  # golden-section search on log T
     g = (math.sqrt(5) - 1) / 2
     a, b = hi - g * (hi - lo), lo + g * (hi - lo)
     fa, fb = nll(rows, math.exp(a)), nll(rows, math.exp(b))

@@ -39,8 +39,11 @@ LAYER_RE = re.compile(r"layers\.(\d+)\.")
 
 
 def load(name):
+    from calib_eval import load_config_override  # RL-Zero-Mix ships a pre-release model_type
+
     return AutoModelForCausalLM.from_pretrained(
-        f"allenai/{name}", dtype=torch.bfloat16, device_map="cuda"
+        f"allenai/{name}", dtype=torch.bfloat16, device_map="cuda",
+        **load_config_override(f"allenai/{name}", None),
     ).eval()
 
 

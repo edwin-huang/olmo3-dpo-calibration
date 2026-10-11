@@ -1,0 +1,31 @@
+{
+ "sc_mmlu": {
+  "n": 20,
+  "k": 4,
+  "acc": 0.9,
+  "conf": 0.8625,
+  "ece": 0.0625,
+  "auroc": 0.8472222222222222,
+  "no_answer": 0.0,
+  "mean_distinct": 1.5,
+  "all_agree": 0.65,
+  "excess": -0.03749999999999998
+ },
+ "sc_arc": {
+  "n": 10,
+  "k": 4,
+  "acc": 0.8,
+  "conf": 0.825,
+  "ece": 0.025,
+  "auroc": 0.84375,
+  "no_answer": 0.0,
+  "mean_distinct": 1.6,
+  "all_agree": 0.5,
+  "excess": 0.02499999999999991
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/smoke",
+  "size": "smoke",
+  "seconds": 42
+ }
+}

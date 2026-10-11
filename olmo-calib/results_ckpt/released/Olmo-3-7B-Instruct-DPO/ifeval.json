@@ -1,0 +1,11 @@
+{
+ "n": 541,
+ "prompt_strict": 0.789279112754159,
+ "inst_strict": 0.854916067146283,
+ "unknown_instruction_ids": [],
+ "_meta": {
+  "ckpt": "allenai/Olmo-3-7B-Instruct-DPO",
+  "size": "full",
+  "seconds": 63
+ }
+}

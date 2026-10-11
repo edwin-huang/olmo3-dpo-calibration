@@ -1,0 +1,31 @@
+{
+ "sc_mmlu": {
+  "n": 1000,
+  "k": 8,
+  "acc": 0.668,
+  "conf": 0.4785,
+  "ece": 0.1985,
+  "auroc": 0.850249801601616,
+  "no_answer": 0.505625,
+  "mean_distinct": 0.887,
+  "all_agree": 0.228,
+  "excess": -0.18950000000000006
+ },
+ "sc_arc": {
+  "n": 500,
+  "k": 8,
+  "acc": 0.9,
+  "conf": 0.713,
+  "ece": 0.187,
+  "auroc": 0.8916,
+  "no_answer": 0.2785,
+  "mean_distinct": 0.986,
+  "all_agree": 0.442,
+  "excess": -0.18700000000000006
+ },
+ "_meta": {
+  "ckpt": "allenai/Olmo-3-7B-Think-SFT",
+  "size": "full",
+  "seconds": 1518
+ }
+}

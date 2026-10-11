@@ -1,0 +1,37 @@
+== 1. uninterrupted reference run
+rt_ref: 200 pairs, 4 GPUs x 1 x accum 4 = batch 16, 13 steps, LR 1e-6, snapshot every 3, full state every 3, ZeRO-2, concat False
+4
+== 2. killed after the step-6 full state, then resumed
+rt: 200 pairs, 4 GPUs x 1 x accum 4 = batch 16, 13 steps, LR 1e-6, snapshot every 3, full state every 3, ZeRO-2, concat False
+/workspace/olmo-calib/train/launch_dpo.sh: line 86:  2271 Killed                  .venv/bin/accelerate launch --mixed_precision bf16 --num_processes $NGPU --use_deepspeed --deepspeed_config_file configs/ds_configs/stage${ZERO}_no_offloading_accelerate.conf open_instruct/dpo_tune_cache.py --exp_name $NAME --output_dir $WS/runs/$NAME --do_not_randomize_output_dir --model_name_or_path $MODEL --tokenizer_name $MODEL --use_slow_tokenizer False --mixer_list $DATA 1.0 --max_seq_length $MAX_LEN --per_device_train_batch_size 1 --gradient_accumulation_steps $ACCUM --zero_hpz_partition_size 1 --learning_rate $LR --lr_scheduler_type linear --warmup_ratio 0.1 --weight_decay 0.0 --num_epochs 1 --beta 5 --loss_type dpo_norm --logging_steps 1 --activation_memory_budget 0.5 --concatenated_forward $CONCAT --chat_template_name $CHAT_TEMPLATE --checkpointing_steps $FULL --keep_last_n_checkpoints 1 --push_to_hub false --try_launch_beaker_eval_jobs false --try_auto_save_to_beaker false "$@" >> $WS/runs/$NAME.log 2>&1
+killed; GPU memory now: 0 MiB 0 MiB 0 MiB 0 MiB 
+Step: 6
+rt: 200 pairs, 4 GPUs x 1 x accum 4 = batch 16, 13 steps, LR 1e-6, snapshot every 3, full state every 3, ZeRO-2, concat False
+Resumed from checkpoint: /workspace/runs/rt/step_6
+resumed log covers steps 7 - 13 | part 1 covered 1 - 6
+  step  7: LR 4.889e-07 vs 4.889e-07   loss 0.6961 vs 0.6997
+  step  8: LR 4.000e-07 vs 4.000e-07   loss 0.6945 vs 0.6919
+  step  9: LR 3.111e-07 vs 3.111e-07   loss 0.6917 vs 0.6938
+  step 10: LR 2.222e-07 vs 2.222e-07   loss 0.6967 vs 0.6976
+  step 11: LR 1.333e-07 vs 1.333e-07   loss 0.6909 vs 0.6915
+  step 12: LR 4.444e-08 vs 4.444e-08   loss 0.6842 vs 0.6916
+  step 13: LR 0.000e+00 vs 0.000e+00   loss 0.3444 vs 0.3442
+final weights: max |diff| 7.63e-06, 0.4710% of 7.30B params differ
+== 3. reference-cache reuse at a different learning rate
+rt_lr: 200 pairs, 4 GPUs x 1 x accum 4 = batch 16, 13 steps, LR 3e-6, snapshot every 13, full state every 1000000000, ZeRO-2, concat False
+2026-10-10 05:46:10 - INFO - dpo_utils.py:439 - Loading reference logprobs cache from /workspace/ref_cache/0866767eb525fd22.pt
+== 4. eval_run.sh with PRUNE=1
+rt: 4 checkpoints on 4 GPUs
+final
+final.log
+snap_step_12
+snap_step_12.log
+snap_step_3
+snap_step_3.log
+snap_step_9
+snap_step_9.log
+rt/final failed: [] MMLU T* 1.5533543054187617
+rt/snap_step_12 failed: [] MMLU T* 1.5456947497684028
+rt/snap_step_3 failed: [] MMLU T* 1.5397293917800505
+rt/snap_step_9 failed: [] MMLU T* 1.5537507543456128
+RTEST OK

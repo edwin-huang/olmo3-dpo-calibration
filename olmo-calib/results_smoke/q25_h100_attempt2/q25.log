@@ -1,0 +1,2 @@
+overlay         512G   85G  428G  17% /
+q25_all: 65000 pairs, 4 GPUs x 1 x accum 32 = batch 128, 508 steps, LR 1e-6, snapshot every 50, full state every 50, ZeRO-2, concat False

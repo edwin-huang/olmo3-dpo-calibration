@@ -1,0 +1,70 @@
+name, memory.total [MiB], driver_version
+NVIDIA H100 80GB HBM3, 81559 MiB, 580.126.20
+NVIDIA H100 80GB HBM3, 81559 MiB, 580.126.20
+NVIDIA H100 80GB HBM3, 81559 MiB, 580.126.20
+NVIDIA H100 80GB HBM3, 81559 MiB, 580.126.20
+overlay         512G   76G  437G  15% /
+               total        used        free      shared  buff/cache   available
+Mem:            1771          46         181           0        1554        1725
+warning: The `centralized-project-envs` feature has no effect when `--no-cache` is enabled
+Downloading tokenizers (3.1MiB)
+Downloading transformers (9.6MiB)
+ Downloaded tokenizers
+ Downloaded transformers
+Prepared 3 packages in 540ms
+Uninstalled 3 packages in 250ms
+Installed 3 packages in 1.22s
+ - safetensors==0.8.0
+ + safetensors==0.7.0
+ - tokenizers==0.23.3
+ + tokenizers==0.22.2
+ - transformers==5.17.0
+ + transformers==5.4.0
+Using Python 3.12.14 environment at: /workspace/open-instruct/.venv
+Resolved 26 packages in 518ms
+Downloading tokenizers (3.2MiB)
+Downloading transformers (11.7MiB)
+ Downloaded tokenizers
+ Downloaded transformers
+Prepared 3 packages in 351ms
+Uninstalled 3 packages in 129ms
+Installed 3 packages in 1.75s
+ - safetensors==0.7.0
+ + safetensors==0.8.0
+ - tokenizers==0.22.2
+ + tokenizers==0.23.3
+ - transformers==5.4.0
+ + transformers==5.17.0
+already patched open_instruct/dpo_tune_cache.py
+already patched open_instruct/model_utils.py
+2026-10-10 03:26:33.887 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 03:26:33.887 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 03:26:33.887 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 03:26:33.887 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 03:26:33.887 DEBUG Persistent cache disabled, using in-memory JIT cache
+torch 2.10.0+cu128 cuda 12.8 | transformers 5.17.0 | deepspeed 0.18.4 | vllm 0.19.1 | gpus 4
+SETUP_OK
+smoke200: 190 random + 10 longest, longest pair 1025959 chars
+smoke: 200 pairs, 4 GPUs x 1 x accum 4 = batch 16, 13 steps, LR 1e-6, snapshot every 6, full state every 13, ZeRO-3, concat False
+/workspace/runs/smoke/snap_step_12
+/workspace/runs/smoke/snap_step_6
+2102: 85%|████████▍ | 11/13 [02:17<00:23, 11.99s/it]
+2104: 92%|█████████▏| 12/13 [02:27<00:11, 11.33s/it]
+2113:Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s][A
+2114:Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.79s/it][AWriting model shards: 100%|██████████| 1/1 [00:03<00:00,  3.79s/it]
+2118:100%|██████████| 13/13 [02:43<00:00, 12.96s/it]
+2134:Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s][A
+2135:Writing model shards: 100%|██████████| 1/1 [00:08<00:00,  8.58s/it][AWriting model shards: 100%|██████████| 1/1 [00:08<00:00,  8.58s/it]
+2140:100%|██████████| 13/13 [03:27<00:00, 15.97s/it]
+smoke_lr: 200 pairs, 4 GPUs x 1 x accum 4 = batch 16, 13 steps, LR 5e-5, snapshot every 13, full state every 1000000000, ZeRO-3, concat False
+high-LR check: last loss 0.2297661453485489
+[smoke/final] letters ...
+[smoke/final] format ...
+[smoke/final] chat ...
+[smoke/final] text ...
+[smoke/final] sc ...
+[smoke/final] sc FAILED (exit 1), see /workspace/results_ckpt/smoke/final/sc.log
+[smoke/final] ifeval ...
+[smoke/final] ifeval FAILED (exit 1), see /workspace/results_ckpt/smoke/final/ifeval.log
+{"tag": "smoke/final", "ckpt": "/workspace/runs/smoke", "size": "smoke", "failed": ["sc", "ifeval"], "letters_mmlu_acc": 0.58, "letters_mmlu_ece": 0.12170228654365718, "letters_mmlu_t_star": 1.5417955072016218, "letters_mmlu_auroc": 0.764367816091954, "chat_mmlu_ece": 0.16962954404133873, "chat_mmlu_t_star": 0.6234674867030583, "chat_mmlu_auroc": 0.9333333333333333, "sc_mmlu_acc": null, "sc_mmlu_excess": null, "chat_mmlu_excess": 0.009708463176607784, "letters_arc_acc": 0.82, "letters_arc_ece": 0.11626427003591898, "letters_arc_t_star": 1.126234786396451, "letters_arc_auroc": 0.7669376693766937, "chat_arc_ece": 0.20224357695003253, "chat_arc_t_star": 0.8848013394266279, "chat_arc_auroc": 1.0, "sc_arc_acc": null, "sc_arc_excess": null, "chat_arc_excess": 0.11403677991766781, "format_letters_t_star": 1.2855214803383486, "format_numbers_t_star": 0.9499752095556139, "format_cloze_norm_t_star": 1.2160081335615636, "text_s_star_wikitext": 0.9861025746930403, "text_s_star_chat": 0.9789865455507591, "ifeval_prompt_strict": null, "ifeval_inst_strict": null}
+SMOKE FAILED: eval smoke (see results_ckpt/smoke/final/*.log)

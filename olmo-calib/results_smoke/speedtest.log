@@ -1,0 +1,5 @@
+speed_z2_cFalse: 200 pairs, 4 GPUs x 1 x accum 4 = batch 16, 13 steps, LR 1e-6, snapshot every 13, full state every 1000000000, ZeRO-2, concat False
+speed_z2_cFalse exit 0
+speed_z2_cTrue: 200 pairs, 4 GPUs x 1 x accum 4 = batch 16, 13 steps, LR 1e-6, snapshot every 13, full state every 1000000000, ZeRO-2, concat True
+speed_z2_cTrue exit 1
+SPEEDTEST_DONE

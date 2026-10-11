@@ -1,0 +1,11 @@
+{
+ "n": 541,
+ "prompt_strict": 0.7744916820702403,
+ "inst_strict": 0.8465227817745803,
+ "unknown_instruction_ids": [],
+ "_meta": {
+  "ckpt": "/workspace/runs/q25_all_r2/snap_step_500",
+  "size": "fast",
+  "seconds": 45
+ }
+}

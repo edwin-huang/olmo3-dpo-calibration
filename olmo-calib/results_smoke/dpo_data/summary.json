@@ -1,0 +1,57 @@
+{
+ "instruct_full": {
+  "n": 259922,
+  "types": {
+   "delta_learning": 124942,
+   "llm_judged": 124980,
+   "multiturn_self_talk": 5000,
+   "multiturn_synthetic_context": 5000
+  }
+ },
+ "d4_full": {
+  "n": 234251,
+  "types": {
+   "delta_learning": 109949,
+   "llm_judged": 115243,
+   "multiturn_self_talk": 4829,
+   "multiturn_synthetic_context": 4230
+  }
+ },
+ "q25_all": {
+  "n": 65000,
+  "types": {
+   "llm_judged": 31185,
+   "delta_learning": 31307,
+   "multiturn_self_talk": 1268,
+   "multiturn_synthetic_context": 1240
+  },
+  "flagged": 6275
+ },
+ "q25_delta": {
+  "n": 65000,
+  "types": {
+   "delta_learning": 65000
+  }
+ },
+ "q25_judged": {
+  "n": 65000,
+  "types": {
+   "llm_judged": 65000
+  }
+ },
+ "q25_d4": {
+  "n": 65000,
+  "types": {
+   "llm_judged": 31185,
+   "delta_learning": 31307,
+   "multiturn_self_talk": 1268,
+   "multiturn_synthetic_context": 1240
+  }
+ },
+ "think_full": {
+  "n": 150000,
+  "types": {
+   "delta_learning": 150000
+  }
+ }
+}

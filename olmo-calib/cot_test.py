@@ -36,6 +36,17 @@ def questions(n_mmlu, n_arc):
     return rows + [dict(r, src="arc") for r in arc[:n_arc]]
 
 
+def vllm_kwargs(model):
+    """vLLM 0.19.1 reads config.rope_parameters as one flat dict and itself applies YaRN only on full-attention layers.
+    transformers >= 5.17 gives Olmo 3 a per-layer-type dict instead (KeyError: 'rope_theta'), so pass the
+    full-attention entry. Checked against transformers 5.17 HF on 64 MMLU questions: 98% same answers, max |dp| 0.056."""
+    from transformers import AutoConfig
+    rp = getattr(AutoConfig.from_pretrained(model), "rope_parameters", None)
+    if isinstance(rp, dict) and "full_attention" in rp:
+        return {"hf_overrides": {"rope_parameters": dict(rp["full_attention"])}}
+    return {}
+
+
 def user_msg(r, instr):
     opts = "\n".join(f"{l}. {c}" for l, c in zip(LETTERS, r["choices"]))
     return f"{r['question'].strip()}\n{opts}\n\n{instr}"
@@ -45,7 +56,8 @@ def gen(args, rows, tok, path):
     from vllm import LLM, SamplingParams
     prompts = [tok.apply_chat_template([{"role": "user", "content": user_msg(r, INSTR_COT)}],
                                        tokenize=False, add_generation_prompt=True) for r in rows]
-    llm = LLM(model=args.model, dtype="bfloat16", gpu_memory_utilization=0.85, max_model_len=4096, seed=0)
+    llm = LLM(model=args.model, dtype="bfloat16", gpu_memory_utilization=0.85, max_model_len=4096, seed=0,
+              **vllm_kwargs(args.model))
     outs = llm.generate(prompts, SamplingParams(temperature=0, max_tokens=args.max_tokens))
     with open(path, "w") as f:
         for r, p, o in zip(rows, prompts, outs):
@@ -71,7 +83,8 @@ def sample(args, rows, tok, out_path):
 
     prompts = [tok.apply_chat_template([{"role": "user", "content": user_msg(r, INSTR_COT)}],
                                        tokenize=False, add_generation_prompt=True) for r in rows]
-    llm = LLM(model=args.model, dtype="bfloat16", gpu_memory_utilization=0.85, max_model_len=4096, seed=0)
+    llm = LLM(model=args.model, dtype="bfloat16", gpu_memory_utilization=0.85, max_model_len=4096, seed=0,
+              **vllm_kwargs(args.model))
     outs = llm.generate(prompts, SamplingParams(temperature=0.7, top_p=1.0, n=args.k, max_tokens=args.max_tokens, seed=0))
     res, per = {}, {"mmlu": [], "arc": []}
     qf = open(out_path.replace(".json", ".questions.jsonl"), "w")  # per-question record, every chain kept

@@ -1,0 +1,42 @@
+name, memory.total [MiB], driver_version
+NVIDIA H100 80GB HBM3, 81559 MiB, 580.126.20
+NVIDIA H100 80GB HBM3, 81559 MiB, 580.126.20
+NVIDIA H100 80GB HBM3, 81559 MiB, 580.126.20
+NVIDIA H100 80GB HBM3, 81559 MiB, 580.126.20
+overlay         512G   34G  479G   7% /
+               total        used        free      shared  buff/cache   available
+Mem:            1771          47         349           0        1386        1724
+warning: The `centralized-project-envs` feature has no effect when `--no-cache` is enabled
+Checked 300 packages in 5ms
+already patched open_instruct/dpo_tune_cache.py
+already patched open_instruct/model_utils.py
+2026-10-10 02:59:38.149 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 02:59:38.149 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 02:59:38.149 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 02:59:38.149 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 02:59:38.149 DEBUG Persistent cache disabled, using in-memory JIT cache
+torch 2.10.0+cu128 cuda 12.8 | transformers 5.4.0 | deepspeed 0.18.4 | vllm 0.19.1 | gpus 4
+SETUP_OK
+smoke200: 190 random + 10 longest, longest pair 1025959 chars
+smoke: 200 pairs, 4 GPUs x 1 x accum 4 = batch 16, 13 steps, LR 1e-6, snapshot every 6, full state every 13
+/workspace/runs/smoke/snap_step_12
+/workspace/runs/smoke/snap_step_6
+2126:Writing model shards: 100%|██████████| 1/1 [00:19<00:00, 19.99s/it][AWriting model shards: 100%|██████████| 1/1 [00:19<00:00, 19.99s/it]
+2130:100%|██████████| 13/13 [03:15<00:00, 18.31s/it]
+2147:Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]
+2148:Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s][AWriting model shards: 100%|██████████| 1/1 [00:00<00:00, 12.71it/s]
+2149:Writing model shards: 100%|██████████| 1/1 [00:00<00:00, 11.74it/s]
+2150:Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  7.96it/s]Writing model shards: 100%|██████████| 1/1 [00:00<00:00,  7.92it/s]
+2152:Writing model shards: 100%|██████████| 1/1 [00:40<00:00, 40.04s/it][AWriting model shards: 100%|██████████| 1/1 [00:40<00:00, 40.04s/it]
+2157:100%|██████████| 13/13 [04:28<00:00, 20.67s/it]
+smoke_lr: 200 pairs, 4 GPUs x 1 x accum 4 = batch 16, 13 steps, LR 5e-5, snapshot every 13, full state every 1000000000
+high-LR check: last loss 0.11046159267425537
+[smoke/final] letters ...
+[smoke/final] format ...
+[smoke/final] chat ...
+[smoke/final] text ...
+[smoke/final] sc ...
+[smoke/final] ifeval ...
+[smoke/final] ifeval FAILED (exit 1), see /workspace/results_ckpt/smoke/final/ifeval.log
+{"tag": "smoke/final", "ckpt": "/workspace/runs/smoke", "size": "smoke", "failed": ["ifeval"], "letters_mmlu_acc": 0.62, "letters_mmlu_ece": 0.13578035994517923, "letters_mmlu_t_star": 1.6493392190882277, "letters_mmlu_auroc": 0.6638370118845501, "chat_mmlu_ece": 0.20766126001204005, "chat_mmlu_t_star": 1.487482819529435, "chat_mmlu_auroc": 0.7866666666666666, "sc_mmlu_acc": 0.85, "sc_mmlu_excess": 0.050000000000000044, "chat_mmlu_excess": 0.04728698949779275, "letters_arc_acc": 0.66, "letters_arc_ece": 0.1952757945976233, "letters_arc_t_star": 1.4469747755903528, "letters_arc_auroc": 0.7379679144385026, "chat_arc_ece": 0.15657260676928778, "chat_arc_t_star": 1.0487525039068972, "chat_arc_auroc": 0.9523809523809523, "sc_arc_acc": 0.8, "sc_arc_excess": -0.050000000000000044, "chat_arc_excess": 0.08135803518847251, "format_letters_t_star": 1.9902495502130115, "format_numbers_t_star": 1.502021788905834, "format_cloze_norm_t_star": 1.2909408039907402, "text_s_star_wikitext": 0.9789865455507593, "text_s_star_chat": 0.9789865455507591, "ifeval_prompt_strict": null, "ifeval_inst_strict": null}
+SMOKE FAILED: eval smoke (see results_ckpt/smoke/final/*.log)

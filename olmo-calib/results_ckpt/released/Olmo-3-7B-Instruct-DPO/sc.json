@@ -1,0 +1,31 @@
+{
+ "sc_mmlu": {
+  "n": 1000,
+  "k": 8,
+  "acc": 0.717,
+  "conf": 0.80025,
+  "ece": 0.11875,
+  "auroc": 0.7441538408464795,
+  "no_answer": 0.082625,
+  "mean_distinct": 1.546,
+  "all_agree": 0.468,
+  "excess": 0.08325000000000005
+ },
+ "sc_arc": {
+  "n": 500,
+  "k": 8,
+  "acc": 0.898,
+  "conf": 0.923,
+  "ece": 0.031,
+  "auroc": 0.8659548451897463,
+  "no_answer": 0.01675,
+  "mean_distinct": 1.282,
+  "all_agree": 0.744,
+  "excess": 0.025000000000000022
+ },
+ "_meta": {
+  "ckpt": "allenai/Olmo-3-7B-Instruct-DPO",
+  "size": "full",
+  "seconds": 680
+ }
+}

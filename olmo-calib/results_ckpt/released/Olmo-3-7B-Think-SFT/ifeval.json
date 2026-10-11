@@ -1,0 +1,11 @@
+{
+ "n": 541,
+ "prompt_strict": 0.32162661737523107,
+ "inst_strict": 0.46402877697841727,
+ "unknown_instruction_ids": [],
+ "_meta": {
+  "ckpt": "allenai/Olmo-3-7B-Think-SFT",
+  "size": "full",
+  "seconds": 170
+ }
+}

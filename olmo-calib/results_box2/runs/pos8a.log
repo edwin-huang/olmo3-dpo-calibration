@@ -1,0 +1,988 @@
+pos8a: 8192 pairs, 1 GPUs x 1 x accum 128 = batch 128, 64 steps, LR 8e-6, snapshot every 64, full state every 1000000000, ZeRO-1, concat True
+The following values were not passed to `accelerate launch` and had defaults used instead:
+	`--num_machines` was set to a value of `1`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+2026-10-11 20:30:04.228 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-11 20:30:04.228 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-11 20:30:04.228 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-11 20:30:04.228 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-11 20:30:04.228 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-11 20:30:06 - INFO - model_utils.py:90 - Auto-detected attention implementation: flash_4
+NCCL version 2.27.5+cuda12.9
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-10-11 20:30:07 - WARNING - _http.py:916 - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-10-11 20:30:08 - INFO - dpo_tune_cache.py:168 - using the output directory: /workspace/runs/pos8a
+[
+│   DPOExperimentConfig(
+│   │   try_launch_beaker_eval_jobs=False,
+│   │   try_auto_save_to_beaker=False,
+│   │   gs_bucket_path=None,
+│   │   oe_eval_tasks=None,
+│   │   oe_eval_max_length=4096,
+│   │   oe_eval_gpu_multiplier=None,
+│   │   eval_workspace='ai2/tulu-3-results',
+│   │   eval_priority='high',
+│   │   output_dir='/workspace/runs/pos8a',
+│   │   checkpointing_steps=1000000000,
+│   │   ephemeral_save_interval=None,
+│   │   keep_last_n_checkpoints=1,
+│   │   resume_from_checkpoint=None,
+│   │   push_to_hub=False,
+│   │   hf_repo_id=None,
+│   │   hf_repo_revision=None,
+│   │   hf_repo_url=None,
+│   │   logging_steps=1,
+│   │   with_tracking=False,
+│   │   wandb_project='open_instruct_internal',
+│   │   wandb_entity=None,
+│   │   report_to=None,
+│   │   wandb_group_name=None,
+│   │   use_lora=False,
+│   │   lora_rank=64,
+│   │   lora_alpha=16,
+│   │   lora_dropout=0.1,
+│   │   mixer_list=['/workspace/dpo_data/s8_a.parquet', '1.0'],
+│   │   mixer_list_splits=['train'],
+│   │   transform_fn=[
+│   │   │   'preference_tulu_tokenize_and_truncate_v1',
+│   │   │   'preference_tulu_filter_v1'
+│   │   ],
+│   │   target_columns=[
+│   │   │   'chosen_input_ids',
+│   │   │   'chosen_labels',
+│   │   │   'chosen_attention_mask',
+│   │   │   'rejected_input_ids',
+│   │   │   'rejected_labels',
+│   │   │   'rejected_attention_mask'
+│   │   ],
+│   │   cache_mode='local',
+│   │   local_cache_dir='/workspace/open-instruct/local_dataset_cache',
+│   │   skip_cache=False,
+│   │   cache_dataset_only=False,
+│   │   config_hash=None,
+│   │   hf_entity=None,
+│   │   num_epochs=1,
+│   │   per_device_train_batch_size=1,
+│   │   gradient_accumulation_steps=128,
+│   │   learning_rate=8e-06,
+│   │   warmup_ratio=0.1,
+│   │   weight_decay=0.0,
+│   │   max_grad_norm=None,
+│   │   max_seq_length=8192,
+│   │   over_length_strategy='keep',
+│   │   lr_scheduler_type='linear',
+│   │   max_train_steps=None,
+│   │   activation_memory_budget=0.5,
+│   │   activation_checkpointing_mode='budget',
+│   │   activation_checkpointing_modules=[
+│   │   │   'blocks.*.attention_norm',
+│   │   │   'blocks.*.attention',
+│   │   │   'blocks.*.attention_residual_stream',
+│   │   │   'blocks.*.feed_forward_norm',
+│   │   │   'blocks.*.feed_forward',
+│   │   │   'blocks.*.feed_forward_residual_stream'
+│   │   ],
+│   │   compile_model=True,
+│   │   fused_optimizer=True,
+│   │   cp_degree=None,
+│   │   cp_strategy='llama3',
+│   │   use_8bit_optimizer=False,
+│   │   dpo_use_paged_optimizer=False,
+│   │   optimizer_type='adamw',
+│   │   optimizer_kwargs={},
+│   │   tensor_parallel_degree=1,
+│   │   context_parallel_degree=1,
+│   │   cache_logprobs_only=False,
+│   │   fsdp_shard_degree=None,
+│   │   fsdp_num_replicas=None,
+│   │   beta=5.0,
+│   │   loss_type=<DPOLossType.dpo_norm: 'dpo_norm'>,
+│   │   gamma_beta_ratio=0.3,
+│   │   label_smoothing=0.0,
+│   │   load_balancing_loss=False,
+│   │   load_balancing_weight=0.001,
+│   │   concatenated_forward=True,
+│   │   packing=False,
+│   │   model_name_or_path='allenai/Olmo-3-7B-Instruct-SFT',
+│   │   config_name=None,
+│   │   attn_implementation='flash_4',
+│   │   loss_implementation='default',
+│   │   model_revision=None,
+│   │   low_cpu_mem_usage=False,
+│   │   rope_scaling_factor=None,
+│   │   rope_scaling_beta_fast=32,
+│   │   rope_scaling_beta_slow=1,
+│   │   rope_scaling_old_context_len=8192,
+│   │   exp_name='pos8a',
+│   │   run_name=None,
+│   │   seed=42,
+│   │   data_loader_seed=None,
+│   │   do_not_randomize_output_dir=True,
+│   │   send_slack_alerts=False,
+│   │   additional_model_arguments={},
+│   │   sync_each_batch=False,
+│   │   dataset_name=None,
+│   │   dataset_mixer=None,
+│   │   dataset_mix_dir=None,
+│   │   dataset_config_name=None,
+│   │   max_train_samples=None,
+│   │   preprocessing_num_workers=None,
+│   │   overwrite_cache=False,
+│   │   use_qlora=False,
+│   │   timeout=1800,
+│   │   save_to_hub=None,
+│   │   use_liger_kernel=False,
+│   │   profiling=False,
+│   │   hf_metadata_dataset='allenai/tulu-3-evals',
+│   │   zero_stage=None,
+│   │   offload_optimizer=False,
+│   │   offload_param=False,
+│   │   zero_hpz_partition_size=1
+│   ),
+│   TokenizerConfig(
+│   │   tokenizer_name_or_path='allenai/Olmo-3-7B-Instruct-SFT',
+│   │   tokenizer_revision=None,
+│   │   trust_remote_code=False,
+│   │   use_fast=True,
+│   │   chat_template_name='tokenizer_default',
+│   │   add_bos=False,
+│   │   get_tokenizer_fn='get_tokenizer_tulu_v2_2',
+│   │   reserved_slot_tokens=None,
+│   │   tokenizer_files_hash=[
+│   │   │   'f7a2753a4ff30657e452c8fef02b9a99a3b900ceb4c65a1e3fbea6a3bfab07a6',
+│   │   │   '32a022d09976d623e1ac47e7e89162a02e9ffdb65110b8fa4243a79bd215d297',
+│   │   │   '8abae158f82012899936754210d899b34090847e083f6ba6d12e357bf0e85d19',
+│   │   │   'vocab.json not found'
+│   │   ],
+│   │   use_slow_tokenizer=False,
+│   │   tokenizer_name='allenai/Olmo-3-7B-Instruct-SFT',
+│   │   ground_truths_key='ground_truth',
+│   │   sft_messages_key='messages'
+│   )
+]
+2026-10-11 20:30:08 - INFO - dpo_tune_cache.py:229 - Distributed environment: DistributedType.DEEPSPEED  Backend: nccl
+Num processes: 1
+Process index: 0
+Local process index: 0
+Device: cuda:0
+
+Mixed precision type: bf16
+ds_config: {'bf16': {'enabled': True}, 'zero_optimization': {'stage': 1, 'overlap_comm': True, 'contiguous_gradients': True, 'reduce_bucket_size': 'auto'}, 'gradient_accumulation_steps': 'auto', 'gradient_clipping': 'auto', 'steps_per_print': inf, 'train_batch_size': 'auto', 'train_micro_batch_size_per_gpu': 'auto', 'wall_clock_breakdown': False, 'fp16': {'enabled': False}}
+
+by default, we will use the same split for all datasets
+Dataset /workspace/dpo_data/s8_a.parquet: 8192 -> 8192 samples (factor: 1.0)
+✅ Found cached dataset at /workspace/open-instruct/local_dataset_cache/652d5f5dfd
+<|im_start|>system
+You are a helpful function-calling AI assistant. You do not currently have 
+access to any functions. <functions></functions><|im_end|>
+<|im_start|>user
+One mole of an ideal monoatomic gas is first heated isobarically. In this 
+process, it does 20 J of work. Then, it is heated isothermally, receiving the 
+same amount of heat as in the first case. How much work (in joules) does the gas
+do in the second case? Wrap your entire response with double quotation marks. 
+Answer with at least 2 letters. Your answer must contain exactly 10 bullet 
+points. Use the markdown bullet points such as:
+* This is point 1. 
+* This is point 2 Do not include keywords ['agent', 'bag', 'hate', 'milk'] in 
+the response. In your entire response, refrain from the use of . (i.e. dots) as 
+punctuation and in general.<|im_end|>
+<|im_start|>assistant
+"  
+* The first process is isobaric heating of one mole of monoatomic ideal gas  
+* The work done in that step is 20 J  
+* For an isobaric process the work equals n R ΔT  
+* Using R = 8.314 J/molK we find ΔT = 20 / 8.314 �� 2.406 K  
+* The heat supplied in the first step is ΔQ = n Cp ΔT with Cp = 5/2 R  
+* Substituting values gives ΔQ �� 20.785 * 2.406 �� 50 J  
+* The second step is isothermal heating at the same temperature change  
+* Isothermal means ΔU = 0 so the heat added equals the work done  
+* Therefore the gas does the same 50 J of work in the second step  
+* The answer is 50 J"<|endoftext|>
+[transformers] loading configuration file config.json from cache at /workspace/.hf_home/hub/models--allenai--Olmo-3-7B-Instruct-SFT/snapshots/e1452fc572d51966ff4aaeb25118b891eb93e549/config.json
+[transformers] Model config Olmo3Config {
+  "architectures": [
+    "Olmo3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": null,
+  "dtype": "bfloat16",
+  "eos_token_id": 100257,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 11008,
+  "layer_types": [
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 65536,
+  "model_type": "olmo3",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 32,
+  "pad_token_id": 100277,
+  "rms_norm_eps": 1e-06,
+  "rope_parameters": {
+    "full_attention": {
+      "attention_factor": 1.2079441541679836,
+      "beta_fast": 32,
+      "beta_slow": 1,
+      "factor": 8.0,
+      "original_max_position_embeddings": 8192,
+      "rope_theta": 500000,
+      "rope_type": "yarn"
+    },
+    "sliding_attention": {
+      "rope_theta": 500000.0,
+      "rope_type": "default"
+    }
+  },
+  "sliding_window": 4096,
+  "tie_word_embeddings": false,
+  "transformers_version": "5.17.0",
+  "use_cache": true,
+  "vocab_size": 100278
+}
+
+[transformers] loading weights file model.safetensors from cache at /workspace/.hf_home/hub/models--allenai--Olmo-3-7B-Instruct-SFT/snapshots/e1452fc572d51966ff4aaeb25118b891eb93e549/model.safetensors.index.json
+[transformers] Generate config GenerationConfig {
+  "eos_token_id": 100257,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pad_token_id": 100277,
+  "use_cache": true
+}
+
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights: 100%|██████████| 355/355 [00:00<00:00, 12078.60it/s]
+[transformers] loading configuration file generation_config.json from cache at /workspace/.hf_home/hub/models--allenai--Olmo-3-7B-Instruct-SFT/snapshots/e1452fc572d51966ff4aaeb25118b891eb93e549/generation_config.json
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p'].
+[transformers] - `temperature`: `do_sample` is not set to `True`. However, `temperature` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+- `top_p`: `do_sample` is not set to `True`. However, `top_p` is set to `0.95` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+If you're using a pretrained model, note that some of these attributes may be set through the model's `generation_config.json` file.
+[transformers] Generate config GenerationConfig {
+  "eos_token_id": [
+    100265,
+    100257
+  ],
+  "max_new_tokens": 32768,
+  "temperature": 0.6,
+  "top_p": 0.95
+}
+
+2026-10-11 20:30:09 - INFO - dpo_tune_cache.py:347 - =============model loaded
+2026-10-11 20:30:09 - INFO - dpo_tune_cache.py:777 - Peak memory usage: 0.00 GB
+2026-10-11 20:30:09 - INFO - dpo_tune_cache.py:778 - Total memory usage: 178.35 GB
+2026-10-11 20:30:09 - INFO - dpo_tune_cache.py:779 - Free memory: 176.98 GB
+2026-10-11 20:30:09 - INFO - dpo_tune_cache.py:402 - Sample 5238 of the training set: {'chosen_input_ids': tensor([100264,   9125,    198,   2675,    527,    264,  11190,    734,   1824,
+         17157,  15592,  18328,     13,   1472,    656,    539,   5131,    617,
+          2680,    311,    904,   5865,     13,    220, 100266, 100267, 100265,
+           198, 100264,    882,    198,  25797,  15479,    344,     77,    320,
+         85930,    836,  99288,    589,    355,    274,   2379,  85703,      8,
+           374,  19219,    546,   3634,     69,   3329,   1860,   1122,   9606,
+         10068,    311,    435,   1466,   7911,     11,    832,    315,  64677,
+         99288,    589,    355,     11,    274,   2379,  85703,    374,  14592,
+           505,  20023,   3492,    369,   6680,     13,  61716,    374,   1860,
+          1122,  93209,    449,  50876,    291,  51050,     11,   2010,   1890,
+           439,  50455,   2439,     11,   1403,  14535,    323,   1403,  11977,
+         52280,  93644,    753,   2531,     13,  16770,  15479,    344,   4511,
+          6996,  27296,     11,   6206,    323,   7693,  53291,  93644,    753,
+          4579,    719,    617,    220,     20,  19779,    323,  45713,     11,
+           220,    605,  17676,  68550,     13,   3562,   2134,    315,   8071,
+         65042,   1990,   3177,   6437,    323,   6453,   6437,     11,  27394,
+           374,   9546,    315,  68012,    258,     11,  33306,    374,   6996,
+           315,  68012,    258,     11,   1579,  68012,    258,   8071,   6348,
+          5014,    527,   6453,   6437,  10778,    311,  14198,     13,    320,
+          8144,   6485,    323,   5129,  22755,      8, 100265,    198, 100264,
+         78191,    198,    791,  16770,  15479,    344,     77,     11,  74647,
+         15324,    439,   7671,     72,    589,    355,    274,   2379,  85703,
+            11,   2559,    439,    264,  61300,    311,    279,  15400,  20057,
+           323,  23965,    315,   2324,   7953,   9420,     13,    473,  14612,
+           505,    279,  29827,  11841,    435,   1466,   7911,     11,   1521,
+          1860,   1122,   3823,  17390,    617,   6563,  55786,  53265,  18843,
+         22012,    323,  15983,  22012,  27083,    449,    872,  27877,   7829,
+           323,   5016,  24156,  77765,     13,    578,  64677,   7671,     72,
+           589,    355,     11,   9606,    274,   2379,  85703,     11,  27741,
+          1202,    836,    505,  20023,     11,    449,    330,     82,   2379,
+         85703,      1,  67371,    311,    330,  51105,   1359,    264,  16387,
+           311,    279,  16595,  28591,    430,  14307,   1555,    872,  50876,
+           291,  13162,    382,  25797,  15479,    344,   4511,  31324,    264,
+         21933,   1860,   1122,  93209,   1376,     11,    872,  78152,    264,
+         27387,  20955,    315,  12224,    323,  36041,    278,  17910,     13,
+         11205,   6930,    374,   9960,    304,  56994,     11,    264,   4668,
+           430,    539,   1193,  17482,    439,  49117,    719,   1101,    439,
+           264,   3445,    315,  10758,    323,   3674,  43080,     13,    578,
+          2010,    315,    459,  16770,  15479,    344,     77,  15499,  53291,
+           430,    315,    264,  93644,     11,    449,   4528,    387,    587,
+         14726,  30464,    369,    872,  34625,   3966,    323,  10758,     13,
+         18185,    872,   1860,   1122,  65009,     11,  16770,  15479,    344,
+          4511,    617,  28995,   2085,    279,  32961,    369,  11213,     11,
+          8617,  32161,  27296,     13,  12361,     11,    872,  49695,    617,
+          4529,    264,  29978,    291,    278,  93209,   1376,     11,    449,
+          1403,  14535,    323,   1403,  11977,    430,  21933,    398,  52280,
+           279,  14535,    315,  50455,   2439,    719,    527,  19167,    449,
+          4330,  19779,    323,  45713,     11,   1855,  13696,    304,    264,
+         17676,     11,  16003,  57590,    382,   2028,  41993,   1853,    706,
+          6197,    311,    264,   5016,    294,  59916,    323,   5507,  93875,
+         23099,     11,  10923,  16770,  15479,    344,   4511,    311,  16681,
+           449,    872,   4676,    304,   5627,    430,  18327,   3823,   6892,
+         90589,     13,  11205,   6206,     11,   3582,  61469,    304,   6070,
+           505,   3823,   6206,     11,  15575,    264,  30139,   2134,    315,
+         11633,    323,  16437,     11,  28462,   1124,    311,  37735,   6302,
+           323,   1893,   6485,   7526,    505,    279,   7384,   2561,    389,
+           435,   1466,   7911,    382,    791,   1933,    367,    315,    459,
+         16770,  15479,    344,     77,    596,   8071,  65042,    374,    264,
+         27387,  21070,    315,    872,  19465,  28948,    323,  12434,  14675,
+            13,  81247,    315,   6437,     11,  24950,    505,    279,   3177,
+           478,  40140,    311,    279,  51621,     11,  79164,    279,   9546,
+           315,  68012,    258,  29096,  77678,    430,    539,   1193,  34453,
+          8071,   1933,    719,   1101,  11335,    264,   3560,    304,   9313,
+          2403,  28856,  25407,     13,    763,  16770,  15479,    344,     77,
+          8396,     11,    279,  23851,    304,   8071,   1933,    374,    539,
+          1193,    264,   5030,    315,  56104,    719,   1101,  24266,  13042,
+         26431,     11,   3629,   5938,    449,  59682,    315,  24278,     11,
+          8333,     11,    477,   3674,   2704,    382,  25797,  15479,    344,
+            77,   7829,    374,  17693,  99892,    449,    872,  24156,  17910,
+            13,  11205,  10758,   1887,     11,    369,   3187,     11,    374,
+           264,   6485,  20955,    315,  26480,   8200,    323,   9302,  57016,
+            11,  35988,   2225,    872,    387,  10011,    323,    279,  42272,
+           425,    389,    872,  13162,    311,  20599,   7438,     13,   1115,
+         62387,    582,  25489,   5603,    311,  10758,    706,  31087,    291,
+           264,   9257,  14135,    315,  48929,     11,   1989,     11,    323,
+         19675,     11,  42852,    279,   9606,      6,  20207,   8149,    323,
+         14604,  23965,    382,    644,   3878,    315,  59529,   7471,     11,
+         16770,  15479,    344,   4511,    617,   8040,    264,  27877,  36017,
+           430,   2819,  23915,     11,  19297,     11,    323,    279,  46643,
+           315,    872,   4676,     13,  11205,  30116,  83787,     11,   1418,
+         41976,    304,    872,   5016,  78152,     11,    617,   5535,   1124,
+           311,  26255,   1139,   3634,     11,   3339,   3729,    449,   1023,
+          9606,    323,  24050,    872,   8830,    315,    279,  15861,    382,
+           791,  18841,    323,   4007,    315,  16770,  15479,    344,   4511,
+           617,  28254,  25127,    369,   1057,   8830,    315,   2324,    323,
+         11478,   7953,   9420,     13,  11205,  14209,  11774,   1057,    864,
+           444,  36028,    323,   7353,    729,    279,   7419,    315,   1148,
+           433,   3445,    311,    387,  98870,     13,   1666,    584,   3136,
+           311,  13488,    279,  83645,     11,  35006,    449,   9606,   1093,
+           279,  16770,  15479,    344,   4511,  24928,    603,    315,    279,
+         13057,  20057,    315,   2324,    323,    279,   4754,    369,   6222,
+          6677,    323,  27848,   8830,   4028,    279,   9958,    382,    644,
+         12399,     11,    279,  16770,  15479,    344,     77,   9606,     11,
+           449,    872,  93644,  12970,   4519,    323,  27877,   8396,     11,
+          3085,    264,  29722,   3187,    315,   1268,   2324,    649,  10737,
+           311,   1202,   4676,    304,  24674,   5627,     13,  11205,   9546,
+           304,    279,    958,  78393,   4029,  72890,    279,  90030,    315,
+           279,  15861,    323,    279,  26762,  24525,    430,   2597,    439,
+           584,   3136,    311,  13488,    279,  83645,     13,    578,  16770,
+         15479,    344,   4511,   2559,    439,    264,  61300,    311,    279,
+         10737,   2968,    323,  56062,    315,   2324,     11,  34147,    603,
+           311,   1427,   7953,   1057,   1866,  23546,    323,  27830,    279,
+         20057,    315,  11478,    430,   1253,   3073,    304,    279,  13057,
+           506,  95519,    315,   3634,     13, 100257]), 'chosen_labels': tensor([  -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,    791,  16770,  15479,    344,     77,     11,  74647,
+         15324,    439,   7671,     72,    589,    355,    274,   2379,  85703,
+            11,   2559,    439,    264,  61300,    311,    279,  15400,  20057,
+           323,  23965,    315,   2324,   7953,   9420,     13,    473,  14612,
+           505,    279,  29827,  11841,    435,   1466,   7911,     11,   1521,
+          1860,   1122,   3823,  17390,    617,   6563,  55786,  53265,  18843,
+         22012,    323,  15983,  22012,  27083,    449,    872,  27877,   7829,
+           323,   5016,  24156,  77765,     13,    578,  64677,   7671,     72,
+           589,    355,     11,   9606,    274,   2379,  85703,     11,  27741,
+          1202,    836,    505,  20023,     11,    449,    330,     82,   2379,
+         85703,      1,  67371,    311,    330,  51105,   1359,    264,  16387,
+           311,    279,  16595,  28591,    430,  14307,   1555,    872,  50876,
+           291,  13162,    382,  25797,  15479,    344,   4511,  31324,    264,
+         21933,   1860,   1122,  93209,   1376,     11,    872,  78152,    264,
+         27387,  20955,    315,  12224,    323,  36041,    278,  17910,     13,
+         11205,   6930,    374,   9960,    304,  56994,     11,    264,   4668,
+           430,    539,   1193,  17482,    439,  49117,    719,   1101,    439,
+           264,   3445,    315,  10758,    323,   3674,  43080,     13,    578,
+          2010,    315,    459,  16770,  15479,    344,     77,  15499,  53291,
+           430,    315,    264,  93644,     11,    449,   4528,    387,    587,
+         14726,  30464,    369,    872,  34625,   3966,    323,  10758,     13,
+         18185,    872,   1860,   1122,  65009,     11,  16770,  15479,    344,
+          4511,    617,  28995,   2085,    279,  32961,    369,  11213,     11,
+          8617,  32161,  27296,     13,  12361,     11,    872,  49695,    617,
+          4529,    264,  29978,    291,    278,  93209,   1376,     11,    449,
+          1403,  14535,    323,   1403,  11977,    430,  21933,    398,  52280,
+           279,  14535,    315,  50455,   2439,    719,    527,  19167,    449,
+          4330,  19779,    323,  45713,     11,   1855,  13696,    304,    264,
+         17676,     11,  16003,  57590,    382,   2028,  41993,   1853,    706,
+          6197,    311,    264,   5016,    294,  59916,    323,   5507,  93875,
+         23099,     11,  10923,  16770,  15479,    344,   4511,    311,  16681,
+           449,    872,   4676,    304,   5627,    430,  18327,   3823,   6892,
+         90589,     13,  11205,   6206,     11,   3582,  61469,    304,   6070,
+           505,   3823,   6206,     11,  15575,    264,  30139,   2134,    315,
+         11633,    323,  16437,     11,  28462,   1124,    311,  37735,   6302,
+           323,   1893,   6485,   7526,    505,    279,   7384,   2561,    389,
+           435,   1466,   7911,    382,    791,   1933,    367,    315,    459,
+         16770,  15479,    344,     77,    596,   8071,  65042,    374,    264,
+         27387,  21070,    315,    872,  19465,  28948,    323,  12434,  14675,
+            13,  81247,    315,   6437,     11,  24950,    505,    279,   3177,
+           478,  40140,    311,    279,  51621,     11,  79164,    279,   9546,
+           315,  68012,    258,  29096,  77678,    430,    539,   1193,  34453,
+          8071,   1933,    719,   1101,  11335,    264,   3560,    304,   9313,
+          2403,  28856,  25407,     13,    763,  16770,  15479,    344,     77,
+          8396,     11,    279,  23851,    304,   8071,   1933,    374,    539,
+          1193,    264,   5030,    315,  56104,    719,   1101,  24266,  13042,
+         26431,     11,   3629,   5938,    449,  59682,    315,  24278,     11,
+          8333,     11,    477,   3674,   2704,    382,  25797,  15479,    344,
+            77,   7829,    374,  17693,  99892,    449,    872,  24156,  17910,
+            13,  11205,  10758,   1887,     11,    369,   3187,     11,    374,
+           264,   6485,  20955,    315,  26480,   8200,    323,   9302,  57016,
+            11,  35988,   2225,    872,    387,  10011,    323,    279,  42272,
+           425,    389,    872,  13162,    311,  20599,   7438,     13,   1115,
+         62387,    582,  25489,   5603,    311,  10758,    706,  31087,    291,
+           264,   9257,  14135,    315,  48929,     11,   1989,     11,    323,
+         19675,     11,  42852,    279,   9606,      6,  20207,   8149,    323,
+         14604,  23965,    382,    644,   3878,    315,  59529,   7471,     11,
+         16770,  15479,    344,   4511,    617,   8040,    264,  27877,  36017,
+           430,   2819,  23915,     11,  19297,     11,    323,    279,  46643,
+           315,    872,   4676,     13,  11205,  30116,  83787,     11,   1418,
+         41976,    304,    872,   5016,  78152,     11,    617,   5535,   1124,
+           311,  26255,   1139,   3634,     11,   3339,   3729,    449,   1023,
+          9606,    323,  24050,    872,   8830,    315,    279,  15861,    382,
+           791,  18841,    323,   4007,    315,  16770,  15479,    344,   4511,
+           617,  28254,  25127,    369,   1057,   8830,    315,   2324,    323,
+         11478,   7953,   9420,     13,  11205,  14209,  11774,   1057,    864,
+           444,  36028,    323,   7353,    729,    279,   7419,    315,   1148,
+           433,   3445,    311,    387,  98870,     13,   1666,    584,   3136,
+           311,  13488,    279,  83645,     11,  35006,    449,   9606,   1093,
+           279,  16770,  15479,    344,   4511,  24928,    603,    315,    279,
+         13057,  20057,    315,   2324,    323,    279,   4754,    369,   6222,
+          6677,    323,  27848,   8830,   4028,    279,   9958,    382,    644,
+         12399,     11,    279,  16770,  15479,    344,     77,   9606,     11,
+           449,    872,  93644,  12970,   4519,    323,  27877,   8396,     11,
+          3085,    264,  29722,   3187,    315,   1268,   2324,    649,  10737,
+           311,   1202,   4676,    304,  24674,   5627,     13,  11205,   9546,
+           304,    279,    958,  78393,   4029,  72890,    279,  90030,    315,
+           279,  15861,    323,    279,  26762,  24525,    430,   2597,    439,
+           584,   3136,    311,  13488,    279,  83645,     13,    578,  16770,
+         15479,    344,   4511,   2559,    439,    264,  61300,    311,    279,
+         10737,   2968,    323,  56062,    315,   2324,     11,  34147,    603,
+           311,   1427,   7953,   1057,   1866,  23546,    323,  27830,    279,
+         20057,    315,  11478,    430,   1253,   3073,    304,    279,  13057,
+           506,  95519,    315,   3634,     13, 100257]), 'chosen_attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), 'rejected_input_ids': tensor([100264,   9125,    198,  ...,   9606,     13, 100257]), 'rejected_labels': tensor([  -100,   -100,   -100,  ...,   9606,     13, 100257]), 'rejected_attention_mask': tensor([1, 1, 1,  ..., 1, 1, 1]), 'index': tensor(1517)}.
+2026-10-11 20:30:09 - INFO - dpo_tune_cache.py:402 - Sample 912 of the training set: {'chosen_input_ids': tensor([100264,   9125,    198,  ...,  11498,  14415, 100257]), 'chosen_labels': tensor([  -100,   -100,   -100,  ...,  11498,  14415, 100257]), 'chosen_attention_mask': tensor([1, 1, 1,  ..., 1, 1, 1]), 'rejected_input_ids': tensor([100264,   9125,    198,  ...,   4495,     13, 100257]), 'rejected_labels': tensor([  -100,   -100,   -100,  ...,   4495,     13, 100257]), 'rejected_attention_mask': tensor([1, 1, 1,  ..., 1, 1, 1]), 'index': tensor(8182)}.
+2026-10-11 20:30:09 - INFO - dpo_tune_cache.py:402 - Sample 204 of the training set: {'chosen_input_ids': tensor([100264,   9125,    198,   2675,    527,    264,  11190,    734,   1824,
+         17157,  15592,  18328,     13,   1472,    656,    539,   5131,    617,
+          2680,    311,    904,   5865,     13,    220, 100266, 100267, 100265,
+           198, 100264,    882,    198,  29401,   1463,    682,    374,  69638,
+           315,   6969,     59,   2551,     18,  58858,   2198,     59,   2551,
+            17,  58858,   2198,     59,   2551,     17,  58858,  47861,     13,
+        100265,    198, 100264,  78191,    198,   1271,  10765,    682,    374,
+         69638,    315,   3146,   2198,  16275,    225,   2198,  32907,   2198,
+         32907,  47861,    334,    320,   8370,    374,   3146,     16,  10039,
+           857,    337,    334,    705,    584,   1205,    311,   2980,   3146,
+         96797,    374,  69638,    334,   2001,  32246,    449,    279,   1890,
+         31206,  15150,    719,   2204,  31357,    315,  33299,    382,  45464,
+         14711,   3146,     44,  43943,  31922,    315,   6969,  16275,    225,
+          2198,  32907,   2198,  32907,  47861,     25,  57277,   2028,    374,
+          3146,     34,  16275,    225,     39,  16275,    230,     46,    334,
+           382,   4516,     11,    584,    527,   3411,    369,    682,   3146,
+         96797,    374,  69638,    334,    449,    279,  31206,  15150,   3146,
+            34,  16275,    225,     39,  16275,    230,     46,    334,    382,
+         45464,  14711,   3146,   4266,    315,   2209,  26429,   2191,    304,
+          1708,  40375,   3145,     25,  57277,   3947,    527,   1403,   1925,
+          4595,    315,  24693,    374,  26429,   2191,    304,    453,  40375,
+          3145,   1473,     16,     13,   3146,  19368,    374,  26429,   2191,
+           334,   1389,   2204,  12782,   8957,  14726,    627,     17,     13,
+          3146,   3897,    374,  26429,   2191,    334,   1389,   2204,  10093,
+           315,    279,  17055,     87,   4010,  10505,  47861,      8,   1912,
+           382,  45464,  14711,   3146,   8468,  14656,  30308,  59776,    315,
+          2209,  69638,     25,  57277,    827,   3146,     16,     13,    220,
+            16,  58186,    857,    337,    320,   2198,  16275,    225,   2198,
+         32907,   2198,  32907,  47861,  33395,   2355,     12,  46910,  66286,
+         13200,     11,    449,    482,  47861,    389,    279,   1176,  12782,
+           382,    827,   3146,     17,     13,    220,     17,  58186,    857,
+           337,    320,   2198,  16275,    225,  31598,     39,   2198,  16275,
+           225,  33395,   2355,     12,   7429,   2663,   3146,    285,  47026,
+           857,    337,    334,    627,     12,    578,    482,  47861,    374,
+           389,    279,   2132,  12782,    627,     12,   1115,    374,    264,
+          3146,   3571,    374,  26429,    334,    315,    220,     16,  10039,
+           857,    337,    382,    827,   3146,     18,     13,  57175,  61263,
+           774,   2194,    320,   2198,  16275,    225,   2198,  32907,     46,
+          2198,  16275,    225,  33395,   2355,     12,  35978,    374,  26429,
+           627,     12,  60825,  15150,    374,   2103,    356,  16275,    225,
+            39,  16275,    230,     46,    627,     12,    578,  24463,    374,
+           304,    459,  51150,  72541,    320,     49,  24540,  11151,    705,
+           539,    459,  13200,  10505,  47861,   3677,  45464,  14711,  26602,
+           227,   3146,  19918,   1796,    315,   2209,  69638,    315,   6969,
+         16275,    225,   2198,  32907,   2198,  32907,  47861,    320,     16,
+         10039,    857,    337,   1680,  57277,     91,   2209,  26429,   4076,
+           286,    765,  29696,    667,    765,   4078,    315,   2209,  26429,
+          2191,    260,   9432,     91,  98804,     91,   1434,    313,     91,
+           776,  18580,   7511,     91,    220,     16,  58186,    857,    337,
+           260,    765,   6969,  16275,    225,   2198,  32907,   2198,  32907,
+         47861,   2611,    765,  17650,    320,  10090,      8,    415,   9432,
+            91,    220,     17,  58186,    857,    337,    260,    765,   6969,
+         16275,    225,   2198,  19792,     39,      8,   2198,  16275,    225,
+          3909,    765,  12661,    374,  26429,   1881,   9432,     91,  57175,
+         61263,    774,   2194,    415,    765,   6969,  16275,    225,   2198,
+         32907,     46,   2198,  16275,    225,   5291,    765,  55550,   1912,
+           374,  26429,    256,  36821,  45464,  14711,  26602,    227,   3146,
+         16533,     25,  57277,    791,    374,  69638,    315,   3146,   2198,
+         16275,    225,   2198,  32907,   2198,  32907,  47861,    334,    527,
+          1473,     16,     13,   3146,     16,  58186,    857,    337,    334,
+           320,   2198,  16275,    225,   2198,  32907,   2198,  32907,  47861,
+             8,   2355,     17,     13,   3146,     17,  58186,    857,    337,
+           334,    320,   2198,  16275,    225,   2198,  19792,     39,      8,
+          2198,  16275,    225,      8,   2355,     18,     13,   3146,     44,
+           774,  61263,    774,   2194,    334,    320,   2198,  16275,    225,
+          2198,  32907,     46,   2198,  16275,    225,    696,   9673,    527,
+           279,   3146,  28956,  24693,    374,  69638,    334,    449,    279,
+         31206,  15150,   3146,     34,  16275,    225,     39,  16275,    230,
+            46,    334,    382,  10267,    757,   1440,    422,    499,   4265,
+          1093,    311,   4128,    872,  14726,    477,  13488,  23473,  30148,
+         26429,   2191,      0, 100257]), 'chosen_labels': tensor([  -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   1271,  10765,    682,    374,
+         69638,    315,   3146,   2198,  16275,    225,   2198,  32907,   2198,
+         32907,  47861,    334,    320,   8370,    374,   3146,     16,  10039,
+           857,    337,    334,    705,    584,   1205,    311,   2980,   3146,
+         96797,    374,  69638,    334,   2001,  32246,    449,    279,   1890,
+         31206,  15150,    719,   2204,  31357,    315,  33299,    382,  45464,
+         14711,   3146,     44,  43943,  31922,    315,   6969,  16275,    225,
+          2198,  32907,   2198,  32907,  47861,     25,  57277,   2028,    374,
+          3146,     34,  16275,    225,     39,  16275,    230,     46,    334,
+           382,   4516,     11,    584,    527,   3411,    369,    682,   3146,
+         96797,    374,  69638,    334,    449,    279,  31206,  15150,   3146,
+            34,  16275,    225,     39,  16275,    230,     46,    334,    382,
+         45464,  14711,   3146,   4266,    315,   2209,  26429,   2191,    304,
+          1708,  40375,   3145,     25,  57277,   3947,    527,   1403,   1925,
+          4595,    315,  24693,    374,  26429,   2191,    304,    453,  40375,
+          3145,   1473,     16,     13,   3146,  19368,    374,  26429,   2191,
+           334,   1389,   2204,  12782,   8957,  14726,    627,     17,     13,
+          3146,   3897,    374,  26429,   2191,    334,   1389,   2204,  10093,
+           315,    279,  17055,     87,   4010,  10505,  47861,      8,   1912,
+           382,  45464,  14711,   3146,   8468,  14656,  30308,  59776,    315,
+          2209,  69638,     25,  57277,    827,   3146,     16,     13,    220,
+            16,  58186,    857,    337,    320,   2198,  16275,    225,   2198,
+         32907,   2198,  32907,  47861,  33395,   2355,     12,  46910,  66286,
+         13200,     11,    449,    482,  47861,    389,    279,   1176,  12782,
+           382,    827,   3146,     17,     13,    220,     17,  58186,    857,
+           337,    320,   2198,  16275,    225,  31598,     39,   2198,  16275,
+           225,  33395,   2355,     12,   7429,   2663,   3146,    285,  47026,
+           857,    337,    334,    627,     12,    578,    482,  47861,    374,
+           389,    279,   2132,  12782,    627,     12,   1115,    374,    264,
+          3146,   3571,    374,  26429,    334,    315,    220,     16,  10039,
+           857,    337,    382,    827,   3146,     18,     13,  57175,  61263,
+           774,   2194,    320,   2198,  16275,    225,   2198,  32907,     46,
+          2198,  16275,    225,  33395,   2355,     12,  35978,    374,  26429,
+           627,     12,  60825,  15150,    374,   2103,    356,  16275,    225,
+            39,  16275,    230,     46,    627,     12,    578,  24463,    374,
+           304,    459,  51150,  72541,    320,     49,  24540,  11151,    705,
+           539,    459,  13200,  10505,  47861,   3677,  45464,  14711,  26602,
+           227,   3146,  19918,   1796,    315,   2209,  69638,    315,   6969,
+         16275,    225,   2198,  32907,   2198,  32907,  47861,    320,     16,
+         10039,    857,    337,   1680,  57277,     91,   2209,  26429,   4076,
+           286,    765,  29696,    667,    765,   4078,    315,   2209,  26429,
+          2191,    260,   9432,     91,  98804,     91,   1434,    313,     91,
+           776,  18580,   7511,     91,    220,     16,  58186,    857,    337,
+           260,    765,   6969,  16275,    225,   2198,  32907,   2198,  32907,
+         47861,   2611,    765,  17650,    320,  10090,      8,    415,   9432,
+            91,    220,     17,  58186,    857,    337,    260,    765,   6969,
+         16275,    225,   2198,  19792,     39,      8,   2198,  16275,    225,
+          3909,    765,  12661,    374,  26429,   1881,   9432,     91,  57175,
+         61263,    774,   2194,    415,    765,   6969,  16275,    225,   2198,
+         32907,     46,   2198,  16275,    225,   5291,    765,  55550,   1912,
+           374,  26429,    256,  36821,  45464,  14711,  26602,    227,   3146,
+         16533,     25,  57277,    791,    374,  69638,    315,   3146,   2198,
+         16275,    225,   2198,  32907,   2198,  32907,  47861,    334,    527,
+          1473,     16,     13,   3146,     16,  58186,    857,    337,    334,
+           320,   2198,  16275,    225,   2198,  32907,   2198,  32907,  47861,
+             8,   2355,     17,     13,   3146,     17,  58186,    857,    337,
+           334,    320,   2198,  16275,    225,   2198,  19792,     39,      8,
+          2198,  16275,    225,      8,   2355,     18,     13,   3146,     44,
+           774,  61263,    774,   2194,    334,    320,   2198,  16275,    225,
+          2198,  32907,     46,   2198,  16275,    225,    696,   9673,    527,
+           279,   3146,  28956,  24693,    374,  69638,    334,    449,    279,
+         31206,  15150,   3146,     34,  16275,    225,     39,  16275,    230,
+            46,    334,    382,  10267,    757,   1440,    422,    499,   4265,
+          1093,    311,   4128,    872,  14726,    477,  13488,  23473,  30148,
+         26429,   2191,      0, 100257]), 'chosen_attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), 'rejected_input_ids': tensor([100264,   9125,    198,   2675,    527,    264,  11190,    734,   1824,
+         17157,  15592,  18328,     13,   1472,    656,    539,   5131,    617,
+          2680,    311,    904,   5865,     13,    220, 100266, 100267, 100265,
+           198, 100264,    882,    198,  29401,   1463,    682,    374,  69638,
+           315,   6969,     59,   2551,     18,  58858,   2198,     59,   2551,
+            17,  58858,   2198,     59,   2551,     17,  58858,  47861,     13,
+        100265,    198, 100264,  78191,    198,    791,  24549,   3146,   2198,
+         16275,    225,   2198,  32907,   2198,  32907,  47861,    334,    374,
+          3146,     17,  10039,    857,    337,    334,     13,   2057,  10765,
+           682,    374,  69638,    315,    420,  24549,     11,    584,   1205,
+           311,   2980,    279,   3146,  96797,    374,  69638,    334,    315,
+           220,     17,  10039,    857,    337,    382,  14711,  73800,   2209,
+         69638,    315,    220,     17,  58186,    857,    337,    320,   2198,
+         16275,    225,   2198,  32907,   2198,  32907,  47861,   7887,     16,
+            13,   3146,     17,  10039,    857,    337,    334,    320,   2198,
+         16275,    225,   2198,  32907,   2198,  32907,  47861,      8,   2355,
+           256,    482,   1115,    374,    279,   3146,   3323,    334,    374,
+         26429,    315,    220,     17,  10039,    857,    337,    382,     17,
+            13,   3146,   4071,  39710,    334,    320,   2198,  16275,    225,
+          2198,  32907,   2198,  32907,  47861,      8,   2355,    256,    482,
+          1115,    374,    279,   3146,   3323,    334,    374,  26429,    315,
+           220,     17,  10039,    857,    337,    382,  14524,     11,   3412,
+           389,      0,  34863,     11,   3146,   8248,  39710,    334,    320,
+          2198,  16275,    225,   2198,  32907,   2198,  32907,  47861,      8,
+           374,    279,   3146,  25030,    334,  24549,    439,    220,     17,
+         10039,    857,    337,     11,   1120,   5439,  22009,    382,   4516,
+            11,    279,   4495,    374,  69638,    315,   3146,     17,  10039,
+           857,    337,    334,    527,   1473,     12,   3146,     17,  10039,
+           857,    337,    334,    320,   2198,  16275,    225,   2198,  32907,
+          2198,  32907,  47861,      8,   2355,    220,    482,   1115,    374,
+           279,   3146,   3323,    334,    374,  26429,    315,    220,     17,
+         10039,    857,    337,    382,   4516,     11,   3146,   2201,    374,
+         69638,    334,   3073,    369,    220,     17,  10039,    857,    337,
+           382,  14711,  13321,  22559,    512,    334,   3947,    527,    912,
+           374,  69638,    315,    220,     17,  10039,    857,    337,     13,
+           334, 100257]), 'rejected_labels': tensor([  -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,    791,  24549,   3146,   2198,
+         16275,    225,   2198,  32907,   2198,  32907,  47861,    334,    374,
+          3146,     17,  10039,    857,    337,    334,     13,   2057,  10765,
+           682,    374,  69638,    315,    420,  24549,     11,    584,   1205,
+           311,   2980,    279,   3146,  96797,    374,  69638,    334,    315,
+           220,     17,  10039,    857,    337,    382,  14711,  73800,   2209,
+         69638,    315,    220,     17,  58186,    857,    337,    320,   2198,
+         16275,    225,   2198,  32907,   2198,  32907,  47861,   7887,     16,
+            13,   3146,     17,  10039,    857,    337,    334,    320,   2198,
+         16275,    225,   2198,  32907,   2198,  32907,  47861,      8,   2355,
+           256,    482,   1115,    374,    279,   3146,   3323,    334,    374,
+         26429,    315,    220,     17,  10039,    857,    337,    382,     17,
+            13,   3146,   4071,  39710,    334,    320,   2198,  16275,    225,
+          2198,  32907,   2198,  32907,  47861,      8,   2355,    256,    482,
+          1115,    374,    279,   3146,   3323,    334,    374,  26429,    315,
+           220,     17,  10039,    857,    337,    382,  14524,     11,   3412,
+           389,      0,  34863,     11,   3146,   8248,  39710,    334,    320,
+          2198,  16275,    225,   2198,  32907,   2198,  32907,  47861,      8,
+           374,    279,   3146,  25030,    334,  24549,    439,    220,     17,
+         10039,    857,    337,     11,   1120,   5439,  22009,    382,   4516,
+            11,    279,   4495,    374,  69638,    315,   3146,     17,  10039,
+           857,    337,    334,    527,   1473,     12,   3146,     17,  10039,
+           857,    337,    334,    320,   2198,  16275,    225,   2198,  32907,
+          2198,  32907,  47861,      8,   2355,    220,    482,   1115,    374,
+           279,   3146,   3323,    334,    374,  26429,    315,    220,     17,
+         10039,    857,    337,    382,   4516,     11,   3146,   2201,    374,
+         69638,    334,   3073,    369,    220,     17,  10039,    857,    337,
+           382,  14711,  13321,  22559,    512,    334,   3947,    527,    912,
+           374,  69638,    315,    220,     17,  10039,    857,    337,     13,
+           334, 100257]), 'rejected_attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1]), 'index': tensor(4944)}.
+2026-10-11 20:30:09 - INFO - dpo_tune_cache.py:430 - =============optimizer loaded
+2026-10-11 20:30:09 - INFO - dpo_tune_cache.py:777 - Peak memory usage: 0.00 GB
+2026-10-11 20:30:09 - INFO - dpo_tune_cache.py:778 - Total memory usage: 178.35 GB
+2026-10-11 20:30:09 - INFO - dpo_tune_cache.py:779 - Free memory: 176.98 GB
+Before initializing optimizer states
+MA 40.78 GB         Max_MA 40.78 GB         CA 40.8 GB         Max_CA 41 GB 
+CPU Virtual Memory:  used = 225.79 GB, percent = 11.3%
+After initializing optimizer states
+MA 40.78 GB         Max_MA 67.97 GB         CA 67.99 GB         Max_CA 68 GB 
+CPU Virtual Memory:  used = 225.81 GB, percent = 11.3%
+After initializing ZeRO optimizer
+MA 40.78 GB         Max_MA 40.78 GB         CA 67.99 GB         Max_CA 68 GB 
+CPU Virtual Memory:  used = 225.81 GB, percent = 11.3%
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:464 - =============accelerate prepared
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:777 - Peak memory usage: 68.49 GB
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:778 - Total memory usage: 178.35 GB
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:779 - Free memory: 108.49 GB
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:482 - ***** Running training *****
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:483 -   Num examples = 8191
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:484 -   Num Epochs = 1
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:485 -   Instantaneous batch size per device = 1
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:486 -   Total train batch size (w. parallel, distributed & accumulation) = 128
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:487 -   Gradient Accumulation steps = 128
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:488 -   Total optimization steps = 64
+2026-10-11 20:30:24 - WARNING - utils.py:816 - Output directory exists but no checkpoint found. Starting from scratch.
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:513 - Starting from epoch 0 and step 0.
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:515 - =============before cache logprobs
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:777 - Peak memory usage: 68.49 GB
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:778 - Total memory usage: 178.35 GB
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:779 - Free memory: 108.49 GB
+by default, we will use the same split for all datasets
+Dataset /workspace/dpo_data/s8_a.parquet: 8192 -> 8192 samples (factor: 1.0)
+2026-10-11 20:30:24 - INFO - dpo_utils.py:439 - Loading reference logprobs cache from /workspace/ref_cache/5722aff0cc3d399f.pt
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:535 - =============after cache logprobs
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:777 - Peak memory usage: 68.49 GB
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:778 - Total memory usage: 178.35 GB
+2026-10-11 20:30:24 - INFO - dpo_tune_cache.py:779 - Free memory: 108.49 GB
+2026-10-11 20:30:25 - INFO - dpo_tune_cache.py:538 - =============after cache logprobs; clear cache
+2026-10-11 20:30:25 - INFO - dpo_tune_cache.py:777 - Peak memory usage: 41.30 GB
+2026-10-11 20:30:25 - INFO - dpo_tune_cache.py:778 - Total memory usage: 178.35 GB
+2026-10-11 20:30:25 - INFO - dpo_tune_cache.py:779 - Free memory: 135.68 GB
+  0%|          | 0/64 [00:00<?, ?it/s]
+/workspace/open-instruct/.venv/lib/python3.12/site-packages/transformers/data/data_collator.py:602: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:253.)
+  batch["labels"] = torch.tensor(batch["labels"], dtype=torch.int64)
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+  2%|▏         | 1/64 [01:18<1:22:45, 78.81s/it]
+2026-10-11 20:31:43 - INFO - dpo_tune_cache.py:688 -   Step: 1, LR: 1.3333333333333332e-06, Loss: 0.6931464076042175
+  3%|▎         | 2/64 [02:00<59:06, 57.20s/it]
+  2026-10-11 20:32:26 - INFO - dpo_tune_cache.py:688 -   Step: 2, LR: 2.6666666666666664e-06, Loss: 0.6931464076042175
+  5%|▍         | 3/64 [02:40<50:08, 49.32s/it]
+2026-10-11 20:33:05 - INFO - dpo_tune_cache.py:688 -   Step: 3, LR: 4e-06, Loss: 0.6928686499595642
+  6%|▋         | 4/64 [03:18<44:38, 44.64s/it]
+2026-10-11 20:33:43 - INFO - dpo_tune_cache.py:688 -   Step: 4, LR: 5.333333333333333e-06, Loss: 0.6934727430343628
+  8%|▊         | 5/64 [03:56<41:40, 42.38s/it]
+2026-10-11 20:34:21 - INFO - dpo_tune_cache.py:688 -   Step: 5, LR: 6.666666666666667e-06, Loss: 0.7080498337745667
+  9%|▉         | 6/64 [04:44<42:49, 44.31s/it]
+2026-10-11 20:35:09 - INFO - dpo_tune_cache.py:688 -   Step: 6, LR: 8e-06, Loss: 0.6981258392333984
+ 11%|█         | 7/64 [05:19<39:07, 41.19s/it]
+2026-10-11 20:35:44 - INFO - dpo_tune_cache.py:688 -   Step: 7, LR: 7.86206896551724e-06, Loss: 0.7834307551383972
+ 12%|█▎        | 8/64 [06:00<38:16, 41.02s/it]
+2026-10-11 20:36:25 - INFO - dpo_tune_cache.py:688 -   Step: 8, LR: 7.724137931034483e-06, Loss: 0.9452399015426636
+ 14%|█▍        | 9/64 [06:37<36:38, 39.98s/it]
+2026-10-11 20:37:02 - INFO - dpo_tune_cache.py:688 -   Step: 9, LR: 7.586206896551724e-06, Loss: 1.0394995212554932
+ 16%|█▌        | 10/64 [07:17<35:53, 39.87s/it]
+2026-10-11 20:37:42 - INFO - dpo_tune_cache.py:688 -   Step: 10, LR: 7.448275862068965e-06, Loss: 0.8229367733001709
+ 17%|█▋        | 11/64 [07:56<34:56, 39.56s/it]
+2026-10-11 20:38:21 - INFO - dpo_tune_cache.py:688 -   Step: 11, LR: 7.310344827586207e-06, Loss: 0.7883158922195435
+ 19%|█▉        | 12/64 [08:36<34:19, 39.61s/it]
+2026-10-11 20:39:01 - INFO - dpo_tune_cache.py:688 -   Step: 12, LR: 7.172413793103448e-06, Loss: 1.2993848323822021
+ 20%|██        | 13/64 [09:16<34:00, 40.02s/it]
+2026-10-11 20:39:42 - INFO - dpo_tune_cache.py:688 -   Step: 13, LR: 7.034482758620689e-06, Loss: 0.8224396109580994
+ 22%|██▏       | 14/64 [09:55<33:00, 39.61s/it]
+2026-10-11 20:40:20 - INFO - dpo_tune_cache.py:688 -   Step: 14, LR: 6.89655172413793e-06, Loss: 1.1072745323181152
+ 23%|██▎       | 15/64 [10:37<32:46, 40.13s/it]
+2026-10-11 20:41:02 - INFO - dpo_tune_cache.py:688 -   Step: 15, LR: 6.758620689655172e-06, Loss: 0.9234010577201843
+ 25%|██▌       | 16/64 [11:17<32:09, 40.20s/it]
+2026-10-11 20:41:42 - INFO - dpo_tune_cache.py:688 -   Step: 16, LR: 6.620689655172414e-06, Loss: 1.0952311754226685
+ 27%|██▋       | 17/64 [11:59<31:55, 40.75s/it]
+2026-10-11 20:42:24 - INFO - dpo_tune_cache.py:688 -   Step: 17, LR: 6.4827586206896545e-06, Loss: 1.0148259401321411
+ 28%|██▊       | 18/64 [12:40<31:22, 40.93s/it]
+2026-10-11 20:43:05 - INFO - dpo_tune_cache.py:688 -   Step: 18, LR: 6.344827586206897e-06, Loss: 1.0821049213409424
+ 30%|██▉       | 19/64 [13:21<30:33, 40.74s/it]
+2026-10-11 20:43:46 - INFO - dpo_tune_cache.py:688 -   Step: 19, LR: 6.2068965517241375e-06, Loss: 0.9017574191093445
+ 31%|███▏      | 20/64 [14:01<29:49, 40.67s/it]
+2026-10-11 20:44:26 - INFO - dpo_tune_cache.py:688 -   Step: 20, LR: 6.068965517241379e-06, Loss: 1.370932698249817
+ 33%|███▎      | 21/64 [14:41<28:57, 40.40s/it]
+2026-10-11 20:45:06 - INFO - dpo_tune_cache.py:688 -   Step: 21, LR: 5.9310344827586205e-06, Loss: 1.3507291078567505
+ 34%|███▍      | 22/64 [15:20<28:06, 40.16s/it]
+2026-10-11 20:45:45 - INFO - dpo_tune_cache.py:688 -   Step: 22, LR: 5.793103448275862e-06, Loss: 1.0705749988555908
+ 36%|███▌      | 23/64 [16:05<28:20, 41.49s/it]
+2026-10-11 20:46:30 - INFO - dpo_tune_cache.py:688 -   Step: 23, LR: 5.655172413793103e-06, Loss: 0.9346919655799866
+ 38%|███▊      | 24/64 [16:46<27:39, 41.49s/it]
+2026-10-11 20:47:12 - INFO - dpo_tune_cache.py:688 -   Step: 24, LR: 5.517241379310345e-06, Loss: 0.9779227375984192
+ 39%|███▉      | 25/64 [17:31<27:34, 42.42s/it]
+2026-10-11 20:47:56 - INFO - dpo_tune_cache.py:688 -   Step: 25, LR: 5.379310344827586e-06, Loss: 1.0592135190963745
+ 41%|████      | 26/64 [18:10<26:12, 41.38s/it]
+2026-10-11 20:48:35 - INFO - dpo_tune_cache.py:688 -   Step: 26, LR: 5.241379310344827e-06, Loss: 1.3198716640472412
+ 42%|████▏     | 27/64 [18:52<25:39, 41.61s/it]
+2026-10-11 20:49:17 - INFO - dpo_tune_cache.py:688 -   Step: 27, LR: 5.1034482758620695e-06, Loss: 1.0409867763519287
+ 44%|████▍     | 28/64 [19:29<24:04, 40.13s/it]
+2026-10-11 20:49:54 - INFO - dpo_tune_cache.py:688 -   Step: 28, LR: 4.96551724137931e-06, Loss: 1.397242784500122
+ 45%|████▌     | 29/64 [20:15<24:25, 41.87s/it]
+2026-10-11 20:50:40 - INFO - dpo_tune_cache.py:688 -   Step: 29, LR: 4.827586206896552e-06, Loss: 1.070665717124939
+ 47%|████▋     | 30/64 [20:59<24:10, 42.66s/it]
+2026-10-11 20:51:24 - INFO - dpo_tune_cache.py:688 -   Step: 30, LR: 4.689655172413792e-06, Loss: 1.5334479808807373
+ 48%|████▊     | 31/64 [21:39<22:56, 41.72s/it]
+2026-10-11 20:52:04 - INFO - dpo_tune_cache.py:688 -   Step: 31, LR: 4.551724137931035e-06, Loss: 1.185988187789917
+ 50%|█████     | 32/64 [22:20<22:06, 41.44s/it]
+2026-10-11 20:52:45 - INFO - dpo_tune_cache.py:688 -   Step: 32, LR: 4.413793103448275e-06, Loss: 0.9644462466239929
+ 52%|█████▏    | 33/64 [22:55<20:25, 39.52s/it]
+2026-10-11 20:53:20 - INFO - dpo_tune_cache.py:688 -   Step: 33, LR: 4.275862068965517e-06, Loss: 1.7987698316574097
+ 53%|█████▎    | 34/64 [23:33<19:35, 39.17s/it]
+2026-10-11 20:53:58 - INFO - dpo_tune_cache.py:688 -   Step: 34, LR: 4.137931034482758e-06, Loss: 1.6444838047027588
+ 55%|█████▍    | 35/64 [24:19<19:56, 41.24s/it]
+2026-10-11 20:54:44 - INFO - dpo_tune_cache.py:688 -   Step: 35, LR: 4e-06, Loss: 1.071333885192871
+ 56%|█████▋    | 36/64 [24:56<18:42, 40.10s/it]
+2026-10-11 20:55:22 - INFO - dpo_tune_cache.py:688 -   Step: 36, LR: 3.862068965517241e-06, Loss: 1.2456427812576294
+ 58%|█████▊    | 37/64 [25:45<19:07, 42.49s/it]
+2026-10-11 20:56:10 - INFO - dpo_tune_cache.py:688 -   Step: 37, LR: 3.7241379310344824e-06, Loss: 1.334672451019287
+ 59%|█████▉    | 38/64 [26:22<17:47, 41.06s/it]
+2026-10-11 20:56:47 - INFO - dpo_tune_cache.py:688 -   Step: 38, LR: 3.586206896551724e-06, Loss: 1.4683756828308105
+ 61%|██████    | 39/64 [27:01<16:49, 40.38s/it]
+2026-10-11 20:57:26 - INFO - dpo_tune_cache.py:688 -   Step: 39, LR: 3.448275862068965e-06, Loss: 1.0788377523422241
+ 62%|██████▎   | 40/64 [27:43<16:20, 40.86s/it]
+2026-10-11 20:58:08 - INFO - dpo_tune_cache.py:688 -   Step: 40, LR: 3.310344827586207e-06, Loss: 1.1530489921569824
+ 64%|██████▍   | 41/64 [28:22<15:28, 40.37s/it]
+2026-10-11 20:58:47 - INFO - dpo_tune_cache.py:688 -   Step: 41, LR: 3.1724137931034484e-06, Loss: 0.9741107225418091
+ 66%|██████▌   | 42/64 [28:57<14:08, 38.56s/it]
+2026-10-11 20:59:22 - INFO - dpo_tune_cache.py:688 -   Step: 42, LR: 3.0344827586206895e-06, Loss: 1.2002732753753662
+ 67%|██████▋   | 43/64 [29:39<13:52, 39.65s/it]
+2026-10-11 21:00:04 - INFO - dpo_tune_cache.py:688 -   Step: 43, LR: 2.896551724137931e-06, Loss: 1.3677992820739746
+ 69%|██████▉   | 44/64 [30:15<12:54, 38.73s/it]
+2026-10-11 21:00:40 - INFO - dpo_tune_cache.py:688 -   Step: 44, LR: 2.7586206896551725e-06, Loss: 1.38947594165802
+ 70%|███████   | 45/64 [30:55<12:19, 38.91s/it]
+2026-10-11 21:01:20 - INFO - dpo_tune_cache.py:688 -   Step: 45, LR: 2.6206896551724136e-06, Loss: 1.097699761390686
+ 72%|███████▏  | 46/64 [31:32<11:29, 38.32s/it]
+2026-10-11 21:01:57 - INFO - dpo_tune_cache.py:688 -   Step: 46, LR: 2.482758620689655e-06, Loss: 0.9954829812049866
+ 73%|███████▎  | 47/64 [32:11<10:55, 38.58s/it]
+2026-10-11 21:02:36 - INFO - dpo_tune_cache.py:688 -   Step: 47, LR: 2.344827586206896e-06, Loss: 1.1197394132614136
+ 75%|███████▌  | 48/64 [32:53<10:31, 39.49s/it]
+2026-10-11 21:03:18 - INFO - dpo_tune_cache.py:688 -   Step: 48, LR: 2.2068965517241377e-06, Loss: 1.3883394002914429
+ 77%|███████▋  | 49/64 [33:29<09:36, 38.45s/it]
+2026-10-11 21:03:54 - INFO - dpo_tune_cache.py:688 -   Step: 49, LR: 2.068965517241379e-06, Loss: 1.1245367527008057
+ 78%|███████▊  | 50/64 [34:10<09:12, 39.50s/it]
+2026-10-11 21:04:36 - INFO - dpo_tune_cache.py:688 -   Step: 50, LR: 1.9310344827586207e-06, Loss: 1.3867923021316528
+ 80%|███████▉  | 51/64 [34:53<08:45, 40.45s/it]
+2026-10-11 21:05:18 - INFO - dpo_tune_cache.py:688 -   Step: 51, LR: 1.793103448275862e-06, Loss: 1.4521465301513672
+ 81%|████████▏ | 52/64 [35:33<08:04, 40.35s/it]
+2026-10-11 21:05:58 - INFO - dpo_tune_cache.py:688 -   Step: 52, LR: 1.6551724137931035e-06, Loss: 1.0473909378051758
+ 83%|████████▎ | 53/64 [36:15<07:30, 40.91s/it]
+2026-10-11 21:06:41 - INFO - dpo_tune_cache.py:688 -   Step: 53, LR: 1.5172413793103447e-06, Loss: 1.6141796112060547
+ 84%|████████▍ | 54/64 [36:58<06:54, 41.41s/it]
+2026-10-11 21:07:23 - INFO - dpo_tune_cache.py:688 -   Step: 54, LR: 1.3793103448275862e-06, Loss: 1.066953182220459
+ 86%|████████▌ | 55/64 [37:38<06:09, 41.10s/it]
+2026-10-11 21:08:03 - INFO - dpo_tune_cache.py:688 -   Step: 55, LR: 1.2413793103448275e-06, Loss: 0.9220947623252869
+ 88%|████████▊ | 56/64 [38:16<05:19, 39.96s/it]
+2026-10-11 21:08:41 - INFO - dpo_tune_cache.py:688 -   Step: 56, LR: 1.1034482758620688e-06, Loss: 0.9213353395462036
+ 89%|████████▉ | 57/64 [38:51<04:30, 38.63s/it]
+2026-10-11 21:09:16 - INFO - dpo_tune_cache.py:688 -   Step: 57, LR: 9.655172413793103e-07, Loss: 1.0196949243545532
+ 91%|█████████ | 58/64 [39:32<03:55, 39.33s/it]
+2026-10-11 21:09:57 - INFO - dpo_tune_cache.py:688 -   Step: 58, LR: 8.275862068965517e-07, Loss: 1.4989508390426636
+ 92%|█████████▏| 59/64 [40:11<03:15, 39.07s/it]
+2026-10-11 21:10:36 - INFO - dpo_tune_cache.py:688 -   Step: 59, LR: 6.896551724137931e-07, Loss: 0.944549024105072
+ 94%|█████████▍| 60/64 [40:51<02:37, 39.34s/it]
+2026-10-11 21:11:16 - INFO - dpo_tune_cache.py:688 -   Step: 60, LR: 5.517241379310344e-07, Loss: 0.9698531627655029
+ 95%|█████████▌| 61/64 [41:33<02:00, 40.19s/it]
+2026-10-11 21:11:58 - INFO - dpo_tune_cache.py:688 -   Step: 61, LR: 4.1379310344827586e-07, Loss: 0.9428619146347046
+ 97%|█████████▋| 62/64 [42:17<01:22, 41.41s/it]
+2026-10-11 21:12:42 - INFO - dpo_tune_cache.py:688 -   Step: 62, LR: 2.758620689655172e-07, Loss: 1.0697989463806152
+ 98%|█████████▊| 63/64 [42:58<00:41, 41.15s/it]
+2026-10-11 21:13:23 - INFO - dpo_tune_cache.py:688 -   Step: 63, LR: 1.379310344827586e-07, Loss: 1.0919207334518433
+100%|██████████| 64/64 [43:42<00:00, 42.06s/it]
+2026-10-11 21:14:07 - INFO - dpo_tune_cache.py:688 -   Step: 64, LR: 0.0, Loss: 0.9009693264961243
+2026-10-11 21:14:07 - INFO - model_utils.py:657 - Detected olmo chat template: tokenizer_default, updating model generation config.
+[transformers] Configuration saved in /workspace/runs/pos8a/config.json
+[transformers] Configuration saved in /workspace/runs/pos8a/generation_config.json
+
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s][A
+Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.77s/it][AWriting model shards: 100%|██████████| 1/1 [00:03<00:00,  3.77s/it]
+[transformers] Model weights saved in /workspace/runs/pos8a/model.safetensors
+[transformers] chat template saved in /workspace/runs/pos8a/chat_template.jinja
+[transformers] tokenizer config file saved in /workspace/runs/pos8a/tokenizer_config.json
+2026-10-11 21:14:20 - INFO - utils.py:835 - Remaining files:['config.json', 'generation_config.json', 'model.safetensors', 'chat_template.jinja', 'tokenizer_config.json', 'tokenizer.json']
+100%|██████████| 64/64 [43:55<00:00, 41.17s/it]
+

@@ -1,0 +1,2 @@
+short8: 7025 pairs, 1 GPUs x 1 x accum 128 = batch 128, 55 steps, LR 8e-6, snapshot every 55, full state every 1000000000, ZeRO-1, concat True
+short8 SMALL DONE

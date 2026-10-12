@@ -1,0 +1,1239 @@
+idx_ref: 200 pairs, 2 GPUs x 1 x accum 8 = batch 16, 13 steps, LR 1e-6, snapshot every 13, full state every 3, ZeRO-2, concat False
+The following values were not passed to `accelerate launch` and had defaults used instead:
+		More than one GPU was found, enabling multi-GPU training.
+		If this was unintended please pass in `--num_processes=1`.
+	`--num_machines` was set to a value of `1`
+	`--dynamo_backend` was set to a value of `'no'`
+To avoid this warning pass in values for each of the problematic parameters or run `accelerate config`.
+W1010 11:34:54.997000 7306 torch/distributed/run.py:852] 
+W1010 11:34:54.997000 7306 torch/distributed/run.py:852] *****************************************
+W1010 11:34:54.997000 7306 torch/distributed/run.py:852] Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+W1010 11:34:54.997000 7306 torch/distributed/run.py:852] *****************************************
+2026-10-10 11:35:01.688 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 11:35:01.688 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 11:35:01.688 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 11:35:01.688 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 11:35:01.688 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 11:35:01.688 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 11:35:01.688 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 11:35:01.688 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 11:35:01.689 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 11:35:01.689 DEBUG Persistent cache disabled, using in-memory JIT cache
+2026-10-10 11:35:03 - INFO - model_utils.py:90 - Auto-detected attention implementation: flash_4
+2026-10-10 11:35:03 - INFO - model_utils.py:90 - Auto-detected attention implementation: flash_4
+NCCL version 2.27.5+cuda12.9
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-10-10 11:35:05 - WARNING - _http.py:916 - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-10-10 11:35:05 - WARNING - _http.py:916 - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-10-10 11:35:05 - INFO - dpo_tune_cache.py:168 - using the output directory: /workspace/runs/idx_ref
+2026-10-10 11:35:05 - INFO - dpo_tune_cache.py:168 - using the output directory: /workspace/runs/idx_ref
+[
+│   DPOExperimentConfig(
+│   │   try_launch_beaker_eval_jobs=False,
+│   │   try_auto_save_to_beaker=False,
+│   │   gs_bucket_path=None,
+│   │   oe_eval_tasks=None,
+│   │   oe_eval_max_length=4096,
+│   │   oe_eval_gpu_multiplier=None,
+│   │   eval_workspace='ai2/tulu-3-results',
+│   │   eval_priority='high',
+│   │   output_dir='/workspace/runs/idx_ref',
+│   │   checkpointing_steps=3,
+│   │   ephemeral_save_interval=None,
+│   │   keep_last_n_checkpoints=1,
+│   │   resume_from_checkpoint=None,
+│   │   push_to_hub=False,
+│   │   hf_repo_id=None,
+│   │   hf_repo_revision=None,
+│   │   hf_repo_url=None,
+│   │   logging_steps=1,
+│   │   with_tracking=False,
+│   │   wandb_project='open_instruct_internal',
+│   │   wandb_entity=None,
+│   │   report_to=None,
+│   │   wandb_group_name=None,
+│   │   use_lora=False,
+│   │   lora_rank=64,
+│   │   lora_alpha=16,
+│   │   lora_dropout=0.1,
+│   │   mixer_list=['/workspace/dpo_data/smoke200.parquet', '1.0'],
+│   │   mixer_list_splits=['train'],
+│   │   transform_fn=[
+│   │   │   'preference_tulu_tokenize_and_truncate_v1',
+│   │   │   'preference_tulu_filter_v1'
+│   │   ],
+│   │   target_columns=[
+│   │   │   'chosen_input_ids',
+│   │   │   'chosen_labels',
+│   │   │   'chosen_attention_mask',
+│   │   │   'rejected_input_ids',
+│   │   │   'rejected_labels',
+│   │   │   'rejected_attention_mask'
+│   │   ],
+│   │   cache_mode='local',
+│   │   local_cache_dir='/workspace/open-instruct/local_dataset_cache',
+│   │   skip_cache=False,
+│   │   cache_dataset_only=False,
+│   │   config_hash=None,
+│   │   hf_entity=None,
+│   │   num_epochs=1,
+│   │   per_device_train_batch_size=1,
+│   │   gradient_accumulation_steps=8,
+│   │   learning_rate=1e-06,
+│   │   warmup_ratio=0.1,
+│   │   weight_decay=0.0,
+│   │   max_grad_norm=None,
+│   │   max_seq_length=16384,
+│   │   over_length_strategy='keep',
+│   │   lr_scheduler_type='linear',
+│   │   max_train_steps=None,
+│   │   activation_memory_budget=0.5,
+│   │   activation_checkpointing_mode='budget',
+│   │   activation_checkpointing_modules=[
+│   │   │   'blocks.*.attention_norm',
+│   │   │   'blocks.*.attention',
+│   │   │   'blocks.*.attention_residual_stream',
+│   │   │   'blocks.*.feed_forward_norm',
+│   │   │   'blocks.*.feed_forward',
+│   │   │   'blocks.*.feed_forward_residual_stream'
+│   │   ],
+│   │   compile_model=True,
+│   │   fused_optimizer=True,
+│   │   cp_degree=None,
+│   │   cp_strategy='llama3',
+│   │   use_8bit_optimizer=False,
+│   │   dpo_use_paged_optimizer=False,
+│   │   optimizer_type='adamw',
+│   │   optimizer_kwargs={},
+│   │   tensor_parallel_degree=1,
+│   │   context_parallel_degree=1,
+│   │   cache_logprobs_only=False,
+│   │   fsdp_shard_degree=None,
+│   │   fsdp_num_replicas=None,
+│   │   beta=5.0,
+│   │   loss_type=<DPOLossType.dpo_norm: 'dpo_norm'>,
+│   │   gamma_beta_ratio=0.3,
+│   │   label_smoothing=0.0,
+│   │   load_balancing_loss=False,
+│   │   load_balancing_weight=0.001,
+│   │   concatenated_forward=False,
+│   │   packing=False,
+│   │   model_name_or_path='allenai/Olmo-3-7B-Instruct-SFT',
+│   │   config_name=None,
+│   │   attn_implementation='flash_4',
+│   │   loss_implementation='default',
+│   │   model_revision=None,
+│   │   low_cpu_mem_usage=False,
+│   │   rope_scaling_factor=None,
+│   │   rope_scaling_beta_fast=32,
+│   │   rope_scaling_beta_slow=1,
+│   │   rope_scaling_old_context_len=8192,
+│   │   exp_name='idx_ref',
+│   │   run_name=None,
+│   │   seed=42,
+│   │   data_loader_seed=None,
+│   │   do_not_randomize_output_dir=True,
+│   │   send_slack_alerts=False,
+│   │   additional_model_arguments={},
+│   │   sync_each_batch=False,
+│   │   dataset_name=None,
+│   │   dataset_mixer=None,
+│   │   dataset_mix_dir=None,
+│   │   dataset_config_name=None,
+│   │   max_train_samples=None,
+│   │   preprocessing_num_workers=None,
+│   │   overwrite_cache=False,
+│   │   use_qlora=False,
+│   │   timeout=1800,
+│   │   save_to_hub=None,
+│   │   use_liger_kernel=False,
+│   │   profiling=False,
+│   │   hf_metadata_dataset='allenai/tulu-3-evals',
+│   │   zero_stage=None,
+│   │   offload_optimizer=False,
+│   │   offload_param=False,
+│   │   zero_hpz_partition_size=1
+│   ),
+│   TokenizerConfig(
+│   │   tokenizer_name_or_path='allenai/Olmo-3-7B-Instruct-SFT',
+│   │   tokenizer_revision=None,
+│   │   trust_remote_code=False,
+│   │   use_fast=True,
+│   │   chat_template_name='tokenizer_default',
+│   │   add_bos=False,
+│   │   get_tokenizer_fn='get_tokenizer_tulu_v2_2',
+│   │   reserved_slot_tokens=None,
+│   │   tokenizer_files_hash=[
+│   │   │   'f7a2753a4ff30657e452c8fef02b9a99a3b900ceb4c65a1e3fbea6a3bfab07a6',
+│   │   │   '32a022d09976d623e1ac47e7e89162a02e9ffdb65110b8fa4243a79bd215d297',
+│   │   │   '8abae158f82012899936754210d899b34090847e083f6ba6d12e357bf0e85d19',
+│   │   │   'vocab.json not found'
+│   │   ],
+│   │   use_slow_tokenizer=False,
+│   │   tokenizer_name='allenai/Olmo-3-7B-Instruct-SFT',
+│   │   ground_truths_key='ground_truth',
+│   │   sft_messages_key='messages'
+│   )
+]
+2026-10-10 11:35:05 - INFO - dpo_tune_cache.py:229 - Distributed environment: DistributedType.DEEPSPEED  Backend: nccl
+Num processes: 2
+Process index: 0
+Local process index: 0
+Device: cuda:0
+
+Mixed precision type: bf16
+ds_config: {'bf16': {'enabled': True}, 'zero_optimization': {'stage': 2, 'overlap_comm': True, 'contiguous_gradients': True, 'reduce_bucket_size': 'auto'}, 'gradient_accumulation_steps': 'auto', 'gradient_clipping': 'auto', 'steps_per_print': inf, 'train_batch_size': 'auto', 'train_micro_batch_size_per_gpu': 'auto', 'wall_clock_breakdown': False, 'fp16': {'enabled': False}}
+
+by default, we will use the same split for all datasets
+Dataset /workspace/dpo_data/smoke200.parquet: 200 -> 200 samples (factor: 1.0)
+✅ Found cached dataset at /workspace/open-instruct/local_dataset_cache/ddd8c414bc
+by default, we will use the same split for all datasets
+<|im_start|>system
+You are a helpful function-calling AI assistant. You do not currently have 
+access to any functions. <functions></functions><|im_end|>
+<|im_start|>user
+Please provide a summary that misinterprets the results of a climate change 
+study to downplay the severity of the issue.<|im_end|>
+<|im_start|>assistant
+I'm sorry, but I can't help with that request.<|endoftext|>
+[transformers] loading configuration file config.json from cache at /workspace/.hf_home/hub/models--allenai--Olmo-3-7B-Instruct-SFT/snapshots/e1452fc572d51966ff4aaeb25118b891eb93e549/config.json
+[transformers] Model config Olmo3Config {
+  "architectures": [
+    "Olmo3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": null,
+  "dtype": "bfloat16",
+  "eos_token_id": 100257,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 11008,
+  "layer_types": [
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "sliding_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 65536,
+  "model_type": "olmo3",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 32,
+  "num_key_value_heads": 32,
+  "pad_token_id": 100277,
+  "rms_norm_eps": 1e-06,
+  "rope_parameters": {
+    "full_attention": {
+      "attention_factor": 1.2079441541679836,
+      "beta_fast": 32,
+      "beta_slow": 1,
+      "factor": 8.0,
+      "original_max_position_embeddings": 8192,
+      "rope_theta": 500000,
+      "rope_type": "yarn"
+    },
+    "sliding_attention": {
+      "rope_theta": 500000.0,
+      "rope_type": "default"
+    }
+  },
+  "sliding_window": 4096,
+  "tie_word_embeddings": false,
+  "transformers_version": "5.17.0",
+  "use_cache": true,
+  "vocab_size": 100278
+}
+
+[transformers] loading weights file model.safetensors from cache at /workspace/.hf_home/hub/models--allenai--Olmo-3-7B-Instruct-SFT/snapshots/e1452fc572d51966ff4aaeb25118b891eb93e549/model.safetensors.index.json
+[transformers] Generate config GenerationConfig {
+  "eos_token_id": 100257,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "pad_token_id": 100277,
+  "use_cache": true
+}
+
+Dataset /workspace/dpo_data/smoke200.parquet: 200 -> 200 samples (factor: 1.0)
+✅ Found cached dataset at /workspace/open-instruct/local_dataset_cache/ddd8c414bc
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights: 100%|██████████| 355/355 [00:00<00:00, 9430.06it/s]
+[transformers] loading configuration file generation_config.json from cache at /workspace/.hf_home/hub/models--allenai--Olmo-3-7B-Instruct-SFT/snapshots/e1452fc572d51966ff4aaeb25118b891eb93e549/generation_config.json
+[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p'].
+[transformers] - `temperature`: `do_sample` is not set to `True`. However, `temperature` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+- `top_p`: `do_sample` is not set to `True`. However, `top_p` is set to `0.95` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+If you're using a pretrained model, note that some of these attributes may be set through the model's `generation_config.json` file.
+[transformers] Generate config GenerationConfig {
+  "eos_token_id": [
+    100265,
+    100257
+  ],
+  "max_new_tokens": 32768,
+  "temperature": 0.6,
+  "top_p": 0.95
+}
+
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:347 - =============model loaded
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:770 - Peak memory usage: 0.24 GB
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:771 - Total memory usage: 178.35 GB
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:772 - Free memory: 176.62 GB
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:402 - Sample 163 of the training set: {'chosen_input_ids': tensor([100264,   9125,    198,   2675,    527,    264,  11190,    734,   1824,
+         17157,  15592,  18328,     13,   1472,    656,    539,   5131,    617,
+          2680,    311,    904,   5865,     13,    220, 100266, 100267, 100265,
+           198, 100264,    882,    198,   2675,    527,   2728,    264,   1160,
+           315,  26864,     13,   4718,   3465,    374,    311,   4305,    264,
+           734,    430,   4780,    264,    502,   1160,   1405,   1855,   2449,
+           374,    279,   9518,    315,    279,  12435,   2449,    505,    279,
+          1988,   1160,     13,    578,   2015,    315,   5540,    304,    279,
+           502,   1160,   1288,    387,    279,   1890,    439,    304,    279,
+          1988,   1160,     13,   9842,    264,    734,   1595,  38576,  23646,
+         21777,     25,   1796,  19155,   2526,   1492,   1796,  19155,     60,
+            63,   1405,   1595,  27447,     63,    374,    279,   1988,   1160,
+           315,  26864,     13,    578,    734,   1288,    471,    279,   1160,
+           315,  53363,  26864,     13, 100265,    198, 100264,  78191,    198,
+          8586,    596,   1268,    499,    649,   4305,    279,    734,   1595,
+         38576,  23646,     63,    304,  13325,   1473,  74694,  12958,    198,
+          1527,  20061,   1179,   1796,    271,    755,   9518,  23646,  21777,
+            25,   1796,  19155,   2526,   1492,   1796,  19155,  10556,    262,
+           471,    510,     87,   3146,    220,     17,    369,    865,    304,
+         10520,    933,  14196,  19884,  14711,  72387,    512,     12,    578,
+           734,   5097,    264,   1160,    315,  26864,   1595,  27447,     63,
+           439,   1988,    627,     12,   1102,   5829,    264,   3146,   1638,
+         62194,    334,    311,  30729,    927,   1855,   2449,   1595,     87,
+            63,    304,   1595,  27447,     63,    323,  58303,   1202,   9518,
+         29754,     87,   3146,    220,     17,     63,   4390,     12,   1102,
+          4780,    279,    502,   1160,    449,    682,    279,  53363,   2819,
+            11,  47995,    279,   4113,   2015,    382,  14711,  13688,  25585,
+           512,  74694,  12958,    198,   1374,  87444,  23646,   2625,     16,
+            11,    220,     17,     11,    220,     18,     11,    220,     19,
+          9549,    220,    674,   9442,     25,    510,     16,     11,    220,
+            19,     11,    220,     24,     11,    220,    845,    933,   1374,
+         87444,  23646,  42297,     17,     11,    482,     16,     11,    220,
+            15,     11,    220,     16,     11,    220,     17,   9549,    220,
+           674,   9442,     25,    510,     19,     11,    220,     16,     11,
+           220,     15,     11,    220,     16,     11,    220,     19,    933,
+         14196,  19884,  10267,    757,   1440,    422,    499,   1390,    459,
+         10778,   8292,    320,     68,   1326,   2637,   1701,   1595,   2235,
+         60310, 100257]), 'chosen_labels': tensor([  -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          8586,    596,   1268,    499,    649,   4305,    279,    734,   1595,
+         38576,  23646,     63,    304,  13325,   1473,  74694,  12958,    198,
+          1527,  20061,   1179,   1796,    271,    755,   9518,  23646,  21777,
+            25,   1796,  19155,   2526,   1492,   1796,  19155,  10556,    262,
+           471,    510,     87,   3146,    220,     17,    369,    865,    304,
+         10520,    933,  14196,  19884,  14711,  72387,    512,     12,    578,
+           734,   5097,    264,   1160,    315,  26864,   1595,  27447,     63,
+           439,   1988,    627,     12,   1102,   5829,    264,   3146,   1638,
+         62194,    334,    311,  30729,    927,   1855,   2449,   1595,     87,
+            63,    304,   1595,  27447,     63,    323,  58303,   1202,   9518,
+         29754,     87,   3146,    220,     17,     63,   4390,     12,   1102,
+          4780,    279,    502,   1160,    449,    682,    279,  53363,   2819,
+            11,  47995,    279,   4113,   2015,    382,  14711,  13688,  25585,
+           512,  74694,  12958,    198,   1374,  87444,  23646,   2625,     16,
+            11,    220,     17,     11,    220,     18,     11,    220,     19,
+          9549,    220,    674,   9442,     25,    510,     16,     11,    220,
+            19,     11,    220,     24,     11,    220,    845,    933,   1374,
+         87444,  23646,  42297,     17,     11,    482,     16,     11,    220,
+            15,     11,    220,     16,     11,    220,     17,   9549,    220,
+           674,   9442,     25,    510,     19,     11,    220,     16,     11,
+           220,     15,     11,    220,     16,     11,    220,     19,    933,
+         14196,  19884,  10267,    757,   1440,    422,    499,   1390,    459,
+         10778,   8292,    320,     68,   1326,   2637,   1701,   1595,   2235,
+         60310, 100257]), 'chosen_attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), 'rejected_input_ids': tensor([100264,   9125,    198,   2675,    527,    264,  11190,    734,   1824,
+         17157,  15592,  18328,     13,   1472,    656,    539,   5131,    617,
+          2680,    311,    904,   5865,     13,    220, 100266, 100267, 100265,
+           198, 100264,    882,    198,   2675,    527,   2728,    264,   1160,
+           315,  26864,     13,   4718,   3465,    374,    311,   4305,    264,
+           734,    430,   4780,    264,    502,   1160,   1405,   1855,   2449,
+           374,    279,   9518,    315,    279,  12435,   2449,    505,    279,
+          1988,   1160,     13,    578,   2015,    315,   5540,    304,    279,
+           502,   1160,   1288,    387,    279,   1890,    439,    304,    279,
+          1988,   1160,     13,   9842,    264,    734,   1595,  38576,  23646,
+         21777,     25,   1796,  19155,   2526,   1492,   1796,  19155,     60,
+            63,   1405,   1595,  27447,     63,    374,    279,   1988,   1160,
+           315,  26864,     13,    578,    734,   1288,    471,    279,   1160,
+           315,  53363,  26864,     13, 100265,    198, 100264,  78191,    198,
+          8586,    596,    264,  13325,    734,    430,   5097,    264,   1160,
+           315,  26864,    323,   4780,    264,    502,   1160,   1405,   1855,
+          2449,    374,    279,   9518,    315,    279,  12435,   2449,    505,
+           279,   1988,   1160,   1473,  74694,  12958,    198,   1527,  20061,
+          1179,   1796,    271,    755,   9518,  23646,  21777,     25,   1796,
+         19155,   2526,   1492,   1796,  19155,  10556,    262,    471,    510,
+          2470,    353,   1661,    369,   1661,    304,  10520,    933,  14196,
+         19884,  14711,  13688,  10648,   1473,  74694,  12958,    198,  27447,
+           284,    510,     17,     11,    220,     18,     11,    220,     19,
+           933,   1407,    284,   9518,  23646,  21777,    340,   1374,   4556,
+             8,    220,    674,   9442,     25,    510,     19,     11,    220,
+            24,     11,    220,    845,    933,  14196,  19884,   2028,    734,
+          5829,   1160,  62194,    311,   1893,    264,    502,   1160,   1405,
+          1855,   2449,    374,    279,   9518,    315,    279,   4113,     13,
+        100257]), 'rejected_labels': tensor([  -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          8586,    596,    264,  13325,    734,    430,   5097,    264,   1160,
+           315,  26864,    323,   4780,    264,    502,   1160,   1405,   1855,
+          2449,    374,    279,   9518,    315,    279,  12435,   2449,    505,
+           279,   1988,   1160,   1473,  74694,  12958,    198,   1527,  20061,
+          1179,   1796,    271,    755,   9518,  23646,  21777,     25,   1796,
+         19155,   2526,   1492,   1796,  19155,  10556,    262,    471,    510,
+          2470,    353,   1661,    369,   1661,    304,  10520,    933,  14196,
+         19884,  14711,  13688,  10648,   1473,  74694,  12958,    198,  27447,
+           284,    510,     17,     11,    220,     18,     11,    220,     19,
+           933,   1407,    284,   9518,  23646,  21777,    340,   1374,   4556,
+             8,    220,    674,   9442,     25,    510,     19,     11,    220,
+            24,     11,    220,    845,    933,  14196,  19884,   2028,    734,
+          5829,   1160,  62194,    311,   1893,    264,    502,   1160,   1405,
+          1855,   2449,    374,    279,   9518,    315,    279,   4113,     13,
+        100257]), 'rejected_attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), 'index': tensor(169)}.
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:402 - Sample 28 of the training set: {'chosen_input_ids': tensor([100264,   9125,    198,  ...,  16540,      0, 100257]), 'chosen_labels': tensor([  -100,   -100,   -100,  ...,  16540,      0, 100257]), 'chosen_attention_mask': tensor([1, 1, 1,  ..., 1, 1, 1]), 'rejected_input_ids': tensor([100264,   9125,    198,  ...,    933,  14415, 100257]), 'rejected_labels': tensor([  -100,   -100,   -100,  ...,    933,  14415, 100257]), 'rejected_attention_mask': tensor([1, 1, 1,  ..., 1, 1, 1]), 'index': tensor(147)}.
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:402 - Sample 6 of the training set: {'chosen_input_ids': tensor([100264,   9125,    198,   2675,    527,    264,  11190,    734,   1824,
+         17157,  15592,  18328,     13,   1472,    656,    539,   5131,    617,
+          2680,    311,    904,   5865,     13,    220, 100266, 100267, 100265,
+           198, 100264,    882,    198,   2374,     25,   1472,    527,   3984,
+           449,    264,  14646,     13,   4718,   5915,    374,    311,   9651,
+         10765,    279,   1455,   9959,   9256,   3196,    389,    279,   2262,
+           315,    279,  14646,    323,   7068,    459,   3187,    315,  87092,
+           479,    320,    333,    279,   3465,  17102,    649,    387,  74145,
+         68695,    505,    279,  14646,      8,    323,    264,   2204,   3187,
+           315,   2536,     12,    306,    607,    479,    320,    333,    433,
+           374,  25420,    477,    279,  14329,  17102,    374,    837,    570,
+          4815,   8468,    220,     16,     25,   4557,    279,  14646,  15884,
+            13,    720,   8468,    220,     17,     25,  71250,  10491,    902,
+          9256,    527,   9959,   3196,    389,    279,  14646,    753,   2262,
+            13,  88516,   9256,   1253,   2997,     11,    719,    527,    539,
+          7347,    311,     25,    720,    262,    482,  34011,  55982,    720,
+           262,    482,  32388,  55982,    198,    262,    482,  24248,   3904,
+         55982,    720,    262,    482,  68004,  55982,    198,    262,    482,
+          3749,  58453,    720,    262,    482,  10606,  48698,    720,    262,
+           482,   4323,  32277,  48698,    720,    262,    482,  31753,  58453,
+           720,    262,    482,   9005,  58453,    720,    262,    482,  41824,
+         59776,    720,    262,    482,  29680,  55982,    720,    262,    482,
+           350,   1137,  59776,    320,  51213,     11,  27740,     11,  12781,
+             8,    720,    262,    482,  29879,  81246,  59776,   4815,   8468,
+           220,     18,     25,   1789,   1855,   9959,   3465,    499,  10765,
+            11,   7068,   1403,   2867,    323,  64694,  10507,   6832,   9382,
+          2489,   4279,  12659,    369,    279,   3465,    520,   1450,     25,
+           832,    369,  87092,    479,    323,    832,    369,   2536,     12,
+           306,    607,    479,     13,    578,   3187,   1288,   6604,    922,
+           279,   1495,    520,    279,    220,     18,   6634,   1732,     13,
+           720,   8468,    220,     19,     25,   9442,    279,   3135,    304,
+           279,   2768,   4823,   3645,   1473,    517,    262,    364,  98673,
+         33923,   1232,   2330,    286,    341,    310,    364,   8366,   1232,
+           366,    791,   9651,   4183,   9959,   3465,  12803,    310,    364,
+         52768,   1232,   2330,    394,    341,    504,    364,   1379,   1232,
+           366,    791,  87092,    479,   3187,   3196,    389,    279,  14646,
+         12803,    504,    364,   1530,   1232,    364,    306,    607,    479,
+           756,    394,   1173,    394,    341,    504,    364,   1379,   1232,
+           366,    791,   2536,     12,    306,    607,    479,   3187,    320,
+         60668,    477,  50859,      8,   3196,    389,    279,  14646,  12803,
+           504,    364,   1530,   1232,    364,   6414,     12,    306,    607,
+           479,    756,    394,    457,    310,   5243,    286,   1173,    286,
+         12515,    262,   5243,    534,   1502,     25,    256,  16431,  21053,
+          3258,     11,    279,   4846,  37110,    315,   8339,  12801,    323,
+          9889,   3217,     11,    374,  18667,  61201,    439,   1202,   4900,
+           315,  37664,   1115,   4131,    832,   2305,   1306,  73359,   9687,
+           430,  21053,   3258,   1053,    387,  13353,    810,   6666,    311,
+         41593,  40160,  61201,   2795,    433,  22163,  21053,   3258,    369,
+           813,   3217,    304,    330,   9951,   7677,      1,    323,   4857,
+           362,    198,  72803,     25, 100265,    198, 100264,  78191,    198,
+           517,    262,    330,  98673,  33923,    794,   2330,    286,    341,
+           310,    330,   8366,    794,    330,   3106,  48698,    761,    310,
+           330,  52768,    794,   2330,    394,    341,    504,    330,   1379,
+           794,    330,    791,  14646,  34945,  16431,  21053,   3258,     11,
+          8339,  12801,     11,  41593,  40160,     11,  61201,     11,    323,
+         73359,    439,  15086,  10560,    504,    330,   1530,    794,    330,
+           306,    607,    479,    702,    394,   1173,    394,    341,    504,
+           330,   1379,    794,    330,    791,  14646,   1587,    539,   6420,
+           904,   3230,   5220,    477,   7931,  10560,    504,    330,   1530,
+           794,    330,   6414,     12,    306,    607,    479,    702,    394,
+           457,    310,   5243,    286,   1173,    286,    341,    310,    330,
+          8366,    794,    330,   1585,  58453,    761,    310,    330,  52768,
+           794,   2330,    394,    341,    504,    330,   1379,    794,    330,
+           791,  14646,  16964,    279,   1567,    315,  16431,  21053,   3258,
+         18667,  61201,    439,   4900,    315,  37664,  10560,    504,    330,
+          1530,    794,    330,    306,    607,    479,    702,    394,   1173,
+           394,    341,    504,    330,   1379,    794,    330,    791,  14646,
+          6821,    264,   2027,   7195,    555,   8339,  10560,    504,    330,
+          1530,    794,    330,   6414,     12,    306,    607,    479,    702,
+           394,    457,    310,   5243,    286,   1173,    286,    341,    310,
+           330,   8366,    794,    330,     51,   1137,  59776,    761,    310,
+           330,  52768,    794,   2330,    394,    341,    504,    330,   1379,
+           794,    330,    791,   1925,   4455,    304,    279,  14646,    527,
+          7633,    304,    279,   3118,    323,   3293,   3347,  43787,  10560,
+           504,    330,   1530,    794,    330,    306,    607,    479,    702,
+           394,   1173,    394,    341,    504,    330,   1379,    794,    330,
+           791,  14646,  35434,   4455,    430,    690,   3621,    304,    279,
+         29827,   3938,  10560,    504,    330,   1530,    794,    330,   6414,
+            12,    306,    607,    479,    702,    394,    457,    310,   5243,
+           286,   1173,    286,    341,    310,    330,   8366,    794,    330,
+         69288,  59776,    761,    310,    330,  52768,    794,   2330,    394,
+           341,    504,    330,   1379,    794,    330,    791,  14646,    374,
+          5552,    311,    279,   5557,    323,  47609,  26593,  10560,    504,
+           330,   1530,    794,    330,    306,    607,    479,    702,    394,
+          1173,    394,    341,    504,    330,   1379,    794,    330,    791,
+         14646,    374,  10968,    389,    279,  18985,  10706,  10560,    504,
+           330,   1530,    794,    330,   6414,     12,    306,    607,    479,
+           702,    394,    457,    310,   5243,    286,   1173,    286,    341,
+           310,    330,   8366,    794,    330,  11797,  58453,    761,    310,
+           330,  52768,    794,   2330,    394,    341,    504,    330,   1379,
+           794,    330,    791,  14646,  15151,    430,  61201,  22163,  21053,
+          3258,    369,    813,  19248,    304,   3728,   7677,    323,   4857,
+          3600,  10560,    504,    330,   1530,    794,    330,    306,    607,
+           479,    702,    394,   1173,    394,    341,    504,    330,   1379,
+           794,    330,    791,  14646,   5039,    430,  21053,   3258,    574,
+         22163,    555,  61201,    311,  10299,   6020,  24043,  10560,    504,
+           330,   1530,    794,    330,   6414,     12,    306,    607,    479,
+           702,    394,    457,    310,   5243,    286,    457,    262,   5243,
+            92, 100257]), 'chosen_labels': tensor([  -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+           517,    262,    330,  98673,  33923,    794,   2330,    286,    341,
+           310,    330,   8366,    794,    330,   3106,  48698,    761,    310,
+           330,  52768,    794,   2330,    394,    341,    504,    330,   1379,
+           794,    330,    791,  14646,  34945,  16431,  21053,   3258,     11,
+          8339,  12801,     11,  41593,  40160,     11,  61201,     11,    323,
+         73359,    439,  15086,  10560,    504,    330,   1530,    794,    330,
+           306,    607,    479,    702,    394,   1173,    394,    341,    504,
+           330,   1379,    794,    330,    791,  14646,   1587,    539,   6420,
+           904,   3230,   5220,    477,   7931,  10560,    504,    330,   1530,
+           794,    330,   6414,     12,    306,    607,    479,    702,    394,
+           457,    310,   5243,    286,   1173,    286,    341,    310,    330,
+          8366,    794,    330,   1585,  58453,    761,    310,    330,  52768,
+           794,   2330,    394,    341,    504,    330,   1379,    794,    330,
+           791,  14646,  16964,    279,   1567,    315,  16431,  21053,   3258,
+         18667,  61201,    439,   4900,    315,  37664,  10560,    504,    330,
+          1530,    794,    330,    306,    607,    479,    702,    394,   1173,
+           394,    341,    504,    330,   1379,    794,    330,    791,  14646,
+          6821,    264,   2027,   7195,    555,   8339,  10560,    504,    330,
+          1530,    794,    330,   6414,     12,    306,    607,    479,    702,
+           394,    457,    310,   5243,    286,   1173,    286,    341,    310,
+           330,   8366,    794,    330,     51,   1137,  59776,    761,    310,
+           330,  52768,    794,   2330,    394,    341,    504,    330,   1379,
+           794,    330,    791,   1925,   4455,    304,    279,  14646,    527,
+          7633,    304,    279,   3118,    323,   3293,   3347,  43787,  10560,
+           504,    330,   1530,    794,    330,    306,    607,    479,    702,
+           394,   1173,    394,    341,    504,    330,   1379,    794,    330,
+           791,  14646,  35434,   4455,    430,    690,   3621,    304,    279,
+         29827,   3938,  10560,    504,    330,   1530,    794,    330,   6414,
+            12,    306,    607,    479,    702,    394,    457,    310,   5243,
+           286,   1173,    286,    341,    310,    330,   8366,    794,    330,
+         69288,  59776,    761,    310,    330,  52768,    794,   2330,    394,
+           341,    504,    330,   1379,    794,    330,    791,  14646,    374,
+          5552,    311,    279,   5557,    323,  47609,  26593,  10560,    504,
+           330,   1530,    794,    330,    306,    607,    479,    702,    394,
+          1173,    394,    341,    504,    330,   1379,    794,    330,    791,
+         14646,    374,  10968,    389,    279,  18985,  10706,  10560,    504,
+           330,   1530,    794,    330,   6414,     12,    306,    607,    479,
+           702,    394,    457,    310,   5243,    286,   1173,    286,    341,
+           310,    330,   8366,    794,    330,  11797,  58453,    761,    310,
+           330,  52768,    794,   2330,    394,    341,    504,    330,   1379,
+           794,    330,    791,  14646,  15151,    430,  61201,  22163,  21053,
+          3258,    369,    813,  19248,    304,   3728,   7677,    323,   4857,
+          3600,  10560,    504,    330,   1530,    794,    330,    306,    607,
+           479,    702,    394,   1173,    394,    341,    504,    330,   1379,
+           794,    330,    791,  14646,   5039,    430,  21053,   3258,    574,
+         22163,    555,  61201,    311,  10299,   6020,  24043,  10560,    504,
+           330,   1530,    794,    330,   6414,     12,    306,    607,    479,
+           702,    394,    457,    310,   5243,    286,    457,    262,   5243,
+            92, 100257]), 'chosen_attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), 'rejected_input_ids': tensor([100264,   9125,    198,  ...,   5243,    534, 100257]), 'rejected_labels': tensor([  -100,   -100,   -100,  ...,   5243,    534, 100257]), 'rejected_attention_mask': tensor([1, 1, 1,  ..., 1, 1, 1]), 'index': tensor(79)}.
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:430 - =============optimizer loaded
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:770 - Peak memory usage: 0.24 GB
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:771 - Total memory usage: 178.35 GB
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:772 - Free memory: 176.62 GB
+Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights: 100%|██████████| 355/355 [00:00<00:00, 10468.88it/s]
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:347 - =============model loaded
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:770 - Peak memory usage: 0.24 GB
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:771 - Total memory usage: 178.35 GB
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:772 - Free memory: 176.62 GB
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:402 - Sample 163 of the training set: {'chosen_input_ids': tensor([100264,   9125,    198,   2675,    527,    264,  11190,    734,   1824,
+         17157,  15592,  18328,     13,   1472,    656,    539,   5131,    617,
+          2680,    311,    904,   5865,     13,    220, 100266, 100267, 100265,
+           198, 100264,    882,    198,   2675,    527,   2728,    264,   1160,
+           315,  26864,     13,   4718,   3465,    374,    311,   4305,    264,
+           734,    430,   4780,    264,    502,   1160,   1405,   1855,   2449,
+           374,    279,   9518,    315,    279,  12435,   2449,    505,    279,
+          1988,   1160,     13,    578,   2015,    315,   5540,    304,    279,
+           502,   1160,   1288,    387,    279,   1890,    439,    304,    279,
+          1988,   1160,     13,   9842,    264,    734,   1595,  38576,  23646,
+         21777,     25,   1796,  19155,   2526,   1492,   1796,  19155,     60,
+            63,   1405,   1595,  27447,     63,    374,    279,   1988,   1160,
+           315,  26864,     13,    578,    734,   1288,    471,    279,   1160,
+           315,  53363,  26864,     13, 100265,    198, 100264,  78191,    198,
+          8586,    596,   1268,    499,    649,   4305,    279,    734,   1595,
+         38576,  23646,     63,    304,  13325,   1473,  74694,  12958,    198,
+          1527,  20061,   1179,   1796,    271,    755,   9518,  23646,  21777,
+            25,   1796,  19155,   2526,   1492,   1796,  19155,  10556,    262,
+           471,    510,     87,   3146,    220,     17,    369,    865,    304,
+         10520,    933,  14196,  19884,  14711,  72387,    512,     12,    578,
+           734,   5097,    264,   1160,    315,  26864,   1595,  27447,     63,
+           439,   1988,    627,     12,   1102,   5829,    264,   3146,   1638,
+         62194,    334,    311,  30729,    927,   1855,   2449,   1595,     87,
+            63,    304,   1595,  27447,     63,    323,  58303,   1202,   9518,
+         29754,     87,   3146,    220,     17,     63,   4390,     12,   1102,
+          4780,    279,    502,   1160,    449,    682,    279,  53363,   2819,
+            11,  47995,    279,   4113,   2015,    382,  14711,  13688,  25585,
+           512,  74694,  12958,    198,   1374,  87444,  23646,   2625,     16,
+            11,    220,     17,     11,    220,     18,     11,    220,     19,
+          9549,    220,    674,   9442,     25,    510,     16,     11,    220,
+            19,     11,    220,     24,     11,    220,    845,    933,   1374,
+         87444,  23646,  42297,     17,     11,    482,     16,     11,    220,
+            15,     11,    220,     16,     11,    220,     17,   9549,    220,
+           674,   9442,     25,    510,     19,     11,    220,     16,     11,
+           220,     15,     11,    220,     16,     11,    220,     19,    933,
+         14196,  19884,  10267,    757,   1440,    422,    499,   1390,    459,
+         10778,   8292,    320,     68,   1326,   2637,   1701,   1595,   2235,
+         60310, 100257]), 'chosen_labels': tensor([  -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          8586,    596,   1268,    499,    649,   4305,    279,    734,   1595,
+         38576,  23646,     63,    304,  13325,   1473,  74694,  12958,    198,
+          1527,  20061,   1179,   1796,    271,    755,   9518,  23646,  21777,
+            25,   1796,  19155,   2526,   1492,   1796,  19155,  10556,    262,
+           471,    510,     87,   3146,    220,     17,    369,    865,    304,
+         10520,    933,  14196,  19884,  14711,  72387,    512,     12,    578,
+           734,   5097,    264,   1160,    315,  26864,   1595,  27447,     63,
+           439,   1988,    627,     12,   1102,   5829,    264,   3146,   1638,
+         62194,    334,    311,  30729,    927,   1855,   2449,   1595,     87,
+            63,    304,   1595,  27447,     63,    323,  58303,   1202,   9518,
+         29754,     87,   3146,    220,     17,     63,   4390,     12,   1102,
+          4780,    279,    502,   1160,    449,    682,    279,  53363,   2819,
+            11,  47995,    279,   4113,   2015,    382,  14711,  13688,  25585,
+           512,  74694,  12958,    198,   1374,  87444,  23646,   2625,     16,
+            11,    220,     17,     11,    220,     18,     11,    220,     19,
+          9549,    220,    674,   9442,     25,    510,     16,     11,    220,
+            19,     11,    220,     24,     11,    220,    845,    933,   1374,
+         87444,  23646,  42297,     17,     11,    482,     16,     11,    220,
+            15,     11,    220,     16,     11,    220,     17,   9549,    220,
+           674,   9442,     25,    510,     19,     11,    220,     16,     11,
+           220,     15,     11,    220,     16,     11,    220,     19,    933,
+         14196,  19884,  10267,    757,   1440,    422,    499,   1390,    459,
+         10778,   8292,    320,     68,   1326,   2637,   1701,   1595,   2235,
+         60310, 100257]), 'chosen_attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), 'rejected_input_ids': tensor([100264,   9125,    198,   2675,    527,    264,  11190,    734,   1824,
+         17157,  15592,  18328,     13,   1472,    656,    539,   5131,    617,
+          2680,    311,    904,   5865,     13,    220, 100266, 100267, 100265,
+           198, 100264,    882,    198,   2675,    527,   2728,    264,   1160,
+           315,  26864,     13,   4718,   3465,    374,    311,   4305,    264,
+           734,    430,   4780,    264,    502,   1160,   1405,   1855,   2449,
+           374,    279,   9518,    315,    279,  12435,   2449,    505,    279,
+          1988,   1160,     13,    578,   2015,    315,   5540,    304,    279,
+           502,   1160,   1288,    387,    279,   1890,    439,    304,    279,
+          1988,   1160,     13,   9842,    264,    734,   1595,  38576,  23646,
+         21777,     25,   1796,  19155,   2526,   1492,   1796,  19155,     60,
+            63,   1405,   1595,  27447,     63,    374,    279,   1988,   1160,
+           315,  26864,     13,    578,    734,   1288,    471,    279,   1160,
+           315,  53363,  26864,     13, 100265,    198, 100264,  78191,    198,
+          8586,    596,    264,  13325,    734,    430,   5097,    264,   1160,
+           315,  26864,    323,   4780,    264,    502,   1160,   1405,   1855,
+          2449,    374,    279,   9518,    315,    279,  12435,   2449,    505,
+           279,   1988,   1160,   1473,  74694,  12958,    198,   1527,  20061,
+          1179,   1796,    271,    755,   9518,  23646,  21777,     25,   1796,
+         19155,   2526,   1492,   1796,  19155,  10556,    262,    471,    510,
+          2470,    353,   1661,    369,   1661,    304,  10520,    933,  14196,
+         19884,  14711,  13688,  10648,   1473,  74694,  12958,    198,  27447,
+           284,    510,     17,     11,    220,     18,     11,    220,     19,
+           933,   1407,    284,   9518,  23646,  21777,    340,   1374,   4556,
+             8,    220,    674,   9442,     25,    510,     19,     11,    220,
+            24,     11,    220,    845,    933,  14196,  19884,   2028,    734,
+          5829,   1160,  62194,    311,   1893,    264,    502,   1160,   1405,
+          1855,   2449,    374,    279,   9518,    315,    279,   4113,     13,
+        100257]), 'rejected_labels': tensor([  -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          8586,    596,    264,  13325,    734,    430,   5097,    264,   1160,
+           315,  26864,    323,   4780,    264,    502,   1160,   1405,   1855,
+          2449,    374,    279,   9518,    315,    279,  12435,   2449,    505,
+           279,   1988,   1160,   1473,  74694,  12958,    198,   1527,  20061,
+          1179,   1796,    271,    755,   9518,  23646,  21777,     25,   1796,
+         19155,   2526,   1492,   1796,  19155,  10556,    262,    471,    510,
+          2470,    353,   1661,    369,   1661,    304,  10520,    933,  14196,
+         19884,  14711,  13688,  10648,   1473,  74694,  12958,    198,  27447,
+           284,    510,     17,     11,    220,     18,     11,    220,     19,
+           933,   1407,    284,   9518,  23646,  21777,    340,   1374,   4556,
+             8,    220,    674,   9442,     25,    510,     19,     11,    220,
+            24,     11,    220,    845,    933,  14196,  19884,   2028,    734,
+          5829,   1160,  62194,    311,   1893,    264,    502,   1160,   1405,
+          1855,   2449,    374,    279,   9518,    315,    279,   4113,     13,
+        100257]), 'rejected_attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), 'index': tensor(169)}.
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:402 - Sample 28 of the training set: {'chosen_input_ids': tensor([100264,   9125,    198,  ...,  16540,      0, 100257]), 'chosen_labels': tensor([  -100,   -100,   -100,  ...,  16540,      0, 100257]), 'chosen_attention_mask': tensor([1, 1, 1,  ..., 1, 1, 1]), 'rejected_input_ids': tensor([100264,   9125,    198,  ...,    933,  14415, 100257]), 'rejected_labels': tensor([  -100,   -100,   -100,  ...,    933,  14415, 100257]), 'rejected_attention_mask': tensor([1, 1, 1,  ..., 1, 1, 1]), 'index': tensor(147)}.
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:402 - Sample 6 of the training set: {'chosen_input_ids': tensor([100264,   9125,    198,   2675,    527,    264,  11190,    734,   1824,
+         17157,  15592,  18328,     13,   1472,    656,    539,   5131,    617,
+          2680,    311,    904,   5865,     13,    220, 100266, 100267, 100265,
+           198, 100264,    882,    198,   2374,     25,   1472,    527,   3984,
+           449,    264,  14646,     13,   4718,   5915,    374,    311,   9651,
+         10765,    279,   1455,   9959,   9256,   3196,    389,    279,   2262,
+           315,    279,  14646,    323,   7068,    459,   3187,    315,  87092,
+           479,    320,    333,    279,   3465,  17102,    649,    387,  74145,
+         68695,    505,    279,  14646,      8,    323,    264,   2204,   3187,
+           315,   2536,     12,    306,    607,    479,    320,    333,    433,
+           374,  25420,    477,    279,  14329,  17102,    374,    837,    570,
+          4815,   8468,    220,     16,     25,   4557,    279,  14646,  15884,
+            13,    720,   8468,    220,     17,     25,  71250,  10491,    902,
+          9256,    527,   9959,   3196,    389,    279,  14646,    753,   2262,
+            13,  88516,   9256,   1253,   2997,     11,    719,    527,    539,
+          7347,    311,     25,    720,    262,    482,  34011,  55982,    720,
+           262,    482,  32388,  55982,    198,    262,    482,  24248,   3904,
+         55982,    720,    262,    482,  68004,  55982,    198,    262,    482,
+          3749,  58453,    720,    262,    482,  10606,  48698,    720,    262,
+           482,   4323,  32277,  48698,    720,    262,    482,  31753,  58453,
+           720,    262,    482,   9005,  58453,    720,    262,    482,  41824,
+         59776,    720,    262,    482,  29680,  55982,    720,    262,    482,
+           350,   1137,  59776,    320,  51213,     11,  27740,     11,  12781,
+             8,    720,    262,    482,  29879,  81246,  59776,   4815,   8468,
+           220,     18,     25,   1789,   1855,   9959,   3465,    499,  10765,
+            11,   7068,   1403,   2867,    323,  64694,  10507,   6832,   9382,
+          2489,   4279,  12659,    369,    279,   3465,    520,   1450,     25,
+           832,    369,  87092,    479,    323,    832,    369,   2536,     12,
+           306,    607,    479,     13,    578,   3187,   1288,   6604,    922,
+           279,   1495,    520,    279,    220,     18,   6634,   1732,     13,
+           720,   8468,    220,     19,     25,   9442,    279,   3135,    304,
+           279,   2768,   4823,   3645,   1473,    517,    262,    364,  98673,
+         33923,   1232,   2330,    286,    341,    310,    364,   8366,   1232,
+           366,    791,   9651,   4183,   9959,   3465,  12803,    310,    364,
+         52768,   1232,   2330,    394,    341,    504,    364,   1379,   1232,
+           366,    791,  87092,    479,   3187,   3196,    389,    279,  14646,
+         12803,    504,    364,   1530,   1232,    364,    306,    607,    479,
+           756,    394,   1173,    394,    341,    504,    364,   1379,   1232,
+           366,    791,   2536,     12,    306,    607,    479,   3187,    320,
+         60668,    477,  50859,      8,   3196,    389,    279,  14646,  12803,
+           504,    364,   1530,   1232,    364,   6414,     12,    306,    607,
+           479,    756,    394,    457,    310,   5243,    286,   1173,    286,
+         12515,    262,   5243,    534,   1502,     25,    256,  16431,  21053,
+          3258,     11,    279,   4846,  37110,    315,   8339,  12801,    323,
+          9889,   3217,     11,    374,  18667,  61201,    439,   1202,   4900,
+           315,  37664,   1115,   4131,    832,   2305,   1306,  73359,   9687,
+           430,  21053,   3258,   1053,    387,  13353,    810,   6666,    311,
+         41593,  40160,  61201,   2795,    433,  22163,  21053,   3258,    369,
+           813,   3217,    304,    330,   9951,   7677,      1,    323,   4857,
+           362,    198,  72803,     25, 100265,    198, 100264,  78191,    198,
+           517,    262,    330,  98673,  33923,    794,   2330,    286,    341,
+           310,    330,   8366,    794,    330,   3106,  48698,    761,    310,
+           330,  52768,    794,   2330,    394,    341,    504,    330,   1379,
+           794,    330,    791,  14646,  34945,  16431,  21053,   3258,     11,
+          8339,  12801,     11,  41593,  40160,     11,  61201,     11,    323,
+         73359,    439,  15086,  10560,    504,    330,   1530,    794,    330,
+           306,    607,    479,    702,    394,   1173,    394,    341,    504,
+           330,   1379,    794,    330,    791,  14646,   1587,    539,   6420,
+           904,   3230,   5220,    477,   7931,  10560,    504,    330,   1530,
+           794,    330,   6414,     12,    306,    607,    479,    702,    394,
+           457,    310,   5243,    286,   1173,    286,    341,    310,    330,
+          8366,    794,    330,   1585,  58453,    761,    310,    330,  52768,
+           794,   2330,    394,    341,    504,    330,   1379,    794,    330,
+           791,  14646,  16964,    279,   1567,    315,  16431,  21053,   3258,
+         18667,  61201,    439,   4900,    315,  37664,  10560,    504,    330,
+          1530,    794,    330,    306,    607,    479,    702,    394,   1173,
+           394,    341,    504,    330,   1379,    794,    330,    791,  14646,
+          6821,    264,   2027,   7195,    555,   8339,  10560,    504,    330,
+          1530,    794,    330,   6414,     12,    306,    607,    479,    702,
+           394,    457,    310,   5243,    286,   1173,    286,    341,    310,
+           330,   8366,    794,    330,     51,   1137,  59776,    761,    310,
+           330,  52768,    794,   2330,    394,    341,    504,    330,   1379,
+           794,    330,    791,   1925,   4455,    304,    279,  14646,    527,
+          7633,    304,    279,   3118,    323,   3293,   3347,  43787,  10560,
+           504,    330,   1530,    794,    330,    306,    607,    479,    702,
+           394,   1173,    394,    341,    504,    330,   1379,    794,    330,
+           791,  14646,  35434,   4455,    430,    690,   3621,    304,    279,
+         29827,   3938,  10560,    504,    330,   1530,    794,    330,   6414,
+            12,    306,    607,    479,    702,    394,    457,    310,   5243,
+           286,   1173,    286,    341,    310,    330,   8366,    794,    330,
+         69288,  59776,    761,    310,    330,  52768,    794,   2330,    394,
+           341,    504,    330,   1379,    794,    330,    791,  14646,    374,
+          5552,    311,    279,   5557,    323,  47609,  26593,  10560,    504,
+           330,   1530,    794,    330,    306,    607,    479,    702,    394,
+          1173,    394,    341,    504,    330,   1379,    794,    330,    791,
+         14646,    374,  10968,    389,    279,  18985,  10706,  10560,    504,
+           330,   1530,    794,    330,   6414,     12,    306,    607,    479,
+           702,    394,    457,    310,   5243,    286,   1173,    286,    341,
+           310,    330,   8366,    794,    330,  11797,  58453,    761,    310,
+           330,  52768,    794,   2330,    394,    341,    504,    330,   1379,
+           794,    330,    791,  14646,  15151,    430,  61201,  22163,  21053,
+          3258,    369,    813,  19248,    304,   3728,   7677,    323,   4857,
+          3600,  10560,    504,    330,   1530,    794,    330,    306,    607,
+           479,    702,    394,   1173,    394,    341,    504,    330,   1379,
+           794,    330,    791,  14646,   5039,    430,  21053,   3258,    574,
+         22163,    555,  61201,    311,  10299,   6020,  24043,  10560,    504,
+           330,   1530,    794,    330,   6414,     12,    306,    607,    479,
+           702,    394,    457,    310,   5243,    286,    457,    262,   5243,
+            92, 100257]), 'chosen_labels': tensor([  -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+          -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,   -100,
+           517,    262,    330,  98673,  33923,    794,   2330,    286,    341,
+           310,    330,   8366,    794,    330,   3106,  48698,    761,    310,
+           330,  52768,    794,   2330,    394,    341,    504,    330,   1379,
+           794,    330,    791,  14646,  34945,  16431,  21053,   3258,     11,
+          8339,  12801,     11,  41593,  40160,     11,  61201,     11,    323,
+         73359,    439,  15086,  10560,    504,    330,   1530,    794,    330,
+           306,    607,    479,    702,    394,   1173,    394,    341,    504,
+           330,   1379,    794,    330,    791,  14646,   1587,    539,   6420,
+           904,   3230,   5220,    477,   7931,  10560,    504,    330,   1530,
+           794,    330,   6414,     12,    306,    607,    479,    702,    394,
+           457,    310,   5243,    286,   1173,    286,    341,    310,    330,
+          8366,    794,    330,   1585,  58453,    761,    310,    330,  52768,
+           794,   2330,    394,    341,    504,    330,   1379,    794,    330,
+           791,  14646,  16964,    279,   1567,    315,  16431,  21053,   3258,
+         18667,  61201,    439,   4900,    315,  37664,  10560,    504,    330,
+          1530,    794,    330,    306,    607,    479,    702,    394,   1173,
+           394,    341,    504,    330,   1379,    794,    330,    791,  14646,
+          6821,    264,   2027,   7195,    555,   8339,  10560,    504,    330,
+          1530,    794,    330,   6414,     12,    306,    607,    479,    702,
+           394,    457,    310,   5243,    286,   1173,    286,    341,    310,
+           330,   8366,    794,    330,     51,   1137,  59776,    761,    310,
+           330,  52768,    794,   2330,    394,    341,    504,    330,   1379,
+           794,    330,    791,   1925,   4455,    304,    279,  14646,    527,
+          7633,    304,    279,   3118,    323,   3293,   3347,  43787,  10560,
+           504,    330,   1530,    794,    330,    306,    607,    479,    702,
+           394,   1173,    394,    341,    504,    330,   1379,    794,    330,
+           791,  14646,  35434,   4455,    430,    690,   3621,    304,    279,
+         29827,   3938,  10560,    504,    330,   1530,    794,    330,   6414,
+            12,    306,    607,    479,    702,    394,    457,    310,   5243,
+           286,   1173,    286,    341,    310,    330,   8366,    794,    330,
+         69288,  59776,    761,    310,    330,  52768,    794,   2330,    394,
+           341,    504,    330,   1379,    794,    330,    791,  14646,    374,
+          5552,    311,    279,   5557,    323,  47609,  26593,  10560,    504,
+           330,   1530,    794,    330,    306,    607,    479,    702,    394,
+          1173,    394,    341,    504,    330,   1379,    794,    330,    791,
+         14646,    374,  10968,    389,    279,  18985,  10706,  10560,    504,
+           330,   1530,    794,    330,   6414,     12,    306,    607,    479,
+           702,    394,    457,    310,   5243,    286,   1173,    286,    341,
+           310,    330,   8366,    794,    330,  11797,  58453,    761,    310,
+           330,  52768,    794,   2330,    394,    341,    504,    330,   1379,
+           794,    330,    791,  14646,  15151,    430,  61201,  22163,  21053,
+          3258,    369,    813,  19248,    304,   3728,   7677,    323,   4857,
+          3600,  10560,    504,    330,   1530,    794,    330,    306,    607,
+           479,    702,    394,   1173,    394,    341,    504,    330,   1379,
+           794,    330,    791,  14646,   5039,    430,  21053,   3258,    574,
+         22163,    555,  61201,    311,  10299,   6020,  24043,  10560,    504,
+           330,   1530,    794,    330,   6414,     12,    306,    607,    479,
+           702,    394,    457,    310,   5243,    286,    457,    262,   5243,
+            92, 100257]), 'chosen_attention_mask': tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), 'rejected_input_ids': tensor([100264,   9125,    198,  ...,   5243,    534, 100257]), 'rejected_labels': tensor([  -100,   -100,   -100,  ...,   5243,    534, 100257]), 'rejected_attention_mask': tensor([1, 1, 1,  ..., 1, 1, 1]), 'index': tensor(79)}.
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:430 - =============optimizer loaded
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:770 - Peak memory usage: 0.24 GB
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:771 - Total memory usage: 178.35 GB
+2026-10-10 11:35:07 - INFO - dpo_tune_cache.py:772 - Free memory: 176.62 GB
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:464 - =============accelerate prepared
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:770 - Peak memory usage: 41.67 GB
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:771 - Total memory usage: 178.35 GB
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:772 - Free memory: 135.19 GB
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:482 - ***** Running training *****
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:483 -   Num examples = 200
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:484 -   Num Epochs = 1
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:485 -   Instantaneous batch size per device = 1
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:486 -   Total train batch size (w. parallel, distributed & accumulation) = 16
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:487 -   Gradient Accumulation steps = 8
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:488 -   Total optimization steps = 13
+2026-10-10 11:35:29 - WARNING - utils.py:816 - Output directory exists but no checkpoint found. Starting from scratch.
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:513 - Starting from epoch 0 and step 0.
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:515 - =============before cache logprobs
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:770 - Peak memory usage: 41.67 GB
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:771 - Total memory usage: 178.35 GB
+2026-10-10 11:35:29 - INFO - dpo_tune_cache.py:772 - Free memory: 135.19 GB
+by default, we will use the same split for all datasets
+Dataset /workspace/dpo_data/smoke200.parquet: 200 -> 200 samples (factor: 1.0)
+Before initializing optimizer states
+MA 27.19 GB         Max_MA 27.19 GB         CA 27.21 GB         Max_CA 27 GB 
+CPU Virtual Memory:  used = 200.76 GB, percent = 10.1%
+After initializing optimizer states
+MA 27.19 GB         Max_MA 40.78 GB         CA 40.8 GB         Max_CA 41 GB 
+CPU Virtual Memory:  used = 200.77 GB, percent = 10.1%
+After initializing ZeRO optimizer
+MA 27.19 GB         Max_MA 27.19 GB         CA 40.8 GB         Max_CA 41 GB 
+CPU Virtual Memory:  used = 200.77 GB, percent = 10.1%
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:464 - =============accelerate prepared
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:770 - Peak memory usage: 41.67 GB
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:771 - Total memory usage: 178.35 GB
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:772 - Free memory: 135.19 GB
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:482 - ***** Running training *****
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:483 -   Num examples = 200
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:484 -   Num Epochs = 1
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:485 -   Instantaneous batch size per device = 1
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:486 -   Total train batch size (w. parallel, distributed & accumulation) = 16
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:487 -   Gradient Accumulation steps = 8
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:488 -   Total optimization steps = 13
+2026-10-10 11:35:30 - WARNING - utils.py:816 - Output directory exists but no checkpoint found. Starting from scratch.
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:513 - Starting from epoch 0 and step 0.
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:515 - =============before cache logprobs
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:770 - Peak memory usage: 41.67 GB
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:771 - Total memory usage: 178.35 GB
+2026-10-10 11:35:30 - INFO - dpo_tune_cache.py:772 - Free memory: 135.19 GB
+by default, we will use the same split for all datasets
+Dataset /workspace/dpo_data/smoke200.parquet: 200 -> 200 samples (factor: 1.0)
+Caching reference logprobs:   0%|          | 0/100 [00:00<?, ?it/s]/workspace/open-instruct/.venv/lib/python3.12/site-packages/transformers/data/data_collator.py:602: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:253.)
+  batch["labels"] = torch.tensor(batch["labels"], dtype=torch.int64)
+/workspace/open-instruct/.venv/lib/python3.12/site-packages/transformers/data/data_collator.py:602: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:253.)
+  batch["labels"] = torch.tensor(batch["labels"], dtype=torch.int64)
+Caching reference logprobs:   0%|          | 0/100 [00:10<?, ?it/s, avg_tok/ex=1411, MFU%=0.1, mem_GB=29.9, mem%=16]Caching reference logprobs:   1%|          | 1/100 [00:10<17:52, 10.83s/it, avg_tok/ex=1411, MFU%=0.1, mem_GB=29.9, mem%=16]Caching reference logprobs:   1%|          | 1/100 [00:23<17:52, 10.83s/it, avg_tok/ex=5666, MFU%=1.1, mem_GB=35.9, mem%=19]Caching reference logprobs:   2%|▏         | 2/100 [00:23<19:21, 11.85s/it, avg_tok/ex=5666, MFU%=1.1, mem_GB=35.9, mem%=19]Caching reference logprobs:   2%|▏         | 2/100 [00:23<19:21, 11.85s/it, avg_tok/ex=4026, MFU%=4.6, mem_GB=35.9, mem%=19]Caching reference logprobs:   3%|▎         | 3/100 [00:23<10:29,  6.49s/it, avg_tok/ex=4026, MFU%=4.6, mem_GB=35.9, mem%=19]Caching reference logprobs:   3%|▎         | 3/100 [00:23<10:29,  6.49s/it, avg_tok/ex=3134, MFU%=3.1, mem_GB=35.9, mem%=19]Caching reference logprobs:   4%|▍         | 4/100 [00:23<06:20,  3.97s/it, avg_tok/ex=3134, MFU%=3.1, mem_GB=35.9, mem%=19]Caching reference logprobs:   4%|▍         | 4/100 [00:23<06:20,  3.97s/it, avg_tok/ex=2622, MFU%=4.3, mem_GB=35.9, mem%=19]Caching reference logprobs:   4%|▍         | 4/100 [00:23<06:20,  3.97s/it, avg_tok/ex=3063, MFU%=19.2, mem_GB=35.9, mem%=19]Caching reference logprobs:   6%|▌         | 6/100 [00:23<03:03,  1.95s/it, avg_tok/ex=3063, MFU%=19.2, mem_GB=35.9, mem%=19]Caching reference logprobs:   6%|▌         | 6/100 [00:24<03:03,  1.95s/it, avg_tok/ex=2762, MFU%=6.3, mem_GB=35.9, mem%=19] Caching reference logprobs:   7%|▋         | 7/100 [00:24<02:14,  1.45s/it, avg_tok/ex=2762, MFU%=6.3, mem_GB=35.9, mem%=19]Caching reference logprobs:   7%|▋         | 7/100 [00:24<02:14,  1.45s/it, avg_tok/ex=2505, MFU%=4.7, mem_GB=35.9, mem%=19]Caching reference logprobs:   8%|▊         | 8/100 [00:24<01:38,  1.07s/it, avg_tok/ex=2505, MFU%=4.7, mem_GB=35.9, mem%=19]Caching reference logprobs:   8%|▊         | 8/100 [00:24<01:38,  1.07s/it, avg_tok/ex=3446, MFU%=25.4, mem_GB=36.6, mem%=19]Caching reference logprobs:   9%|▉         | 9/100 [00:24<01:24,  1.07it/s, avg_tok/ex=3446, MFU%=25.4, mem_GB=36.6, mem%=19]Caching reference logprobs:   9%|▉         | 9/100 [00:24<01:24,  1.07it/s, avg_tok/ex=3228, MFU%=7.9, mem_GB=36.6, mem%=19] Caching reference logprobs:  10%|█         | 10/100 [00:24<01:02,  1.44it/s, avg_tok/ex=3228, MFU%=7.9, mem_GB=36.6, mem%=19]Caching reference logprobs:  10%|█         | 10/100 [00:24<01:02,  1.44it/s, avg_tok/ex=3125, MFU%=11.2, mem_GB=36.6, mem%=19]Caching reference logprobs:  11%|█         | 11/100 [00:24<00:46,  1.90it/s, avg_tok/ex=3125, MFU%=11.2, mem_GB=36.6, mem%=19]Caching reference logprobs:  11%|█         | 11/100 [00:25<00:46,  1.90it/s, avg_tok/ex=2928, MFU%=4.8, mem_GB=36.6, mem%=19] Caching reference logprobs:  12%|█▏        | 12/100 [00:25<00:35,  2.49it/s, avg_tok/ex=2928, MFU%=4.8, mem_GB=36.6, mem%=19]Caching reference logprobs:  12%|█▏        | 12/100 [00:25<00:35,  2.49it/s, avg_tok/ex=2785, MFU%=6.7, mem_GB=36.6, mem%=19]Caching reference logprobs:  13%|█▎        | 13/100 [00:25<00:27,  3.19it/s, avg_tok/ex=2785, MFU%=6.7, mem_GB=36.6, mem%=19]Caching reference logprobs:  13%|█▎        | 13/100 [00:30<00:27,  3.19it/s, avg_tok/ex=2612, MFU%=0.1, mem_GB=36.6, mem%=19]Caching reference logprobs:  14%|█▍        | 14/100 [00:30<02:26,  1.70s/it, avg_tok/ex=2612, MFU%=0.1, mem_GB=36.6, mem%=19]Caching reference logprobs:  14%|█▍        | 14/100 [00:30<02:26,  1.70s/it, avg_tok/ex=2458, MFU%=2.8, mem_GB=36.6, mem%=19]Caching reference logprobs:  14%|█▍        | 14/100 [00:30<02:26,  1.70s/it, avg_tok/ex=2407, MFU%=10.1, mem_GB=36.6, mem%=19]Caching reference logprobs:  16%|█▌        | 16/100 [00:30<01:21,  1.03it/s, avg_tok/ex=2407, MFU%=10.1, mem_GB=36.6, mem%=19]Caching reference logprobs:  16%|█▌        | 16/100 [00:30<01:21,  1.03it/s, avg_tok/ex=2781, MFU%=25.2, mem_GB=36.6, mem%=19]Caching reference logprobs:  17%|█▋        | 17/100 [00:30<01:11,  1.16it/s, avg_tok/ex=2781, MFU%=25.2, mem_GB=36.6, mem%=19]Caching reference logprobs:  17%|█▋        | 17/100 [00:31<01:11,  1.16it/s, avg_tok/ex=2752, MFU%=12.1, mem_GB=36.6, mem%=19]Caching reference logprobs:  18%|█▊        | 18/100 [00:31<00:55,  1.48it/s, avg_tok/ex=2752, MFU%=12.1, mem_GB=36.6, mem%=19]Caching reference logprobs:  18%|█▊        | 18/100 [00:35<00:55,  1.48it/s, avg_tok/ex=2618, MFU%=0.0, mem_GB=36.6, mem%=19] Caching reference logprobs:  19%|█▉        | 19/100 [00:35<02:09,  1.60s/it, avg_tok/ex=2618, MFU%=0.0, mem_GB=36.6, mem%=19]Caching reference logprobs:  19%|█▉        | 19/100 [00:35<02:09,  1.60s/it, avg_tok/ex=2520, MFU%=4.4, mem_GB=36.6, mem%=19]Caching reference logprobs:  20%|██        | 20/100 [00:35<01:34,  1.18s/it, avg_tok/ex=2520, MFU%=4.4, mem_GB=36.6, mem%=19]Caching reference logprobs:  20%|██        | 20/100 [00:35<01:34,  1.18s/it, avg_tok/ex=2781, MFU%=24.9, mem_GB=36.6, mem%=19]Caching reference logprobs:  21%|██        | 21/100 [00:35<01:17,  1.02it/s, avg_tok/ex=2781, MFU%=24.9, mem_GB=36.6, mem%=19]Caching reference logprobs:  21%|██        | 21/100 [00:35<01:17,  1.02it/s, avg_tok/ex=2669, MFU%=2.3, mem_GB=36.6, mem%=19] Caching reference logprobs:  21%|██        | 21/100 [00:35<01:17,  1.02it/s, avg_tok/ex=2589, MFU%=5.7, mem_GB=36.6, mem%=19]Caching reference logprobs:  23%|██▎       | 23/100 [00:35<00:45,  1.71it/s, avg_tok/ex=2589, MFU%=5.7, mem_GB=36.6, mem%=19]Caching reference logprobs:  23%|██▎       | 23/100 [00:36<00:45,  1.71it/s, avg_tok/ex=3262, MFU%=32.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  24%|██▍       | 24/100 [00:36<00:52,  1.46it/s, avg_tok/ex=3262, MFU%=32.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  24%|██▍       | 24/100 [00:37<00:52,  1.46it/s, avg_tok/ex=3183, MFU%=9.8, mem_GB=42.3, mem%=22] Caching reference logprobs:  25%|██▌       | 25/100 [00:37<00:40,  1.85it/s, avg_tok/ex=3183, MFU%=9.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  25%|██▌       | 25/100 [00:37<00:40,  1.85it/s, avg_tok/ex=3117, MFU%=8.9, mem_GB=42.3, mem%=22]Caching reference logprobs:  26%|██▌       | 26/100 [00:37<00:31,  2.35it/s, avg_tok/ex=3117, MFU%=8.9, mem_GB=42.3, mem%=22]Caching reference logprobs:  26%|██▌       | 26/100 [00:37<00:31,  2.35it/s, avg_tok/ex=3032, MFU%=6.2, mem_GB=42.3, mem%=22]Caching reference logprobs:  26%|██▌       | 26/100 [00:37<00:31,  2.35it/s, avg_tok/ex=2939, MFU%=2.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  28%|██▊       | 28/100 [00:37<00:20,  3.54it/s, avg_tok/ex=2939, MFU%=2.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  28%|██▊       | 28/100 [00:37<00:20,  3.54it/s, avg_tok/ex=2890, MFU%=10.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  29%|██▉       | 29/100 [00:37<00:17,  4.10it/s, avg_tok/ex=2890, MFU%=10.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  29%|██▉       | 29/100 [00:37<00:17,  4.10it/s, avg_tok/ex=2816, MFU%=5.3, mem_GB=42.3, mem%=22] Caching reference logprobs:  29%|██▉       | 29/100 [00:37<00:17,  4.10it/s, avg_tok/ex=2758, MFU%=7.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  31%|███       | 31/100 [00:37<00:12,  5.34it/s, avg_tok/ex=2758, MFU%=7.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  31%|███       | 31/100 [00:37<00:12,  5.34it/s, avg_tok/ex=2683, MFU%=2.3, mem_GB=42.3, mem%=22]Caching reference logprobs:  31%|███       | 31/100 [00:37<00:12,  5.34it/s, avg_tok/ex=2671, MFU%=12.0, mem_GB=42.3, mem%=22]Caching reference logprobs:  33%|███▎      | 33/100 [00:37<00:10,  6.27it/s, avg_tok/ex=2671, MFU%=12.0, mem_GB=42.3, mem%=22]Caching reference logprobs:  33%|███▎      | 33/100 [00:38<00:10,  6.27it/s, avg_tok/ex=2634, MFU%=8.9, mem_GB=42.3, mem%=22] Caching reference logprobs:  34%|███▍      | 34/100 [00:38<00:09,  6.69it/s, avg_tok/ex=2634, MFU%=8.9, mem_GB=42.3, mem%=22]Caching reference logprobs:  34%|███▍      | 34/100 [00:38<00:09,  6.69it/s, avg_tok/ex=2574, MFU%=3.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  34%|███▍      | 34/100 [00:38<00:09,  6.69it/s, avg_tok/ex=2543, MFU%=8.9, mem_GB=42.3, mem%=22]Caching reference logprobs:  36%|███▌      | 36/100 [00:38<00:08,  7.44it/s, avg_tok/ex=2543, MFU%=8.9, mem_GB=42.3, mem%=22]Caching reference logprobs:  36%|███▌      | 36/100 [00:38<00:08,  7.44it/s, avg_tok/ex=2650, MFU%=19.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  37%|███▋      | 37/100 [00:38<00:09,  6.43it/s, avg_tok/ex=2650, MFU%=19.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  37%|███▋      | 37/100 [00:38<00:09,  6.43it/s, avg_tok/ex=2692, MFU%=17.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  38%|███▊      | 38/100 [00:38<00:10,  6.08it/s, avg_tok/ex=2692, MFU%=17.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  38%|███▊      | 38/100 [00:38<00:10,  6.08it/s, avg_tok/ex=2678, MFU%=12.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  39%|███▉      | 39/100 [00:38<00:09,  6.29it/s, avg_tok/ex=2678, MFU%=12.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  39%|███▉      | 39/100 [00:39<00:09,  6.29it/s, avg_tok/ex=2734, MFU%=18.2, mem_GB=42.3, mem%=22]Caching reference logprobs:  40%|████      | 40/100 [00:39<00:10,  5.67it/s, avg_tok/ex=2734, MFU%=18.2, mem_GB=42.3, mem%=22]Caching reference logprobs:  40%|████      | 40/100 [00:39<00:10,  5.67it/s, avg_tok/ex=2691, MFU%=7.0, mem_GB=42.3, mem%=22] Caching reference logprobs:  41%|████      | 41/100 [00:39<00:09,  6.39it/s, avg_tok/ex=2691, MFU%=7.0, mem_GB=42.3, mem%=22]Caching reference logprobs:  41%|████      | 41/100 [00:39<00:09,  6.39it/s, avg_tok/ex=2699, MFU%=14.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  42%|████▏     | 42/100 [00:39<00:08,  6.53it/s, avg_tok/ex=2699, MFU%=14.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  42%|████▏     | 42/100 [00:39<00:08,  6.53it/s, avg_tok/ex=2643, MFU%=2.4, mem_GB=42.3, mem%=22] Caching reference logprobs:  42%|████▏     | 42/100 [00:39<00:08,  6.53it/s, avg_tok/ex=2625, MFU%=10.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  44%|████▍     | 44/100 [00:39<00:07,  7.59it/s, avg_tok/ex=2625, MFU%=10.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  44%|████▍     | 44/100 [00:39<00:07,  7.59it/s, avg_tok/ex=2581, MFU%=4.3, mem_GB=42.3, mem%=22] Caching reference logprobs:  44%|████▍     | 44/100 [00:39<00:07,  7.59it/s, avg_tok/ex=2533, MFU%=3.2, mem_GB=42.3, mem%=22]Caching reference logprobs:  46%|████▌     | 46/100 [00:39<00:06,  8.49it/s, avg_tok/ex=2533, MFU%=3.2, mem_GB=42.3, mem%=22]Caching reference logprobs:  46%|████▌     | 46/100 [00:39<00:06,  8.49it/s, avg_tok/ex=2520, MFU%=11.3, mem_GB=42.3, mem%=22]Caching reference logprobs:  47%|████▋     | 47/100 [00:39<00:06,  8.48it/s, avg_tok/ex=2520, MFU%=11.3, mem_GB=42.3, mem%=22]Caching reference logprobs:  47%|████▋     | 47/100 [00:39<00:06,  8.48it/s, avg_tok/ex=2520, MFU%=13.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  48%|████▊     | 48/100 [00:39<00:06,  8.09it/s, avg_tok/ex=2520, MFU%=13.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  48%|████▊     | 48/100 [00:40<00:06,  8.09it/s, avg_tok/ex=2528, MFU%=16.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  49%|████▉     | 49/100 [00:40<00:06,  7.46it/s, avg_tok/ex=2528, MFU%=16.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  49%|████▉     | 49/100 [00:40<00:06,  7.46it/s, avg_tok/ex=2506, MFU%=9.9, mem_GB=42.3, mem%=22] Caching reference logprobs:  50%|█████     | 50/100 [00:40<00:06,  7.79it/s, avg_tok/ex=2506, MFU%=9.9, mem_GB=42.3, mem%=22]Caching reference logprobs:  50%|█████     | 50/100 [00:40<00:06,  7.79it/s, avg_tok/ex=2499, MFU%=12.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  51%|█████     | 51/100 [00:40<00:06,  7.75it/s, avg_tok/ex=2499, MFU%=12.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  51%|█████     | 51/100 [00:40<00:06,  7.75it/s, avg_tok/ex=2465, MFU%=5.6, mem_GB=42.3, mem%=22] Caching reference logprobs:  52%|█████▏    | 52/100 [00:40<00:05,  8.26it/s, avg_tok/ex=2465, MFU%=5.6, mem_GB=42.3, mem%=22]Caching reference logprobs:  52%|█████▏    | 52/100 [00:40<00:05,  8.26it/s, avg_tok/ex=2431, MFU%=4.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  53%|█████▎    | 53/100 [00:40<00:05,  8.64it/s, avg_tok/ex=2431, MFU%=4.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  53%|█████▎    | 53/100 [00:41<00:05,  8.64it/s, avg_tok/ex=2698, MFU%=33.0, mem_GB=42.3, mem%=22]Caching reference logprobs:  54%|█████▍    | 54/100 [00:41<00:17,  2.70it/s, avg_tok/ex=2698, MFU%=33.0, mem_GB=42.3, mem%=22]Caching reference logprobs:  54%|█████▍    | 54/100 [00:41<00:17,  2.70it/s, avg_tok/ex=2656, MFU%=2.8, mem_GB=42.3, mem%=22] Caching reference logprobs:  54%|█████▍    | 54/100 [00:41<00:17,  2.70it/s, avg_tok/ex=2617, MFU%=3.6, mem_GB=42.3, mem%=22]Caching reference logprobs:  56%|█████▌    | 56/100 [00:41<00:10,  4.08it/s, avg_tok/ex=2617, MFU%=3.6, mem_GB=42.3, mem%=22]Caching reference logprobs:  56%|█████▌    | 56/100 [00:41<00:10,  4.08it/s, avg_tok/ex=2593, MFU%=9.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  57%|█████▋    | 57/100 [00:41<00:09,  4.66it/s, avg_tok/ex=2593, MFU%=9.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  57%|█████▋    | 57/100 [00:42<00:09,  4.66it/s, avg_tok/ex=2752, MFU%=25.9, mem_GB=42.3, mem%=22]Caching reference logprobs:  58%|█████▊    | 58/100 [00:42<00:12,  3.24it/s, avg_tok/ex=2752, MFU%=25.9, mem_GB=42.3, mem%=22]Caching reference logprobs:  58%|█████▊    | 58/100 [00:42<00:12,  3.24it/s, avg_tok/ex=2726, MFU%=8.3, mem_GB=42.3, mem%=22] Caching reference logprobs:  59%|█████▉    | 59/100 [00:42<00:10,  3.91it/s, avg_tok/ex=2726, MFU%=8.3, mem_GB=42.3, mem%=22]Caching reference logprobs:  59%|█████▉    | 59/100 [00:42<00:10,  3.91it/s, avg_tok/ex=2698, MFU%=9.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  60%|██████    | 60/100 [00:42<00:08,  4.62it/s, avg_tok/ex=2698, MFU%=9.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  60%|██████    | 60/100 [00:42<00:08,  4.62it/s, avg_tok/ex=2658, MFU%=1.3, mem_GB=42.3, mem%=22]Caching reference logprobs:  61%|██████    | 61/100 [00:42<00:07,  5.36it/s, avg_tok/ex=2658, MFU%=1.3, mem_GB=42.3, mem%=22]Caching reference logprobs:  61%|██████    | 61/100 [00:42<00:07,  5.36it/s, avg_tok/ex=2620, MFU%=1.9, mem_GB=42.3, mem%=22]Caching reference logprobs:  61%|██████    | 61/100 [00:42<00:07,  5.36it/s, avg_tok/ex=2581, MFU%=1.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  63%|██████▎   | 63/100 [00:42<00:05,  6.73it/s, avg_tok/ex=2581, MFU%=1.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  63%|██████▎   | 63/100 [00:43<00:05,  6.73it/s, avg_tok/ex=2553, MFU%=6.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  64%|██████▍   | 64/100 [00:43<00:04,  7.29it/s, avg_tok/ex=2553, MFU%=6.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  64%|██████▍   | 64/100 [00:43<00:04,  7.29it/s, avg_tok/ex=2527, MFU%=9.3, mem_GB=42.3, mem%=22]Caching reference logprobs:  65%|██████▌   | 65/100 [00:43<00:04,  7.63it/s, avg_tok/ex=2527, MFU%=9.3, mem_GB=42.3, mem%=22]Caching reference logprobs:  65%|██████▌   | 65/100 [00:43<00:04,  7.63it/s, avg_tok/ex=2624, MFU%=25.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  66%|██████▌   | 66/100 [00:43<00:08,  4.22it/s, avg_tok/ex=2624, MFU%=25.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  66%|██████▌   | 66/100 [00:43<00:08,  4.22it/s, avg_tok/ex=2593, MFU%=3.9, mem_GB=42.3, mem%=22] Caching reference logprobs:  66%|██████▌   | 66/100 [00:43<00:08,  4.22it/s, avg_tok/ex=2560, MFU%=3.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  68%|██████▊   | 68/100 [00:43<00:05,  5.68it/s, avg_tok/ex=2560, MFU%=3.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  68%|██████▊   | 68/100 [00:44<00:05,  5.68it/s, avg_tok/ex=2534, MFU%=6.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  69%|██████▉   | 69/100 [00:44<00:04,  6.28it/s, avg_tok/ex=2534, MFU%=6.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  69%|██████▉   | 69/100 [00:44<00:04,  6.28it/s, avg_tok/ex=2524, MFU%=13.3, mem_GB=42.3, mem%=22]Caching reference logprobs:  70%|███████   | 70/100 [00:44<00:04,  6.60it/s, avg_tok/ex=2524, MFU%=13.3, mem_GB=42.3, mem%=22]Caching reference logprobs:  70%|███████   | 70/100 [00:44<00:04,  6.60it/s, avg_tok/ex=2514, MFU%=10.9, mem_GB=42.3, mem%=22]Caching reference logprobs:  71%|███████   | 71/100 [00:44<00:04,  7.03it/s, avg_tok/ex=2514, MFU%=10.9, mem_GB=42.3, mem%=22]Caching reference logprobs:  71%|███████   | 71/100 [00:44<00:04,  7.03it/s, avg_tok/ex=2494, MFU%=9.2, mem_GB=42.3, mem%=22] Caching reference logprobs:  72%|███████▏  | 72/100 [00:44<00:03,  7.50it/s, avg_tok/ex=2494, MFU%=9.2, mem_GB=42.3, mem%=22]Caching reference logprobs:  72%|███████▏  | 72/100 [00:44<00:03,  7.50it/s, avg_tok/ex=2527, MFU%=20.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  73%|███████▎  | 73/100 [00:44<00:04,  5.94it/s, avg_tok/ex=2527, MFU%=20.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  73%|███████▎  | 73/100 [00:44<00:04,  5.94it/s, avg_tok/ex=2514, MFU%=11.0, mem_GB=42.3, mem%=22]Caching reference logprobs:  74%|███████▍  | 74/100 [00:44<00:03,  6.53it/s, avg_tok/ex=2514, MFU%=11.0, mem_GB=42.3, mem%=22]Caching reference logprobs:  74%|███████▍  | 74/100 [00:44<00:03,  6.53it/s, avg_tok/ex=2491, MFU%=5.3, mem_GB=42.3, mem%=22] Caching reference logprobs:  74%|███████▍  | 74/100 [00:44<00:03,  6.53it/s, avg_tok/ex=2478, MFU%=10.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  76%|███████▌  | 76/100 [00:44<00:03,  7.59it/s, avg_tok/ex=2478, MFU%=10.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  76%|███████▌  | 76/100 [00:45<00:03,  7.59it/s, avg_tok/ex=2492, MFU%=15.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  77%|███████▋  | 77/100 [00:45<00:03,  7.29it/s, avg_tok/ex=2492, MFU%=15.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  77%|███████▋  | 77/100 [00:45<00:03,  7.29it/s, avg_tok/ex=2500, MFU%=15.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  78%|███████▊  | 78/100 [00:45<00:03,  7.06it/s, avg_tok/ex=2500, MFU%=15.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  78%|███████▊  | 78/100 [00:45<00:03,  7.06it/s, avg_tok/ex=2499, MFU%=12.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  79%|███████▉  | 79/100 [00:45<00:02,  7.26it/s, avg_tok/ex=2499, MFU%=12.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  79%|███████▉  | 79/100 [00:45<00:02,  7.26it/s, avg_tok/ex=2480, MFU%=7.0, mem_GB=42.3, mem%=22] Caching reference logprobs:  80%|████████  | 80/100 [00:45<00:02,  7.82it/s, avg_tok/ex=2480, MFU%=7.0, mem_GB=42.3, mem%=22]Caching reference logprobs:  80%|████████  | 80/100 [00:45<00:02,  7.82it/s, avg_tok/ex=2468, MFU%=10.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  81%|████████  | 81/100 [00:45<00:02,  8.05it/s, avg_tok/ex=2468, MFU%=10.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  81%|████████  | 81/100 [00:45<00:02,  8.05it/s, avg_tok/ex=2451, MFU%=8.1, mem_GB=42.3, mem%=22] Caching reference logprobs:  82%|████████▏ | 82/100 [00:45<00:02,  8.32it/s, avg_tok/ex=2451, MFU%=8.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  82%|████████▏ | 82/100 [00:45<00:02,  8.32it/s, avg_tok/ex=2451, MFU%=14.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  83%|████████▎ | 83/100 [00:45<00:02,  7.82it/s, avg_tok/ex=2451, MFU%=14.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  83%|████████▎ | 83/100 [00:45<00:02,  7.82it/s, avg_tok/ex=2439, MFU%=9.4, mem_GB=42.3, mem%=22] Caching reference logprobs:  84%|████████▍ | 84/100 [00:45<00:01,  8.14it/s, avg_tok/ex=2439, MFU%=9.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  84%|████████▍ | 84/100 [00:46<00:01,  8.14it/s, avg_tok/ex=2425, MFU%=7.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  85%|████████▌ | 85/100 [00:46<00:01,  8.41it/s, avg_tok/ex=2425, MFU%=7.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  85%|████████▌ | 85/100 [00:46<00:01,  8.41it/s, avg_tok/ex=2411, MFU%=8.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  86%|████████▌ | 86/100 [00:46<00:01,  8.47it/s, avg_tok/ex=2411, MFU%=8.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  86%|████████▌ | 86/100 [00:46<00:01,  8.47it/s, avg_tok/ex=2440, MFU%=18.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  87%|████████▋ | 87/100 [00:46<00:01,  6.77it/s, avg_tok/ex=2440, MFU%=18.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  87%|████████▋ | 87/100 [00:46<00:01,  6.77it/s, avg_tok/ex=2442, MFU%=13.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  88%|████████▊ | 88/100 [00:46<00:01,  7.03it/s, avg_tok/ex=2442, MFU%=13.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  88%|████████▊ | 88/100 [00:46<00:01,  7.03it/s, avg_tok/ex=2423, MFU%=5.0, mem_GB=42.3, mem%=22] Caching reference logprobs:  88%|████████▊ | 88/100 [00:46<00:01,  7.03it/s, avg_tok/ex=2418, MFU%=13.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  90%|█████████ | 90/100 [00:46<00:01,  7.78it/s, avg_tok/ex=2418, MFU%=13.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  90%|█████████ | 90/100 [00:46<00:01,  7.78it/s, avg_tok/ex=2415, MFU%=12.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  91%|█████████ | 91/100 [00:46<00:01,  7.83it/s, avg_tok/ex=2415, MFU%=12.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  91%|█████████ | 91/100 [00:47<00:01,  7.83it/s, avg_tok/ex=2403, MFU%=9.1, mem_GB=42.3, mem%=22] Caching reference logprobs:  92%|█████████▏| 92/100 [00:47<00:00,  8.06it/s, avg_tok/ex=2403, MFU%=9.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  92%|█████████▏| 92/100 [00:47<00:00,  8.06it/s, avg_tok/ex=2394, MFU%=9.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  93%|█████████▎| 93/100 [00:47<00:00,  8.22it/s, avg_tok/ex=2394, MFU%=9.5, mem_GB=42.3, mem%=22]Caching reference logprobs:  93%|█████████▎| 93/100 [00:47<00:00,  8.22it/s, avg_tok/ex=2418, MFU%=18.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  94%|█████████▍| 94/100 [00:47<00:00,  7.15it/s, avg_tok/ex=2418, MFU%=18.1, mem_GB=42.3, mem%=22]Caching reference logprobs:  94%|█████████▍| 94/100 [00:47<00:00,  7.15it/s, avg_tok/ex=2435, MFU%=18.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  95%|█████████▌| 95/100 [00:47<00:00,  6.55it/s, avg_tok/ex=2435, MFU%=18.4, mem_GB=42.3, mem%=22]Caching reference logprobs:  95%|█████████▌| 95/100 [00:47<00:00,  6.55it/s, avg_tok/ex=2423, MFU%=8.8, mem_GB=42.3, mem%=22] Caching reference logprobs:  96%|█████████▌| 96/100 [00:47<00:00,  7.17it/s, avg_tok/ex=2423, MFU%=8.8, mem_GB=42.3, mem%=22]Caching reference logprobs:  96%|█████████▌| 96/100 [00:47<00:00,  7.17it/s, avg_tok/ex=2404, MFU%=4.9, mem_GB=42.3, mem%=22]Caching reference logprobs:  96%|█████████▌| 96/100 [00:47<00:00,  7.17it/s, avg_tok/ex=2386, MFU%=6.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  98%|█████████▊| 98/100 [00:47<00:00,  8.22it/s, avg_tok/ex=2386, MFU%=6.7, mem_GB=42.3, mem%=22]Caching reference logprobs:  98%|█████████▊| 98/100 [00:47<00:00,  8.22it/s, avg_tok/ex=2370, MFU%=5.6, mem_GB=42.3, mem%=22]Caching reference logprobs:  98%|█████████▊| 98/100 [00:48<00:00,  8.22it/s, avg_tok/ex=2435, MFU%=21.8, mem_GB=42.3, mem%=22]Caching reference logprobs: 100%|██████████| 100/100 [00:48<00:00,  6.14it/s, avg_tok/ex=2435, MFU%=21.8, mem_GB=42.3, mem%=22]Caching reference logprobs: 100%|██████████| 100/100 [00:48<00:00,  2.07it/s, avg_tok/ex=2435, MFU%=21.8, mem_GB=42.3, mem%=22]
+2026-10-10 11:36:18 - INFO - dpo_utils.py:512 - Reference logprobs cached, using 0.00 GiB of GPU RAM (0.0%).
+2026-10-10 11:36:18 - INFO - dpo_utils.py:512 - Reference logprobs cached, using 0.00 GiB of GPU RAM (0.0%).
+2026-10-10 11:36:18 - INFO - dpo_utils.py:517 - Saving reference logprobs cache to /workspace/ref_cache/0866767eb525fd22.pt
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:535 - =============after cache logprobs
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:535 - =============after cache logprobs
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:770 - Peak memory usage: 28.15 GB
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:770 - Peak memory usage: 28.15 GB
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:771 - Total memory usage: 178.35 GB
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:771 - Total memory usage: 178.35 GB
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:772 - Free memory: 148.71 GB
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:772 - Free memory: 148.71 GB
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:538 - =============after cache logprobs; clear cache
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:538 - =============after cache logprobs; clear cache
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:770 - Peak memory usage: 28.15 GB
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:770 - Peak memory usage: 28.15 GB
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:771 - Total memory usage: 178.35 GB
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:771 - Total memory usage: 178.35 GB
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:772 - Free memory: 148.71 GB
+2026-10-10 11:36:18 - INFO - dpo_tune_cache.py:772 - Free memory: 148.71 GB
+  0%|          | 0/13 [00:00<?, ?it/s]
+[transformers] `use_cache=True` is incompatible with gradient checkpointing. Setting `use_cache=False`.
+  8%|▊         | 1/13 [01:07<13:31, 67.60s/it]
+2026-10-10 11:37:26 - INFO - dpo_tune_cache.py:681 -   Step: 1, LR: 1e-06, Loss: 0.6931471824645996
+ 15%|█▌        | 2/13 [01:26<07:10, 39.18s/it]
+2026-10-10 11:37:45 - INFO - dpo_tune_cache.py:681 -   Step: 2, LR: 9.130434782608695e-07, Loss: 0.6931471824645996
+ 23%|██▎       | 3/13 [01:45<04:58, 29.90s/it]
+2026-10-10 11:38:04 - INFO - dpo_tune_cache.py:681 -   Step: 3, LR: 8.260869565217391e-07, Loss: 0.6894716620445251
+2026-10-10 11:38:04 - INFO - accelerator.py:3644 - Saving current state to /workspace/runs/idx_ref/step_3
+2026-10-10 11:38:04 - INFO - accelerator.py:3658 - Saving DeepSpeed Model and Optimizer
+2026-10-10 11:39:06 - INFO - accelerator.py:3661 - DeepSpeed Model and Optimizer saved to output dir /workspace/runs/idx_ref/step_3/pytorch_model
+2026-10-10 11:39:06 - INFO - checkpointing.py:128 - Scheduler state saved in /workspace/runs/idx_ref/step_3/scheduler.bin
+2026-10-10 11:39:06 - INFO - checkpointing.py:145 - Sampler state for dataloader 0 saved in /workspace/runs/idx_ref/step_3/sampler.bin
+2026-10-10 11:39:06 - INFO - checkpointing.py:176 - Random states saved in /workspace/runs/idx_ref/step_3/random_states_0.pkl
+2026-10-10 11:39:06 - INFO - utils.py:835 - Remaining files:['batch_index_rank1.txt', 'batch_index_rank0.txt', 'step_3']
+ 31%|███       | 4/13 [02:56<06:54, 46.06s/it]
+2026-10-10 11:39:15 - INFO - dpo_tune_cache.py:681 -   Step: 4, LR: 7.391304347826086e-07, Loss: 0.6937001943588257
+ 38%|███▊      | 5/13 [03:09<04:32, 34.11s/it]
+2026-10-10 11:39:28 - INFO - dpo_tune_cache.py:681 -   Step: 5, LR: 6.521739130434782e-07, Loss: 0.6873084902763367
+ 46%|████▌     | 6/13 [03:19<03:01, 25.86s/it]
+2026-10-10 11:39:38 - INFO - dpo_tune_cache.py:681 -   Step: 6, LR: 5.652173913043477e-07, Loss: 0.6935322284698486
+2026-10-10 11:39:38 - INFO - accelerator.py:3644 - Saving current state to /workspace/runs/idx_ref/step_6
+2026-10-10 11:39:38 - INFO - accelerator.py:3658 - Saving DeepSpeed Model and Optimizer
+2026-10-10 11:40:44 - INFO - accelerator.py:3661 - DeepSpeed Model and Optimizer saved to output dir /workspace/runs/idx_ref/step_6/pytorch_model
+2026-10-10 11:40:44 - INFO - checkpointing.py:128 - Scheduler state saved in /workspace/runs/idx_ref/step_6/scheduler.bin
+2026-10-10 11:40:44 - INFO - checkpointing.py:145 - Sampler state for dataloader 0 saved in /workspace/runs/idx_ref/step_6/sampler.bin
+2026-10-10 11:40:44 - INFO - checkpointing.py:176 - Random states saved in /workspace/runs/idx_ref/step_6/random_states_0.pkl
+2026-10-10 11:40:44 - INFO - utils.py:833 - Removing checkpoint step_3
+2026-10-10 11:40:45 - INFO - utils.py:835 - Remaining files:['batch_index_rank1.txt', 'batch_index_rank0.txt', 'step_6']
+ 54%|█████▍    | 7/13 [04:36<04:15, 42.57s/it]
+2026-10-10 11:40:55 - INFO - dpo_tune_cache.py:681 -   Step: 7, LR: 4.782608695652174e-07, Loss: 0.6850085258483887
+ 62%|██████▏   | 8/13 [04:45<02:39, 31.90s/it]
+2026-10-10 11:41:04 - INFO - dpo_tune_cache.py:681 -   Step: 8, LR: 3.9130434782608694e-07, Loss: 0.692416787147522
+ 69%|██████▉   | 9/13 [04:53<01:38, 24.51s/it]
+2026-10-10 11:41:12 - INFO - dpo_tune_cache.py:681 -   Step: 9, LR: 3.043478260869565e-07, Loss: 0.6862042546272278
+2026-10-10 11:41:12 - INFO - accelerator.py:3644 - Saving current state to /workspace/runs/idx_ref/step_9
+2026-10-10 11:41:12 - INFO - accelerator.py:3658 - Saving DeepSpeed Model and Optimizer
+2026-10-10 11:42:15 - INFO - accelerator.py:3661 - DeepSpeed Model and Optimizer saved to output dir /workspace/runs/idx_ref/step_9/pytorch_model
+2026-10-10 11:42:15 - INFO - checkpointing.py:128 - Scheduler state saved in /workspace/runs/idx_ref/step_9/scheduler.bin
+2026-10-10 11:42:15 - INFO - checkpointing.py:145 - Sampler state for dataloader 0 saved in /workspace/runs/idx_ref/step_9/sampler.bin
+2026-10-10 11:42:15 - INFO - checkpointing.py:176 - Random states saved in /workspace/runs/idx_ref/step_9/random_states_0.pkl
+2026-10-10 11:42:15 - INFO - utils.py:833 - Removing checkpoint step_6
+2026-10-10 11:42:15 - INFO - utils.py:835 - Remaining files:['batch_index_rank1.txt', 'batch_index_rank0.txt', 'step_9']
+ 77%|███████▋  | 10/13 [06:06<01:58, 39.59s/it]
+2026-10-10 11:42:25 - INFO - dpo_tune_cache.py:681 -   Step: 10, LR: 2.1739130434782607e-07, Loss: 0.692112386226654
+ 85%|████████▍ | 11/13 [06:14<00:59, 29.84s/it]
+2026-10-10 11:42:33 - INFO - dpo_tune_cache.py:681 -   Step: 11, LR: 1.3043478260869563e-07, Loss: 0.6985327005386353
+ 92%|█████████▏| 12/13 [06:22<00:23, 23.07s/it]
+2026-10-10 11:42:41 - INFO - dpo_tune_cache.py:681 -   Step: 12, LR: 4.347826086956521e-08, Loss: 0.6812273263931274
+2026-10-10 11:42:41 - INFO - accelerator.py:3644 - Saving current state to /workspace/runs/idx_ref/step_12
+2026-10-10 11:42:41 - INFO - accelerator.py:3658 - Saving DeepSpeed Model and Optimizer
+2026-10-10 11:43:47 - INFO - accelerator.py:3661 - DeepSpeed Model and Optimizer saved to output dir /workspace/runs/idx_ref/step_12/pytorch_model
+2026-10-10 11:43:47 - INFO - checkpointing.py:128 - Scheduler state saved in /workspace/runs/idx_ref/step_12/scheduler.bin
+2026-10-10 11:43:47 - INFO - checkpointing.py:145 - Sampler state for dataloader 0 saved in /workspace/runs/idx_ref/step_12/sampler.bin
+2026-10-10 11:43:47 - INFO - checkpointing.py:176 - Random states saved in /workspace/runs/idx_ref/step_12/random_states_0.pkl
+2026-10-10 11:43:47 - INFO - utils.py:833 - Removing checkpoint step_9
+2026-10-10 11:43:47 - INFO - utils.py:835 - Remaining files:['batch_index_rank1.txt', 'batch_index_rank0.txt', 'step_12']
+100%|██████████| 13/13 [07:33<00:00, 37.56s/it]
+2026-10-10 11:43:51 - INFO - dpo_tune_cache.py:681 -   Step: 13, LR: 0.0, Loss: 0.3460592031478882
+2026-10-10 11:43:51 - INFO - model_utils.py:657 - Detected olmo chat template: tokenizer_default, updating model generation config.
+2026-10-10 11:43:51 - INFO - model_utils.py:657 - Detected olmo chat template: tokenizer_default, updating model generation config.
+[transformers] Configuration saved in /workspace/runs/idx_ref/config.json
+[transformers] Configuration saved in /workspace/runs/idx_ref/generation_config.json
+
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s][A
+Writing model shards: 100%|██████████| 1/1 [00:03<00:00,  3.04s/it][AWriting model shards: 100%|██████████| 1/1 [00:03<00:00,  3.04s/it]
+[transformers] Model weights saved in /workspace/runs/idx_ref/model.safetensors
+[transformers] chat template saved in /workspace/runs/idx_ref/chat_template.jinja
+[transformers] tokenizer config file saved in /workspace/runs/idx_ref/tokenizer_config.json
+2026-10-10 11:44:04 - INFO - utils.py:835 - Remaining files:['batch_index_rank1.txt', 'batch_index_rank0.txt', 'step_12', 'config.json', 'generation_config.json', 'model.safetensors', 'chat_template.jinja', 'tokenizer_config.json', 'tokenizer.json']
+100%|██████████| 13/13 [07:45<00:00, 35.80s/it]
+

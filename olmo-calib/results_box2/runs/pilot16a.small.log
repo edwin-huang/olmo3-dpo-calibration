@@ -1,0 +1,2 @@
+pilot16a: 16384 pairs, 1 GPUs x 1 x accum 128 = batch 128, 128 steps, LR 4e-6, snapshot every 128, full state every 1000000000, ZeRO-1, concat True
+pilot16a SMALL DONE

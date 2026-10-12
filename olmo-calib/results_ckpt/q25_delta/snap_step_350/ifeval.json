@@ -1,0 +1,11 @@
+{
+ "n": 541,
+ "prompt_strict": 0.7615526802218114,
+ "inst_strict": 0.8333333333333334,
+ "unknown_instruction_ids": [],
+ "_meta": {
+  "ckpt": "/workspace/runs/q25_delta/snap_step_350",
+  "size": "fast",
+  "seconds": 43
+ }
+}

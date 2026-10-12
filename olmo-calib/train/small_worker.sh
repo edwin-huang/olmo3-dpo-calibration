@@ -7,6 +7,7 @@ WS=/workspace
 Q=$WS/small_queue.txt
 touch $Q
 while [ ! -f $WS/small_STOP ]; do
+  if [ -f $WS/small_PAUSE ]; then sleep 60; continue; fi   # e.g. while inference analyses use the GPUs
   line=$(flock $Q.lock bash -c "head -1 $Q; sed -i 1d $Q")
   if [ -z "$line" ]; then sleep 60; continue; fi
   echo "$(date -u +%H:%M) GPU $GPU start: $line"

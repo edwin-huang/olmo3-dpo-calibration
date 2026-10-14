@@ -68,3 +68,13 @@ Every change to a number in the write-up ("Why DPO Makes Olmo 3 Overconfident") 
 | Main | Related, what's new | data-level account | adds "with the key contrasts replicated in a pre-registered three-seed test" | same | same |
 | Log | new §12 | — | nine-condition table (T* per seed, chat T*, learned, tokens, BBH) + prediction/threshold/outcome table | same | same |
 | Log | Code index | — | row "Pre-registered replication" | same | — |
+
+## 2026-10-14 — charts replaced; rounding fix
+
+| Doc | Where | Old | New | Reason | Source |
+|---|---|---|---|---|---|
+| Main | Why | agreement-share scatter (17 single runs, corr .78) + bullet "What the chart's correlation rests on" | removed; replaced by a dot chart of the 27-run replication (seeds as dots) | Superseded by the matched three-seed contrast | results_ckpt/small/wy_* |
+| Main | Fix | calibration–learning frontier chart; "fixes learn more than any plain-DPO run (35.5%, 40.3%, 43.5% vs 28.8%)" | removed; T* values kept; "learn more" claim dropped | Learned favors the fixes by construction; at LR 4e-6 weighting learns about the same as plain (16.2% vs 17.7%) | why_tests/WHY_RESULTS.md §2 |
+| Main | Fix, 25% scale | "learning difference … smaller than in the small tests (… 35.5% vs 28.8% there)" | "learning difference (30.4% vs 27.4%) is within noise" | Depends on the removed frontier | — |
+| Main | Why replication table | T* column per test | outcome column only (T* now in the chart) | Show each number once | — |
+| Main, Log, WHY_RESULTS | high-agreement mean T* | 2.27 | 2.26 | Mean of 2.279, 2.257, 2.258 is 2.2647; 2.27 came from rounding a printed 2.265 again | wy_hi_s*/summary.json |

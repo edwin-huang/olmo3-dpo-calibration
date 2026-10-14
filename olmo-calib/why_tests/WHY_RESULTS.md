@@ -84,7 +84,7 @@ tau 1 (first-step loss 0.25 = analytic).
 
 | Condition | T* (s1 / s2 / s3) | Mean | ECE | Chat T* | Learned (mean, range) | Agreed kept | Tokens | BBH |
 |---|---|---|---|---|---|---|---|---|
-| DPO, high agreement | 2.28 / 2.26 / 2.26 | 2.27 | .187 | 4.11 | 22.9 (22.6-23.1) | .986 | 404 | .471 |
+| DPO, high agreement | 2.28 / 2.26 / 2.26 | 2.26 | .187 | 4.11 | 22.9 (22.6-23.1) | .986 | 404 | .471 |
 | DPO, low agreement | 1.46 / 1.45 / 1.47 | 1.46 | .093 | 1.78 | 19.3 (18.5-19.9) | .975 | 405 | .485 |
 | DPO, easy subset | 1.96 / 2.00 / 1.99 | 1.98 | .164 | 3.18 | 29.2 (28.2-29.8) | .979 | 448 | .477 |
 | IPO, high agreement | 1.71 / 1.67 / 1.71 | 1.70 | .130 | 2.34 | 11.9 (11.8-12.1) | .993 | 373 | .457 |
@@ -100,7 +100,7 @@ Accuracy .613-.619 and AUROC .765-.774 in every run.
   learning-rate frontier for s8_a (fix wave: 28.8% learned at T* 2.40), the easy set (29.2% at 1.98) is less
   overconfident per unit of learning, not more. The sub-prediction (> 85% agreed) failed before training (77.3%).
   Different pairs from s8_a, so subset noise (about 0.2 T*) applies; responses 11% longer.
-- **Prediction 5: CONFIRMED.** IPO lowers T* on the high-agreement set (1.70 vs DPO's 2.27) and IPO-high stays above
+- **Prediction 5: CONFIRMED.** IPO lowers T* on the high-agreement set (1.70 vs DPO's 2.26) and IPO-high stays above
   IPO-low in every seed (gaps 0.22 / 0.23 / 0.22; mean 0.23, needed 0.15). Caveat: IPO learns about half as much as
   DPO (12-14%), and here the low-agreement set learns slightly more than the high one, so the residual gap is not a
   learning artifact. Capping margins removes about 70% of the agreement effect; the rest remains.
@@ -114,6 +114,6 @@ Accuracy .613-.619 and AUROC .765-.774 in every run.
 | 3a. SimPO below plain DPO's trade-off | Confirmed (-0.28 T*, +1.9 learned) |
 | 3b. Adding the reference back restores >= half the gap | Confirmed (ratio 1.21) |
 | 4. Easy subset more overconfident at matched learning | Not supported as stated (T* +0.18 but learns +11.5) |
-| 5. IPO lowers T* but agreement still matters (>= 0.15) | Confirmed (1.70 vs 2.27; hi - lo 0.23) |
+| 5. IPO lowers T* but agreement still matters (>= 0.15) | Confirmed (1.70 vs 2.26; hi - lo 0.23) |
 
 All 27 models: ehuang5/olmotestmodels, wave/wy_*. Results: results_ckpt/small/wy_*.

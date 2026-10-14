@@ -1,0 +1,10 @@
+{
+ "n": 300,
+ "mean_tokens": 884.2533333333333,
+ "truncated": 0.25,
+ "_meta": {
+  "ckpt": "/workspace/models/full_weighted/final",
+  "size": "fast",
+  "seconds": 342
+ }
+}

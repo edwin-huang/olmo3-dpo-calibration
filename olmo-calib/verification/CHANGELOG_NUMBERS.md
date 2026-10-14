@@ -78,3 +78,54 @@ Every change to a number in the write-up ("Why DPO Makes Olmo 3 Overconfident") 
 | Main | Fix, 25% scale | "learning difference … smaller than in the small tests (… 35.5% vs 28.8% there)" | "learning difference (30.4% vs 27.4%) is within noise" | Depends on the removed frontier | — |
 | Main | Why replication table | T* column per test | outcome column only (T* now in the chart) | Show each number once | — |
 | Main, Log, WHY_RESULTS | high-agreement mean T* | 2.27 | 2.26 | Mean of 2.279, 2.257, 2.258 is 2.2647; 2.27 came from rounding a printed 2.265 again | wy_hi_s*/summary.json |
+
+## 2026-10-14 — two reviewer passes (Ai2-reader + numbers audit) applied
+
+| Doc | Where | Old | New | Reason | Source |
+|---|---|---|---|---|---|
+| Main | Related, fix bullet | weighting "or … SimPO … removes the effect at 25% scale (about 60% at full scale)" | weighting at 25%/full; SimPO "in small tests" | SimPO never run at 25% or full scale | results_ckpt/ (no SimPO q25/full run) |
+| Main | Replication table, paragraph | SimPO "learns 1.9 points more"; fixes "400–406 tokens" | 2.0; "400–402 tokens vs plain's 403" | 19.624 − 17.652 = 1.97; 406 is SimPO+ref, not a fix | wy_*/summary.json |
+| Main | Summary Fix; full-scale paragraph | BBH "best score of the three"; "4× longer"; "about 60%" | adds IFEval −3.5 and "reasons 4.4× longer"; "about 60% on MMLU, about 40% on ARC, all of it in chat format" | 2,685/607 = 4.42; ARC log-T* removed 43%; chat 1.87 < SFT 1.90 | bbh_ai2.json; full_w5 & released summaries |
+| Main | Full-scale intro | — | baseline is Ai2's released model, not our rerun (seed, order, hardware uncontrolled) | Unmatched comparison | — |
+| Main | Full-scale table | released DPO ECE .206 | .205 | Same value as Summary/Where (calib harness .2053; eval_ckpt .2061) | results_robust/mmlu5_full |
+| Main | Why, D4/delta paragraph | "close to the 2.04 the small-test fit predicts"; "which predicts about 1.88" | removed (fit was defined only by the removed scatter) | Undefined fit | verification/agreement_analysis.out |
+| Main | Where | AUROC ".766 → .767", base→SFT ".797 → .766" | ".77 in both", ".80 → .77" | Two harnesses (.768/.766 in tables) | released/*/summary.json |
+| Main | Fix 8K paragraph | IFEval "vs SFT's .754" | notes SFT scored .754 and .769 in two evaluations (noise ~2 points) | Same model, two runs | fx_sft vs released SFT ifeval.json |
+| Main | Mechanism | margin slope "0.84–0.93 vs 1.35" under a 25%-scale heading | adds "in small tests; 0.97 vs 1.27 at 25% scale" | Scope | pairs.json |
+| Main | Limits | "half the original learning rate"; judge "56%"; softening "grows"; chat T* "3.97"; on-policy "agreed share near 50%" | "LR 4e-6 (4× Ai2's rate…)"; "56% (57% length-adjusted)"; "persists"; "3.77"; "SFT prefers its own samples → mostly disagreed" | Ambiguity; variant; filter is ×0.72; tables use 3.77 (full set); matches PREDICTIONS.md | various |
+| Main | Summary, Why, What this means | "trains on those as hard as"; "more confident everywhere"; recipe-only paragraph | "same starting weight"; "whenever it answers immediately"; adds what the full-scale leftover means for the account (normalization route not explained) and a data-construction sentence | Reviewer: overclaims / missing implication | — |
+| Log, WHY_RESULTS | §12 / §2, §4 | SimPO +1.9 learned | +2.0 | Rounding | wy_*/summary.json |
+
+## 2026-10-14 — dense / cuttable / attackable review applied (main doc)
+
+| Doc | Where | Old | New | Reason | Source |
+|---|---|---|---|---|---|
+| Main | Summary "Inside the model"; Mechanism transplant bullet | "30 heads and the layer 19–30 MLPs reproduce 76% (30 random heads: 1%)"; top-100 53%, MLPs 49% | top 30 heads 35% vs 1% for 30 random heads; + MLPs 76%; all layers 15–31 100%; "no random-MLP control"; 53%/49% moved to log | Control was not size-matched to the 76% set | results_why/transplant__*.json |
+| Main | Where | "top-two gap on ordinary text grows only ×1.08" next to T* ×1.54 | adds same-unit comparison: top-two gap ×1.51 for letters vs ×1.08 wikitext | Different units compared | results_box2/why_bridge.log |
+| Main | Fix list | "Agreed pairs drop from 64% to 31% of the total weight" | adds "disagreed pairs get about 1.9× their plain-DPO weight" | Rescaling confound | .69/.36 = 1.92 (s8_a); .693/.369 = 1.88 (full) |
+| Main | Full-scale drift | one reading | adds second untested reading (rescaling moves the run further) | same | stale/analysis.txt |
+| Main | What this means | "removes the agreement-driven part … at every scale" | "removes most of the gain in the answer signal (about 80% at full scale) … not tested whether the normalization part depends on agreement" | Overclaim | results_why/fixscale/ |
+| Main | Why / Mechanism / Limits | D4 filtered run in Why and "×1.29 for the filtered 25% rerun" | removed from Why/Mechanism; one sentence in Limits (unexplained) | Undefined there; does not support the argument | — |
+| Main | Why | "Side observation: which loss term" bullet | removed (in the log) | Inconclusive by its own statement | — |
+| Main | Setup, Key terms, full scale | GPU list; small test "8× Ai2's LR"; snapshot list | GPU list cut; "2–8×, stated with each result"; "about 1.85 by mid-run" | Density / accuracy | — |
+| Main | Setup | chat format undefined | "letter read right after an 'Answer:' prefix, with no reasoning" | Pre-empts the length/reasoning objection to "all of it in chat format" | eval_ckpt.py part_chat |
+
+## 2026-10-14 — new box (RTX PRO 6000): usability check + random-MLP control
+
+| Doc | Where | Old | New | Reason | Source |
+|---|---|---|---|---|---|
+| Main | Summary "Inside the model"; Mechanism bullet; Related "A mechanism" | change lives in SFT's answer heads AND late MLPs (heads + MLPs 76%) | heads specific (35% vs 1% random); MLP change spread out (12 random MLP layers give 28–53%; late MLPs 49%); random heads+MLPs 54% vs 76% | Size-matched random-MLP control | results_why/controls/transplant_controls__SFT__DPO.json |
+| Main | Summary Fix; full-scale paragraph and table; What this means | no judged-quality number at full scale | LLM judge vs SFT: weighted .40 raw / .50 length-adjusted (neutral), released DPO .55 / .55; finished answers .46 | Regenerated 300 chat answers (old box lost) | results_ckpt/gen/*/judge_vs_small_fx_sft_neutral.json |
+| Main | Summary, Key terms, Where heading, Why | "immediate answers", "Our interpretation of the results below", dense margin bullet, "the imbalance", "them" | "commits to an answer"/"Answer token"; "results that follow"; rewritten bullet; explicit referents | User reading pass | — |
+| Log | Retracted claims | — | rows: late-answer-MLP claim (refuted), full-scale no judged cost (refuted) | same | same |
+
+## 2026-10-14 — Fix section trimmed (user decision)
+
+| Doc | Where | Old | New | Reason | Source |
+|---|---|---|---|---|---|
+| Main | Fix | 8K fix-wave list (weighting, filter, SimPO, controls) + results paragraph (T* 1.51–1.64 vs 2.40; label smoothing 2.14, chosen-likelihood 2.08) + learned-metric caveat paragraph + 8× length (1.35–1.46×) | one paragraph defining agreement-weighted DPO; results deferred to the replication; filter and controls only in the log | Superseded by the three-seed replication; controls need the removed learning-rate frontier | — |
+| Main | Key terms, Learned | definition only | adds bias caveat (favors up-weighting disagreed pairs; agreed held-out pairs 97–99% right) | Caveat moved from deleted paragraph | — |
+| Main | Mechanism; Limits | letter scale ×0.98–1.03, slope 0.84–0.93; softening ×0.93–0.95 text, ×0.72–0.82 first token | ×0.99–1.03, 0.90–0.93; ×0.94–0.95, ×0.82 | Filter run removed | results_why/fix/*.log, small/fx_*/pairs.json |
+| Main | Related | "account predicted which standard variants would work (label smoothing, chosen-likelihood would not)" | pre-registered SimPO with/without reference | Controls removed | — |
+| Main | Limits, softening | small-test ×0.94–0.95 / ×0.82 and "may explain their longer responses" | 25% ×0.96 / ×0.86, full ×0.91 / ×0.79; length tied to full scale | Small-test values came from the removed 8× runs; contradicted "no lengthening at 4e-6" | results_why/fixscale/bridge.*.log |
+| Main | Mechanism, Why, Limits | wording | letter score defined (logits, letter scale), "answer heads" defined, "between SFT and DPO", Ai2's data-building LLM judge named, Limits rewritten | User reading pass | — |

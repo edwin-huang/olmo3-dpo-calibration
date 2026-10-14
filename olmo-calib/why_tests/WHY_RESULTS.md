@@ -68,7 +68,7 @@ Accuracy .614-.619 and AUROC .766-.774 in every run.
 
 - **Prediction 1: CONFIRMED.** Weighted T* is lower than plain in every seed pair, by 0.30 on average (needed 0.15);
   learned is 1.4 points lower on average (allowed: 2).
-- **Prediction 3: CONFIRMED (stop rule: continue).** 3a: SimPO is 0.28 below plain (needed 0.1) and learns 1.9 points
+- **Prediction 3: CONFIRMED (stop rule: continue).** 3a: SimPO is 0.28 below plain (needed 0.1) and learns 2.0 points
   more. 3b: ratio (1.86 - 1.52) / (1.80 - 1.52) = 1.21 (needed 0.5). Adding DPO's reference to SimPO restores all
   of plain DPO's overconfidence, while learning the most of the four.
 - Not predicted: no length cost for any method at LR 4e-6 (400-406 tokens vs 403), unlike LR 8e-6.
@@ -111,7 +111,7 @@ Accuracy .613-.619 and AUROC .765-.774 in every run.
 |---|---|
 | 1. Agreement weighting lowers T* (>= 0.15) at <= 2 points less learning | Confirmed (0.30; -1.4) |
 | 2. High- vs low-agreement, matched source and length (>= 0.3) | Confirmed (0.81, every seed) |
-| 3a. SimPO below plain DPO's trade-off | Confirmed (-0.28 T*, +1.9 learned) |
+| 3a. SimPO below plain DPO's trade-off | Confirmed (-0.28 T*, +2.0 learned) |
 | 3b. Adding the reference back restores >= half the gap | Confirmed (ratio 1.21) |
 | 4. Easy subset more overconfident at matched learning | Not supported as stated (T* +0.18 but learns +11.5) |
 | 5. IPO lowers T* but agreement still matters (>= 0.15) | Confirmed (1.70 vs 2.26; hi - lo 0.23) |

@@ -980,6 +980,12 @@ def cmd_transplant(args):
              ("30 random heads (control)", rnd, [], []), ("late MLPs L19-30", [], list(range(19, 31)), []),
              ("top-30 heads + late MLPs", order[:30], list(range(19, 31)), []),
              ("all attention L15-31", [], [], late), ("all attention + MLPs L15-31", [], late, late)]
+    if args.controls:  # size-matched random controls for the MLP conditions (12 MLP blocks, like L19-30)
+        rmlp = [sorted(random.Random(s).sample(range(L), 12)) for s in range(3)]
+        for s, m in enumerate(rmlp):
+            print(f"random MLP set {s}: layers {m}")
+            conds.append((f"12 random MLPs s{s} (control)", [], m, []))
+        conds.append(("30 random heads + 12 random MLPs s0 (control)", rnd, rmlp[0], []))
     W = {(m, l): mod.model.layers[l].self_attn.o_proj.weight.float() for m, mod in (("A", A), ("B", B)) for l in range(L)}
 
     def head_contrib(m, l, z, x, heads):
@@ -1065,6 +1071,7 @@ def main():
     ap.add_argument("--k-null", type=int, default=64, help="norm/neurons: bottom singular directions of W_U counted as null space")
     ap.add_argument("--ks", type=int, nargs="+", default=[1, 3, 10, 30, 100], help="neurons: set sizes")
     ap.add_argument("--bs", type=int, default=8)
+    ap.add_argument("--controls", action="store_true", help="transplant: add size-matched random-MLP controls")
     ap.add_argument("--mem-frac", type=float, default=0.0, help="cap this process's GPU memory (shared GPU)")
     ap.add_argument("--a", default="allenai/Olmo-3-7B-Instruct-SFT")
     ap.add_argument("--b", default="allenai/Olmo-3-7B-Instruct-DPO")

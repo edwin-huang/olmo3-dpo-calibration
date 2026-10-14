@@ -1,0 +1,39 @@
+{
+ "n": 6511,
+ "acc_micro": 0.6410689602211642,
+ "acc_macro": 0.6397873936850297,
+ "by_task": {
+  "boolean_expressions": 0.884,
+  "causal_judgement": 0.5561497326203209,
+  "date_understanding": 0.648,
+  "disambiguation_qa": 0.668,
+  "dyck_languages": 0.108,
+  "formal_fallacies": 0.552,
+  "geometric_shapes": 0.464,
+  "hyperbaton": 0.756,
+  "logical_deduction_five_objects": 0.52,
+  "logical_deduction_seven_objects": 0.336,
+  "logical_deduction_three_objects": 0.816,
+  "movie_recommendation": 0.548,
+  "multistep_arithmetic_two": 0.836,
+  "navigate": 0.92,
+  "object_counting": 0.888,
+  "penguins_in_a_table": 0.636986301369863,
+  "reasoning_about_colored_objects": 0.728,
+  "ruin_names": 0.596,
+  "salient_translation_error_detection": 0.452,
+  "snarks": 0.601123595505618,
+  "sports_understanding": 0.636,
+  "temporal_sequences": 0.692,
+  "tracking_shuffled_objects_five_objects": 0.684,
+  "tracking_shuffled_objects_seven_objects": 0.504,
+  "tracking_shuffled_objects_three_objects": 0.84,
+  "web_of_lies": 1.0,
+  "word_sorting": 0.404
+ },
+ "_meta": {
+  "ckpt": "allenai/Olmo-3-7B-Instruct-SFT",
+  "size": "full",
+  "seconds": 151
+ }
+}

@@ -1,0 +1,45 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (77048 > 65536). Running this sequence through the model will result in indexing errors
+pairs 259922; rejected token counts match instruct_meta for 29.9%
+
+== 1. per-token SFT log-prob vs length
+  chosen    Spearman(length, logp/token) +0.201 | by quintile: 1-76 tok: -1.463 | 76-233 tok: -0.932 | 233-475 tok: -0.771 | 475-938 tok: -0.824 | 938-65153 tok: -0.744
+  rejected  Spearman(length, logp/token) +0.374 | by quintile: 1-50 tok: -2.033 | 50-171 tok: -1.129 | 171-367 tok: -0.910 | 367-717 tok: -0.930 | 717-77048 tok: -0.635
+  Spearman(log2 chosen/rejected length, SFT margin) +0.159
+
+== 2. by decile of log2(chosen tokens / rejected tokens)
+  ratio range            n  agreed   margin  ours rel. weight  SimPO rel. weight
+  -13.26.. -1.09    25993   43.4%   -0.195              1.36               1.10
+   -1.09.. -0.37    25992   55.8%   +0.124              1.11               1.07
+   -0.37.. -0.04    25996   60.5%   +0.109              1.05               1.07
+   -0.04.. +0.14    26033   59.0%   +0.154              1.02               1.05
+   +0.14.. +0.37    26008   66.9%   +0.143              0.96               1.03
+   +0.37.. +0.62    25994   69.9%   +0.172              0.93               1.01
+   +0.62.. +0.90    25995   72.1%   +0.178              0.88               0.99
+   +0.90.. +1.29    25996   72.2%   +0.208              0.86               0.95
+   +1.29.. +2.07    25992   69.0%   +0.251              0.87               0.91
+   +2.07..+13.36    25993   62.0%   +0.675              0.95               0.83
+
+== 3. what the starting weights emphasize (weighted over pairs)
+  -- all (n 259922, agreed 63.1%)
+     weighting            chosen longer  mean log2 ratio  chosen tok  rejected tok  chosen geo-mean
+     plain DPO                    66.1%           +0.420         605           602              245
+     agreement-weighted           60.8%           +0.223         651           909              275
+     SimPO (test)                 63.7%           +0.292         664           773              298
+  -- delta_learning (n 124942, agreed 74.2%)
+     weighting            chosen longer  mean log2 ratio  chosen tok  rejected tok  chosen geo-mean
+     plain DPO                    70.8%           +0.410         533           531              193
+     agreement-weighted           61.4%           +0.042         583           938              209
+     SimPO (test)                 67.3%           +0.215         605           749              243
+  -- llm_judged (n 124980, agreed 54.0%)
+     weighting            chosen longer  mean log2 ratio  chosen tok  rejected tok  chosen geo-mean
+     plain DPO                    61.6%           +0.452         711           701              337
+     agreement-weighted           60.0%           +0.371         745           949              372
+     SimPO (test)                 60.7%           +0.375         755           837              390
+  -- multiturn (n 10000, agreed 37.1%)
+     weighting            chosen longer  mean log2 ratio  chosen tok  rejected tok  chosen geo-mean
+     plain DPO                    64.2%           +0.153         176           246               85
+     agreement-weighted           63.6%           +0.037         189           306               95
+     SimPO (test)                 63.6%           +0.070         190           282               94
+
+  weight share by type, plain vs ours: delta_learning 48.1% -> 39.3%, llm_judged 48.1% -> 55.2%, multiturn 3.8% -> 5.6%

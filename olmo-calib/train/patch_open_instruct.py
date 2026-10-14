@@ -12,6 +12,13 @@
    <output_dir>/batch_index_rank<r>.txt, to check that a resumed run continues the same data order.
 4. dpo_tune_cache.py: DPO_DETACH=chosen|rejected trains only the other half of the DPO gradient (root-cause tests:
    does the sharpening come from pushing rejected responses down or chosen responses up?).
+5. dpo_tune_cache.py, fix tests: DPO_AGREE_K=k multiplies each pair's loss by sigmoid(-k * reference margin) /
+   DPO_AGREE_NORM (reference margin = mean per-token log-prob chosen minus rejected under the SFT model, from the
+   reference cache), so pairs the SFT model already agrees with count less. DPO_NLL=alpha adds alpha x the chosen
+   response's mean per-token negative log-likelihood (RPO-style).
+6. dpo_tune_cache.py, Brief 2 tests (use with --loss_type dpo_norm, so the reference cache holds per-token-averaged
+   log-probs): DPO_GAMMA=g gives SimPO-with-reference, loss -log sigmoid(beta * (h - g)); DPO_IPO_TAU=t gives IPO on
+   the same margin, loss (h - 1/(2t))^2; h = (pi(y_c) - ref(y_c)) - (pi(y_r) - ref(y_r)), the reference-relative margin.
 
 Usage: python patch_open_instruct.py /workspace/open-instruct
 """
@@ -60,6 +67,34 @@ PATCHES = [
                     policy_chosen_logps = policy_chosen_logps.detach()
                 elif detach_side == "rejected":
                     policy_rejected_logps = policy_rejected_logps.detach()
+"""),
+    ("open_instruct/dpo_tune_cache.py",
+     "                loss = losses.mean()\n",
+     "before",
+     """                # olmo-calib: DPO_AGREE_K / DPO_AGREE_NORM agreement weighting, DPO_NLL chosen-likelihood term (fix tests)
+                agree_k = float(os.environ.get("DPO_AGREE_K", "0"))
+                if agree_k:
+                    ref_lp = reference_cache[batch["index"]]
+                    ref_margin = (ref_lp["chosen_logps"] - ref_lp["rejected_logps"]).float()
+                    pair_w = torch.sigmoid(-agree_k * ref_margin) / float(os.environ.get("DPO_AGREE_NORM", "1"))
+                    losses = losses * pair_w.to(losses.dtype)
+                nll_alpha = float(os.environ.get("DPO_NLL", "0"))
+                if nll_alpha:
+                    losses = losses - nll_alpha * policy_chosen_logps
+"""),
+    ("open_instruct/dpo_tune_cache.py",
+     "                # olmo-calib: DPO_AGREE_K / DPO_AGREE_NORM agreement weighting, DPO_NLL chosen-likelihood term (fix tests)\n",
+     "before",
+     """                # olmo-calib: DPO_GAMMA (SimPO-with-reference) / DPO_IPO_TAU (IPO) on the reference-relative margin
+                ref_gamma = os.environ.get("DPO_GAMMA")
+                ipo_tau = os.environ.get("DPO_IPO_TAU")
+                if ref_gamma or ipo_tau:
+                    ref_lp6 = reference_cache[batch["index"]]
+                    h6 = (policy_chosen_logps - ref_lp6["chosen_logps"]) - (policy_rejected_logps - ref_lp6["rejected_logps"])
+                    if ipo_tau:
+                        losses = (h6 - 1 / (2 * float(ipo_tau))) ** 2
+                    else:
+                        losses = -torch.nn.functional.logsigmoid(args.beta * (h6 - float(ref_gamma)))
 """),
 ]
 

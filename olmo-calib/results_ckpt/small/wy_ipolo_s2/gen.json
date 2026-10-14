@@ -1,0 +1,10 @@
+{
+ "n": 300,
+ "mean_tokens": 399.48333333333335,
+ "truncated": 0.043333333333333335,
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_ipolo_s2",
+  "size": "fast",
+  "seconds": 42
+ }
+}

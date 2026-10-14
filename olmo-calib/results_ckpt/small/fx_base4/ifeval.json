@@ -1,0 +1,11 @@
+{
+ "n": 541,
+ "prompt_strict": 0.7763401109057301,
+ "inst_strict": 0.8477218225419664,
+ "unknown_instruction_ids": [],
+ "_meta": {
+  "ckpt": "/workspace/runs/fx_base4",
+  "size": "fast",
+  "seconds": 42
+ }
+}

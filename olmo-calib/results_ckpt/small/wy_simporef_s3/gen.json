@@ -1,0 +1,10 @@
+{
+ "n": 300,
+ "mean_tokens": 391.21666666666664,
+ "truncated": 0.013333333333333334,
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_simporef_s3",
+  "size": "fast",
+  "seconds": 40
+ }
+}

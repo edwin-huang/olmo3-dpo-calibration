@@ -7,6 +7,14 @@ Parts (each runs in its own subprocess, so a crash or vLLM's memory grab can't t
   text     sharpening s* of this checkpoint vs --ref on wikitext and DPO chat responses (decision_points.py)
   sc       self-consistency: agreement of k=8 sampled chains of thought, same questions as chat (vLLM)
   ifeval   IFEval strict prompt- and instruction-level accuracy (vLLM greedy, open-instruct's checker): capability
+  pairs    held-out Instruct DPO pairs (train/make_fix_sets.py): does the model prefer the chosen response (mean
+           per-token log-prob, as dpo_norm)? Split by whether --ref already did, so "learned" = share of the pairs
+           --ref got wrong that this checkpoint gets right. --ref's log-probs are cached in <out>/_ref/.
+  bbh      BigBenchHard, 27 tasks / 6,511 questions: the standard 3-shot chain-of-thought prompts (Suzgun et al.) in one
+           user turn of the chat template, greedy vLLM generation, exact match on the text after the last "answer is".
+           Uncontaminated capability check for the full-scale runs (Ai2 reports SFT 51.0 / DPO 69.3 with their harness)
+  gen      greedy responses to held-out chat prompts (train/make_fix_sets.py) for the LLM-judge win rate against
+           --ref's responses (train/judge_winrate.py, run locally)
 Each reports acc, mean confidence, ECE, T* (fit on half, as in temp_scaling.py) and AUROC where they apply.
 Writes <out>/<tag>/<part>.json (+ per-question files) and <out>/<tag>/summary.json with the headline numbers.
 
@@ -25,11 +33,14 @@ import sys
 import time
 from types import SimpleNamespace
 
-PARTS = ["letters", "format", "chat", "text", "sc", "ifeval"]
-SIZES = {  # letters MMLU limit, ARC limit, format n, chat/sc MMLU, chat/sc ARC, text sequences, sc k, IFEval prompts
-    "full": dict(mmlu=0, arc=0, fmt=2000, q_mmlu=1000, q_arc=500, n_seq=256, k=8, ifeval=0),
-    "fast": dict(mmlu=3000, arc=0, fmt=1000, q_mmlu=500, q_arc=250, n_seq=128, k=8, ifeval=0),
-    "smoke": dict(mmlu=100, arc=50, fmt=50, q_mmlu=20, q_arc=10, n_seq=4, k=4, ifeval=20),
+PARTS = ["letters", "format", "chat", "text", "sc", "ifeval", "pairs", "gen", "bbh", "bbh_ai2"]
+DEFAULT_PARTS = [p for p in PARTS if p not in ("bbh", "bbh_ai2")]  # bbh only on request, so default evals match runs made before it existed
+BBH_DIR = "/workspace/BIG-Bench-Hard"  # git clone https://github.com/suzgunmirac/BIG-Bench-Hard
+SIZES = {  # letters MMLU limit, ARC limit, format n, chat/sc MMLU, chat/sc ARC, text sequences, sc k, IFEval prompts,
+           # held-out pairs, generation prompts (0 = all)
+    "full": dict(mmlu=0, arc=0, fmt=2000, q_mmlu=1000, q_arc=500, n_seq=256, k=8, ifeval=0, pairs=0, gen=0, bbh=0),
+    "fast": dict(mmlu=3000, arc=0, fmt=1000, q_mmlu=500, q_arc=250, n_seq=128, k=8, ifeval=0, pairs=0, gen=0, bbh=0),
+    "smoke": dict(mmlu=100, arc=50, fmt=50, q_mmlu=20, q_arc=10, n_seq=4, k=4, ifeval=20, pairs=10, gen=5, bbh=3),
 }
 
 
@@ -198,6 +209,228 @@ def part_ifeval(args, sz, d):
             "unknown_instruction_ids": sorted(unknown)}
 
 
+def pair_logps(ckpt, enc):
+    """Mean per-token log-prob of each (ids, response start) under ckpt."""
+    import torch
+    import torch.nn.functional as F
+
+    model, _ = load(ckpt)
+    out = []
+    with torch.no_grad():
+        for ids, start in enc:
+            ids = ids.cuda()
+            z = model(ids).logits[0, start - 1 : -1].float()
+            out.append(F.log_softmax(z, -1).gather(1, ids[0, start:, None]).mean().item())
+    del model
+    torch.cuda.empty_cache()
+    return out
+
+
+def part_pairs(args, sz, d):
+    import pyarrow.parquet as pq
+    from transformers import AutoTokenizer
+
+    from why import encode
+
+    rows = pq.read_table(args.pairs_file).to_pylist()[: sz["pairs"] or None]
+    tok = AutoTokenizer.from_pretrained(args.ref)
+    enc = [(encode(tok, r["chosen"], 1024), encode(tok, r["rejected"], 1024)) for r in rows]
+    enc = [e for e in enc if e[0] and e[1]]
+    flat = [x for e in enc for x in e]
+    ref_path = os.path.join(args.out, "_ref", f"pairs__{args.ref.rstrip('/').split('/')[-1]}__{len(flat)}.json")
+    if os.path.exists(ref_path):
+        ref = json.load(open(ref_path))
+    else:  # first run computes --ref's log-probs once; concurrent runs may both do it (same result)
+        ref = pair_logps(args.ref, flat)
+        os.makedirs(os.path.dirname(ref_path), exist_ok=True)
+        json.dump(ref, open(ref_path + f".tmp{os.getpid()}", "w"))
+        os.replace(ref_path + f".tmp{os.getpid()}", ref_path)
+    new = pair_logps(args.ckpt, flat)
+    mA = [ref[2 * i] - ref[2 * i + 1] for i in range(len(enc))]
+    mB = [new[2 * i] - new[2 * i + 1] for i in range(len(enc))]
+    with open(os.path.join(d, "pairs.per_pair.jsonl"), "w") as f:
+        for i in range(len(enc)):
+            f.write(json.dumps({"lcA": ref[2 * i], "lrA": ref[2 * i + 1], "lcB": new[2 * i], "lrB": new[2 * i + 1]}) + "\n")
+    mean = lambda x: sum(x) / len(x) if x else float("nan")
+    res = {"n": len(enc), "acc": mean([b > 0 for b in mB]), "acc_ref": mean([a > 0 for a in mA]),
+           "d_logp_chosen": mean([new[2 * i] - ref[2 * i] for i in range(len(enc))]),
+           "d_logp_rejected": mean([new[2 * i + 1] - ref[2 * i + 1] for i in range(len(enc))])}
+    for label, sel in (("ref_disagreed", [a <= 0 for a in mA]), ("ref_agreed", [a > 0 for a in mA])):
+        a = [x for x, s in zip(mA, sel) if s]
+        b = [x for x, s in zip(mB, sel) if s]
+        ma, mb = mean(a), mean(b)
+        var = sum((x - ma) ** 2 for x in a)
+        slope = sum((x - ma) * (y - mb) for x, y in zip(a, b)) / var if var > 0 else float("nan")
+        res[label] = {"n": len(a), "acc": mean([y > 0 for y in b]), "margin_ref": ma, "margin": mb,
+                      "margin_change": mb - ma, "slope": slope}
+    return res
+
+
+def part_gen(args, sz, d):
+    from transformers import AutoTokenizer
+    from vllm import LLM, SamplingParams
+
+    from cot_test import vllm_kwargs
+
+    rows = [json.loads(l) for l in open(args.prompts_file)][: sz["gen"] or None]
+    tok = AutoTokenizer.from_pretrained(args.ckpt)
+    prompts = [tok.apply_chat_template([{"role": "user", "content": r["prompt"]}], tokenize=False,
+                                       add_generation_prompt=True) for r in rows]
+    llm = LLM(model=args.ckpt, dtype="bfloat16", gpu_memory_utilization=0.85, max_model_len=4096, seed=0,
+              **vllm_kwargs(args.ckpt))
+    outs = llm.generate(prompts, SamplingParams(temperature=0, max_tokens=2048))
+    n_tok, cut = [], []
+    with open(os.path.join(d, "gen.responses.jsonl"), "w") as f:
+        for r, o in zip(rows, outs):
+            g = o.outputs[0]
+            n_tok.append(len(g.token_ids))
+            cut.append(g.finish_reason == "length")
+            f.write(json.dumps({"id": r["id"], "prompt": r["prompt"], "response": g.text, "n_tokens": len(g.token_ids),
+                                "truncated": cut[-1]}) + "\n")
+    return {"n": len(rows), "mean_tokens": sum(n_tok) / len(n_tok), "truncated": sum(cut) / len(cut)}
+
+
+def bbh_correct(text, target):
+    """Exact match on the text after the last 'answer is'; for multiple-choice targets '(X)', the first '(X)' there."""
+    import re
+
+    hits = re.findall(r"answer is\s*:?\s*(.*)", text, flags=re.I)
+    pred = hits[-1] if hits else (text.strip().splitlines() or [""])[-1]
+    pred = pred.replace("*", "").strip()
+    if re.fullmatch(r"\([A-R]\)", target.strip()):
+        m = re.search(r"\(([A-Ra-r])\)", pred)
+        return bool(m) and f"({m.group(1).upper()})" == target.strip(), pred
+    pred = pred.strip().strip('"').strip()
+    pred = re.sub(r"[.\s]+$", "", pred)
+    return pred.lower() == target.strip().lower(), pred
+
+
+def part_bbh(args, sz, d):
+    import glob
+
+    from transformers import AutoTokenizer
+    from vllm import LLM, SamplingParams
+
+    from cot_test import vllm_kwargs
+
+    tok = AutoTokenizer.from_pretrained(args.ckpt)
+    items = []
+    for f in sorted(glob.glob(os.path.join(BBH_DIR, "bbh", "*.json"))):
+        task = os.path.basename(f)[:-5]
+        shots = open(os.path.join(BBH_DIR, "cot-prompts", f"{task}.txt")).read().split("-----", 1)[-1].strip()
+        for ex in json.load(open(f))["examples"][: sz["bbh"] or None]:
+            msg = f"{shots}\n\nQ: {ex['input']}\nA: Let's think step by step."
+            items.append((task, ex["target"], tok.apply_chat_template([{"role": "user", "content": msg}], tokenize=False,
+                                                                       add_generation_prompt=True)))
+    llm = LLM(model=args.ckpt, dtype="bfloat16", gpu_memory_utilization=0.85, max_model_len=8192, seed=0,
+              **vllm_kwargs(args.ckpt))
+    outs = llm.generate([p for _, _, p in items], SamplingParams(temperature=0, max_tokens=1536))
+    per = {}
+    with open(os.path.join(d, "bbh.responses.jsonl"), "w") as fo:
+        for (task, target, _), o in zip(items, outs):
+            ok, pred = bbh_correct(o.outputs[0].text, target)
+            per.setdefault(task, []).append(ok)
+            fo.write(json.dumps({"task": task, "target": target, "pred": pred, "correct": ok,
+                                 "truncated": o.outputs[0].finish_reason == "length", "response": o.outputs[0].text}) + "\n")
+    n = sum(len(v) for v in per.values())
+    return {"n": n, "acc_micro": sum(sum(v) for v in per.values()) / n,
+            "acc_macro": sum(sum(v) / len(v) for v in per.values()) / len(per),
+            "by_task": {t: sum(v) / len(v) for t, v in per.items()}}
+
+
+OLMES_DIR = "/workspace/olmes"  # git clone https://github.com/allenai/olmes (read for BBH_DESCRIPTIONS)
+OLMO_3_REGEXES = [  # olmes oe_eval/configs/regexes.py
+    r"(?i)therefore,?\s*the\s*answer\s*is:?\s*\(?($ANS$)\b", r"(?i)so\s+the\s+answer\s+is\s+($ANS$)\.?",
+    r"(?i)the\s+correct\s+answer\s+is:?\s*($ANS$)", r"(?i)the\s+answer\s+is\s+($ANS$)\.?", r"(?i)a:\s*($ANS$)",
+    r"(?i)answer:\s*($ANS$)", r"(?i)\b($ANS$)\)?\s+is\s+correct", r"(?i)\(($ANS$)\)", r"(?i)\b($ANS$)\b",
+    r"(?i)\b($ANS$)\b", r"(?i).*\b($ANS$)\b"]
+BBH_ANSWER_REGEX = {  # olmes oe_eval/tasks/oe_eval_tasks/bbh.py; tasks not listed are multiple choice
+    "boolean_expressions": "[tT]rue|[fF]alse", "causal_judgement": "[yY]es|[nN]o", "dyck_languages": "[\\]\\)\\}\\> ]+",
+    "formal_fallacies": "[iI]nvalid|[vV]alid", "multistep_arithmetic_two": "-?\\d+", "navigate": "[nN]o|[yY]es",
+    "object_counting": "\\d+", "sports_understanding": "[yY]es|[nN]o", "web_of_lies": "[yY]es|[nN]o",
+    "word_sorting": "[a-z ]+"}
+
+
+def olmes_bbh_extract(text, task):
+    """olmes GenericBBH._extract_answer_regex with answer_regexes_templates = OLMO_3_REGEXES."""
+    import re
+
+    mc = task not in BBH_ANSWER_REGEX
+    ans = "\\([A-Z]\\)" if mc else BBH_ANSWER_REGEX[task]
+    regexes = list(OLMO_3_REGEXES) + (["\b([A-Z])\b"] if mc else []) + ["(?i)($ANS$)"]
+    out = ""
+    for rx in regexes:
+        found = re.findall(rx.replace("$ANS$", ans), text)
+        if found:
+            out = found[-1]
+            break
+    for left, right in (("$", "$"), ("\\(", "\\)"), ("(", ")"), ("**", "**"), ("***", "***"), ("\\[", "\\]"),
+                        ("'", "'"), ("`", "`"), ('"', '"')):
+        if re.match(ans, left):
+            continue
+        out = re.sub(f"^{re.escape(left)}(.*){re.escape(right)}$", "\\1", out).strip()
+    if mc and len(out) == 1:
+        out = f"({out})"
+    return out
+
+
+def olmes_exact_match(pred, gold, task):
+    """HF evaluate exact_match with ignore_case=True and ignore_punctuation (except dyck_languages), as olmes uses."""
+    import string
+
+    p, g = pred.lower(), gold.lower()
+    if task != "dyck_languages":
+        table = str.maketrans("", "", string.punctuation)
+        p, g = p.translate(table), g.translate(table)
+    return p.strip() == g.strip()
+
+
+def part_bbh_ai2(args, sz, d):
+    """BBH as Ai2 evaluates Olmo 3 post-trained models (olmes task bbh_*:cot::olmo3:adapt, identical generation and
+    extraction to ::hamish_zs_reasoning_deepseek): zero-shot, chat template, user turn = task description +
+    'Q: <input>\\nA: Let's think step by step.', sampling T 0.6 / top-p 0.95, no length limit (here 16,384 new tokens),
+    answer extraction with OLMO_3_REGEXES, exact match ignoring case and punctuation, micro average."""
+    import glob
+    import importlib.util
+
+    from transformers import AutoTokenizer
+    from vllm import LLM, SamplingParams
+
+    from cot_test import vllm_kwargs
+
+    spec = importlib.util.spec_from_file_location("bbh_tasks", os.path.join(OLMES_DIR, "oe_eval/data/bbh_tasks.py"))
+    bt = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(bt)
+    tok = AutoTokenizer.from_pretrained(args.ckpt)
+    items = []
+    per_task = int(os.environ.get("BBH_PER_TASK", 0)) or sz["bbh"]  # BBH_PER_TASK=40: first 40 per task (1,080 q; wave runs)
+    for f in sorted(glob.glob(os.path.join(BBH_DIR, "bbh", "*.json"))):
+        task = os.path.basename(f)[:-5]
+        for ex in json.load(open(f))["examples"][: per_task or None]:
+            msg = f"{bt.BBH_DESCRIPTIONS[task]}Q: {ex['input']}\nA: Let's think step by step."
+            items.append((task, ex["target"], tok.apply_chat_template([{"role": "user", "content": msg}], tokenize=False,
+                                                                       add_generation_prompt=True)))
+    llm = LLM(model=args.ckpt, dtype="bfloat16", gpu_memory_utilization=0.85, max_model_len=20480, seed=0,
+              **vllm_kwargs(args.ckpt))
+    outs = llm.generate([p for _, _, p in items], SamplingParams(temperature=0.6, top_p=0.95, max_tokens=16384, seed=0))
+    per, n_trunc, n_tok = {}, 0, []
+    with open(os.path.join(d, "bbh_ai2.responses.jsonl"), "w") as fo:
+        for (task, target, _), o in zip(items, outs):
+            text = o.outputs[0].text
+            pred = olmes_bbh_extract(text, task)
+            ok = olmes_exact_match(pred, target, task)
+            cut = o.outputs[0].finish_reason == "length"
+            n_trunc += cut
+            n_tok.append(len(o.outputs[0].token_ids))
+            per.setdefault(task, []).append(ok)
+            fo.write(json.dumps({"task": task, "target": target, "pred": pred, "correct": ok, "truncated": cut,
+                                 "n_tokens": n_tok[-1], "response": text}) + "\n")
+    n = sum(len(v) for v in per.values())
+    return {"n": n, "acc_micro": sum(sum(v) for v in per.values()) / n,
+            "acc_macro": sum(sum(v) / len(v) for v in per.values()) / len(per), "truncated": n_trunc,
+            "mean_tokens": sum(n_tok) / len(n_tok), "by_task": {t: sum(v) / len(v) for t, v in per.items()}}
+
+
 def headline(res):
     """The numbers to compare across checkpoints, flat."""
     h = {}
@@ -216,6 +449,14 @@ def headline(res):
     h["text_s_star_chat"] = g("text", "s_star_chat")
     h["ifeval_prompt_strict"] = g("ifeval", "prompt_strict")
     h["ifeval_inst_strict"] = g("ifeval", "inst_strict")
+    h["pairs_acc"] = g("pairs", "acc")
+    h["pairs_acc_ref_disagreed"] = g("pairs", "ref_disagreed", "acc")
+    h["pairs_acc_ref_agreed"] = g("pairs", "ref_agreed", "acc")
+    h["pairs_margin_change_ref_disagreed"] = g("pairs", "ref_disagreed", "margin_change")
+    h["gen_mean_tokens"] = g("gen", "mean_tokens")
+    h["bbh_acc_micro"] = g("bbh", "acc_micro")
+    h["bbh_acc_macro"] = g("bbh", "acc_macro")
+    h["bbh_ai2_acc_micro"] = g("bbh_ai2", "acc_micro")
     return h
 
 
@@ -232,11 +473,13 @@ def main():
     ap.add_argument("--ckpt", required=True, help="HF model dir or hub id")
     ap.add_argument("--tag", required=True, help="output subdirectory, e.g. d0/step_203")
     ap.add_argument("--ref", default="allenai/Olmo-3-7B-Instruct-SFT", help="model the text probe compares against")
-    ap.add_argument("--parts", default=",".join(PARTS))
+    ap.add_argument("--parts", default=",".join(DEFAULT_PARTS))
     ap.add_argument("--part", default=None, help="internal: run one part in this process")
     ap.add_argument("--fast", action="store_true")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--out", default="results_ckpt")
+    ap.add_argument("--pairs-file", default="/workspace/dpo_data/heldout_pairs.parquet")
+    ap.add_argument("--prompts-file", default="/workspace/dpo_data/judge_prompts.jsonl")
     args = ap.parse_args()
     size = "smoke" if args.smoke else "fast" if args.fast else "full"
     sz = SIZES[size]
@@ -260,7 +503,7 @@ def main():
             continue
         print(f"[{args.tag}] {part} ...", flush=True)
         cmd = [sys.executable, __file__, "--ckpt", args.ckpt, "--tag", args.tag, "--ref", args.ref, "--out", args.out,
-               "--part", part] + (["--smoke"] if args.smoke else ["--fast"] if args.fast else [])
+               "--part", part, "--pairs-file", args.pairs_file, "--prompts-file", args.prompts_file] + (["--smoke"] if args.smoke else ["--fast"] if args.fast else [])
         with open(os.path.join(d, f"{part}.log"), "w") as log:
             code = subprocess.call(cmd, stdout=log, stderr=subprocess.STDOUT, cwd=os.path.dirname(os.path.abspath(__file__)))
         if code:

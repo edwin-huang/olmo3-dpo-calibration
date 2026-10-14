@@ -1,0 +1,11 @@
+{
+ "n": 541,
+ "prompt_strict": 0.7744916820702403,
+ "inst_strict": 0.842925659472422,
+ "unknown_instruction_ids": [],
+ "_meta": {
+  "ckpt": "/workspace/runs/fx_simpo",
+  "size": "fast",
+  "seconds": 46
+ }
+}

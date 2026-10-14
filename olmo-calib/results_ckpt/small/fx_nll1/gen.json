@@ -1,0 +1,10 @@
+{
+ "n": 300,
+ "mean_tokens": 424.29,
+ "truncated": 0.02,
+ "_meta": {
+  "ckpt": "/workspace/runs/fx_nll1",
+  "size": "fast",
+  "seconds": 45
+ }
+}

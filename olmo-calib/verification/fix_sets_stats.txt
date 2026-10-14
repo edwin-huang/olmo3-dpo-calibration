@@ -1,0 +1,5 @@
+s8_a agreed share 0.635
+k=5: mean weight (DPO_AGREE_NORM) 0.4106; agreed pairs carry 0.312 of total weight
+k=5 over all 65K q25 pairs: mean weight 0.4135
+filt8: pool 31243 (0.481); agreed 0.233; mean margin -0.345
+filt8.parquet rows 8192

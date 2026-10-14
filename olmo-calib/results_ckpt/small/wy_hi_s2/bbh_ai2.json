@@ -1,0 +1,41 @@
+{
+ "n": 1080,
+ "acc_micro": 0.4675925925925926,
+ "acc_macro": 0.4675925925925926,
+ "truncated": 7,
+ "mean_tokens": 213.0712962962963,
+ "by_task": {
+  "boolean_expressions": 0.925,
+  "causal_judgement": 0.625,
+  "date_understanding": 0.6,
+  "disambiguation_qa": 0.55,
+  "dyck_languages": 0.0,
+  "formal_fallacies": 0.575,
+  "geometric_shapes": 0.4,
+  "hyperbaton": 0.675,
+  "logical_deduction_five_objects": 0.325,
+  "logical_deduction_seven_objects": 0.325,
+  "logical_deduction_three_objects": 0.75,
+  "movie_recommendation": 0.5,
+  "multistep_arithmetic_two": 0.55,
+  "navigate": 0.475,
+  "object_counting": 0.725,
+  "penguins_in_a_table": 0.5,
+  "reasoning_about_colored_objects": 0.575,
+  "ruin_names": 0.4,
+  "salient_translation_error_detection": 0.425,
+  "snarks": 0.525,
+  "sports_understanding": 0.5,
+  "temporal_sequences": 0.475,
+  "tracking_shuffled_objects_five_objects": 0.15,
+  "tracking_shuffled_objects_seven_objects": 0.1,
+  "tracking_shuffled_objects_three_objects": 0.45,
+  "web_of_lies": 0.525,
+  "word_sorting": 0.0
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_hi_s2",
+  "size": "fast",
+  "seconds": 148
+ }
+}

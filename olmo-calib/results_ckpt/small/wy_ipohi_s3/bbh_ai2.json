@@ -1,0 +1,41 @@
+{
+ "n": 1080,
+ "acc_micro": 0.4527777777777778,
+ "acc_macro": 0.4527777777777778,
+ "truncated": 4,
+ "mean_tokens": 147.14907407407406,
+ "by_task": {
+  "boolean_expressions": 0.85,
+  "causal_judgement": 0.7,
+  "date_understanding": 0.525,
+  "disambiguation_qa": 0.625,
+  "dyck_languages": 0.0,
+  "formal_fallacies": 0.475,
+  "geometric_shapes": 0.2,
+  "hyperbaton": 0.725,
+  "logical_deduction_five_objects": 0.325,
+  "logical_deduction_seven_objects": 0.4,
+  "logical_deduction_three_objects": 0.625,
+  "movie_recommendation": 0.4,
+  "multistep_arithmetic_two": 0.475,
+  "navigate": 0.525,
+  "object_counting": 0.575,
+  "penguins_in_a_table": 0.575,
+  "reasoning_about_colored_objects": 0.45,
+  "ruin_names": 0.425,
+  "salient_translation_error_detection": 0.4,
+  "snarks": 0.55,
+  "sports_understanding": 0.475,
+  "temporal_sequences": 0.5,
+  "tracking_shuffled_objects_five_objects": 0.225,
+  "tracking_shuffled_objects_seven_objects": 0.175,
+  "tracking_shuffled_objects_three_objects": 0.475,
+  "web_of_lies": 0.55,
+  "word_sorting": 0.0
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_ipohi_s3",
+  "size": "fast",
+  "seconds": 131
+ }
+}

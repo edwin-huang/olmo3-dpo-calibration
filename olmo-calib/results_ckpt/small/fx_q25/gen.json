@@ -1,0 +1,10 @@
+{
+ "n": 300,
+ "mean_tokens": 426.3666666666667,
+ "truncated": 0.013333333333333334,
+ "_meta": {
+  "ckpt": "/workspace/runs/q25_all",
+  "size": "fast",
+  "seconds": 38
+ }
+}

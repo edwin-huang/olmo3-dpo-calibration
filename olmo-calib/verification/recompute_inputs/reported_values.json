@@ -1,0 +1,177 @@
+{
+ "instruct_sft": {
+  "source": "results_ckpt/released/Olmo-3-7B-Instruct-SFT",
+  "summary": {
+   "letters_mmlu_acc": 0.608033043725965,
+   "letters_mmlu_ece": 0.11528014616948323,
+   "letters_mmlu_t_star": 1.517640841910274,
+   "letters_mmlu_auroc": 0.7682902393948804,
+   "letters_arc_acc": 0.784549356223176,
+   "letters_arc_ece": 0.04192881050579291,
+   "letters_arc_t_star": 1.1698978094023804,
+   "letters_arc_auroc": 0.8311916447993584
+  },
+  "letters_json": {
+   "mmlu": {
+    "n": 14042,
+    "acc": 0.608033043725965,
+    "conf": 0.722439907500492,
+    "ece": 0.11528014616948323,
+    "t_star": 1.517640841910274,
+    "ece_at_t_star_heldout": 0.040880391501542365,
+    "auroc": 0.7682902393948804,
+    "letter_mass": 0.9875693223799543
+   },
+   "arc": {
+    "n": 1165,
+    "acc": 0.784549356223176,
+    "conf": 0.8244791037693113,
+    "ece": 0.04192881050579291,
+    "t_star": 1.1698978094023804,
+    "ece_at_t_star_heldout": 0.0361485405256042,
+    "auroc": 0.8311916447993584,
+    "letter_mass": 0.9981628389201815
+   }
+  }
+ },
+ "instruct_dpo_released": {
+  "source": "results_ckpt/released/Olmo-3-7B-Instruct-DPO",
+  "summary": {
+   "letters_mmlu_acc": 0.614869676684233,
+   "letters_mmlu_ece": 0.20609262293051822,
+   "letters_mmlu_t_star": 2.3376201276569066,
+   "letters_mmlu_auroc": 0.7658909732130986,
+   "letters_arc_acc": 0.7948497854077253,
+   "letters_arc_ece": 0.1208141880276421,
+   "letters_arc_t_star": 1.8666875795024307,
+   "letters_arc_auroc": 0.8092483982034575
+  },
+  "letters_json": {
+   "mmlu": {
+    "n": 14042,
+    "acc": 0.614869676684233,
+    "conf": 0.8209622996147489,
+    "ece": 0.20609262293051822,
+    "t_star": 2.3376201276569066,
+    "ece_at_t_star_heldout": 0.04363858973930281,
+    "auroc": 0.7658909732130986,
+    "letter_mass": 0.9650184296160825
+   },
+   "arc": {
+    "n": 1165,
+    "acc": 0.7948497854077253,
+    "conf": 0.9133504002557017,
+    "ece": 0.1208141880276421,
+    "t_star": 1.8666875795024307,
+    "ece_at_t_star_heldout": 0.03399638786147986,
+    "auroc": 0.8092483982034575,
+    "letter_mass": 0.9986532836373601
+   }
+  }
+ },
+ "q25_plain": {
+  "source": "results_ckpt/q25_all/final_full",
+  "summary": {
+   "letters_mmlu_acc": 0.6133029482979633,
+   "letters_mmlu_ece": 0.15467174803705636,
+   "letters_mmlu_t_star": 1.8506943287044908,
+   "letters_mmlu_auroc": 0.7678961601397339,
+   "letters_arc_acc": 0.7871244635193133,
+   "letters_arc_ece": 0.08039485673496634,
+   "letters_arc_t_star": 1.4167482968969372,
+   "letters_arc_auroc": 0.8266304921377564
+  },
+  "letters_json": {
+   "mmlu": {
+    "n": 14042,
+    "acc": 0.6133029482979633,
+    "conf": 0.76797469633502,
+    "ece": 0.15467174803705636,
+    "t_star": 1.8506943287044908,
+    "ece_at_t_star_heldout": 0.04079675033645664,
+    "auroc": 0.7678961601397339,
+    "letter_mass": 0.9873189956126199
+   },
+   "arc": {
+    "n": 1165,
+    "acc": 0.7871244635193133,
+    "conf": 0.865338326741408,
+    "ece": 0.08039485673496634,
+    "t_star": 1.4167482968969372,
+    "ece_at_t_star_heldout": 0.033268375152800046,
+    "auroc": 0.8266304921377564,
+    "letter_mass": 0.9988182150270617
+   }
+  }
+ },
+ "q25_agreement_weighted": {
+  "source": "results_ckpt/q25_w5/final_full",
+  "summary": {
+   "letters_mmlu_acc": 0.6130180885913687,
+   "letters_mmlu_ece": 0.10790819953011317,
+   "letters_mmlu_t_star": 1.4966174747929735,
+   "letters_mmlu_auroc": 0.7680252759371328,
+   "letters_arc_acc": 0.7879828326180257,
+   "letters_arc_ece": 0.040525682055883985,
+   "letters_arc_t_star": 1.1444197279607822,
+   "letters_arc_auroc": 0.8288569588879187
+  },
+  "letters_json": {
+   "mmlu": {
+    "n": 14042,
+    "acc": 0.6130180885913687,
+    "conf": 0.7189375946337601,
+    "ece": 0.10790819953011317,
+    "t_star": 1.4966174747929735,
+    "ece_at_t_star_heldout": 0.03509539134232892,
+    "auroc": 0.7680252759371328,
+    "letter_mass": 0.9903478154652106
+   },
+   "arc": {
+    "n": 1165,
+    "acc": 0.7879828326180257,
+    "conf": 0.8247891765888463,
+    "ece": 0.040525682055883985,
+    "t_star": 1.1444197279607822,
+    "ece_at_t_star_heldout": 0.02604372440316678,
+    "auroc": 0.8288569588879187,
+    "letter_mass": 0.9974858534785341
+   }
+  }
+ },
+ "full_weighted": {
+  "source": "results_ckpt/full_w5/final_full",
+  "summary": {
+   "letters_mmlu_acc": 0.6092436974789915,
+   "letters_mmlu_ece": 0.1496175213428271,
+   "letters_mmlu_t_star": 1.7990810815203515,
+   "letters_mmlu_auroc": 0.7671497275798905,
+   "letters_arc_acc": 0.7948497854077253,
+   "letters_arc_ece": 0.08901376768130503,
+   "letters_arc_t_star": 1.5250848925690776,
+   "letters_arc_auroc": 0.8160893572028882
+  },
+  "letters_json": {
+   "mmlu": {
+    "n": 14042,
+    "acc": 0.6092436974789915,
+    "conf": 0.7587262604556009,
+    "ece": 0.1496175213428271,
+    "t_star": 1.7990810815203515,
+    "ece_at_t_star_heldout": 0.04119905560414705,
+    "auroc": 0.7671497275798905,
+    "letter_mass": 0.9218889806101418
+   },
+   "arc": {
+    "n": 1165,
+    "acc": 0.7948497854077253,
+    "conf": 0.8813286128111134,
+    "ece": 0.08901376768130503,
+    "t_star": 1.5250848925690776,
+    "ece_at_t_star_heldout": 0.040511988132299746,
+    "auroc": 0.8160893572028882,
+    "letter_mass": 0.9895852738161696
+   }
+  }
+ }
+}

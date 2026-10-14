@@ -1,0 +1,41 @@
+{
+ "n": 1080,
+ "acc_micro": 0.4842592592592593,
+ "acc_macro": 0.4842592592592593,
+ "truncated": 7,
+ "mean_tokens": 248.6675925925926,
+ "by_task": {
+  "boolean_expressions": 0.925,
+  "causal_judgement": 0.675,
+  "date_understanding": 0.45,
+  "disambiguation_qa": 0.5,
+  "dyck_languages": 0.025,
+  "formal_fallacies": 0.55,
+  "geometric_shapes": 0.3,
+  "hyperbaton": 0.65,
+  "logical_deduction_five_objects": 0.35,
+  "logical_deduction_seven_objects": 0.375,
+  "logical_deduction_three_objects": 0.7,
+  "movie_recommendation": 0.475,
+  "multistep_arithmetic_two": 0.6,
+  "navigate": 0.625,
+  "object_counting": 0.9,
+  "penguins_in_a_table": 0.55,
+  "reasoning_about_colored_objects": 0.4,
+  "ruin_names": 0.425,
+  "salient_translation_error_detection": 0.475,
+  "snarks": 0.675,
+  "sports_understanding": 0.45,
+  "temporal_sequences": 0.55,
+  "tracking_shuffled_objects_five_objects": 0.25,
+  "tracking_shuffled_objects_seven_objects": 0.225,
+  "tracking_shuffled_objects_three_objects": 0.35,
+  "web_of_lies": 0.625,
+  "word_sorting": 0.0
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_easy_s2",
+  "size": "fast",
+  "seconds": 145
+ }
+}

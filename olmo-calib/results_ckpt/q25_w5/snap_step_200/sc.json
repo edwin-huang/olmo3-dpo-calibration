@@ -1,0 +1,31 @@
+{
+ "sc_mmlu": {
+  "n": 500,
+  "k": 8,
+  "acc": 0.706,
+  "conf": 0.79175,
+  "ece": 0.09525,
+  "auroc": 0.7573664026517123,
+  "no_answer": 0.02175,
+  "mean_distinct": 1.844,
+  "all_agree": 0.404,
+  "excess": 0.08574999999999999
+ },
+ "sc_arc": {
+  "n": 250,
+  "k": 8,
+  "acc": 0.904,
+  "conf": 0.8955,
+  "ece": 0.0505,
+  "auroc": 0.75,
+  "no_answer": 0.0055,
+  "mean_distinct": 1.472,
+  "all_agree": 0.62,
+  "excess": -0.008500000000000063
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/q25_w5/snap_step_200",
+  "size": "fast",
+  "seconds": 142
+ }
+}

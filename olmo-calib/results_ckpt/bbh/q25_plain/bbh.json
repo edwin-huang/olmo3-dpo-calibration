@@ -1,0 +1,39 @@
+{
+ "n": 6511,
+ "acc_micro": 0.6519735831669482,
+ "acc_macro": 0.652120211857611,
+ "by_task": {
+  "boolean_expressions": 0.896,
+  "causal_judgement": 0.5668449197860963,
+  "date_understanding": 0.712,
+  "disambiguation_qa": 0.596,
+  "dyck_languages": 0.036,
+  "formal_fallacies": 0.624,
+  "geometric_shapes": 0.464,
+  "hyperbaton": 0.8,
+  "logical_deduction_five_objects": 0.472,
+  "logical_deduction_seven_objects": 0.416,
+  "logical_deduction_three_objects": 0.916,
+  "movie_recommendation": 0.588,
+  "multistep_arithmetic_two": 0.844,
+  "navigate": 0.928,
+  "object_counting": 0.896,
+  "penguins_in_a_table": 0.7054794520547946,
+  "reasoning_about_colored_objects": 0.796,
+  "ruin_names": 0.64,
+  "salient_translation_error_detection": 0.52,
+  "snarks": 0.6629213483146067,
+  "sports_understanding": 0.636,
+  "temporal_sequences": 0.772,
+  "tracking_shuffled_objects_five_objects": 0.544,
+  "tracking_shuffled_objects_seven_objects": 0.352,
+  "tracking_shuffled_objects_three_objects": 0.868,
+  "web_of_lies": 0.996,
+  "word_sorting": 0.36
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/q25_all",
+  "size": "full",
+  "seconds": 142
+ }
+}

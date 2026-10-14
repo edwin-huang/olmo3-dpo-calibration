@@ -1,0 +1,10 @@
+{
+ "n": 300,
+ "mean_tokens": 398.61333333333334,
+ "truncated": 0.03333333333333333,
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_simpo_s3",
+  "size": "fast",
+  "seconds": 43
+ }
+}

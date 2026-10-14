@@ -1,0 +1,10 @@
+{
+ "n": 300,
+ "mean_tokens": 404.36,
+ "truncated": 0.03,
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_lo_s1",
+  "size": "fast",
+  "seconds": 41
+ }
+}

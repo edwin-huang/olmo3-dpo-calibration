@@ -1,0 +1,41 @@
+{
+ "n": 1080,
+ "acc_micro": 0.5037037037037037,
+ "acc_macro": 0.5037037037037037,
+ "truncated": 7,
+ "mean_tokens": 388.10833333333335,
+ "by_task": {
+  "boolean_expressions": 0.825,
+  "causal_judgement": 0.7,
+  "date_understanding": 0.45,
+  "disambiguation_qa": 0.4,
+  "dyck_languages": 0.0,
+  "formal_fallacies": 0.7,
+  "geometric_shapes": 0.225,
+  "hyperbaton": 0.475,
+  "logical_deduction_five_objects": 0.475,
+  "logical_deduction_seven_objects": 0.4,
+  "logical_deduction_three_objects": 0.725,
+  "movie_recommendation": 0.425,
+  "multistep_arithmetic_two": 0.3,
+  "navigate": 0.8,
+  "object_counting": 0.8,
+  "penguins_in_a_table": 0.725,
+  "reasoning_about_colored_objects": 0.625,
+  "ruin_names": 0.45,
+  "salient_translation_error_detection": 0.525,
+  "snarks": 0.5,
+  "sports_understanding": 0.625,
+  "temporal_sequences": 0.675,
+  "tracking_shuffled_objects_five_objects": 0.35,
+  "tracking_shuffled_objects_seven_objects": 0.35,
+  "tracking_shuffled_objects_three_objects": 0.45,
+  "web_of_lies": 0.625,
+  "word_sorting": 0.0
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_simpo_s1",
+  "size": "fast",
+  "seconds": 212
+ }
+}

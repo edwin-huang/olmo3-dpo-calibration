@@ -1,0 +1,28 @@
+{
+ "n": 1000,
+ "acc": 0.896,
+ "acc_ref": 0.628,
+ "d_logp_chosen": -0.2917939857909951,
+ "d_logp_rejected": -1.1011488359930373,
+ "ref_disagreed": {
+  "n": 372,
+  "acc": 0.793010752688172,
+  "margin_ref": -0.46827427799061916,
+  "margin": 0.6606427368016974,
+  "margin_change": 1.1289170147923167,
+  "slope": 0.13226340347083881
+ },
+ "ref_agreed": {
+  "n": 628,
+  "acc": 0.9570063694267515,
+  "margin_ref": 0.5650863329934671,
+  "margin": 1.1851463978012704,
+  "margin_change": 0.6200600648078033,
+  "slope": 0.7668793234722692
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/full_w5/snap_step_1624",
+  "size": "fast",
+  "seconds": 77
+ }
+}

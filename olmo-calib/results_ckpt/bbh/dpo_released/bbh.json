@@ -1,0 +1,39 @@
+{
+ "n": 6511,
+ "acc_micro": 0.6363077868223007,
+ "acc_macro": 0.6385178084691525,
+ "by_task": {
+  "boolean_expressions": 0.476,
+  "causal_judgement": 0.5668449197860963,
+  "date_understanding": 0.704,
+  "disambiguation_qa": 0.424,
+  "dyck_languages": 0.02,
+  "formal_fallacies": 0.44,
+  "geometric_shapes": 0.5,
+  "hyperbaton": 0.776,
+  "logical_deduction_five_objects": 0.608,
+  "logical_deduction_seven_objects": 0.608,
+  "logical_deduction_three_objects": 0.928,
+  "movie_recommendation": 0.648,
+  "multistep_arithmetic_two": 0.504,
+  "navigate": 0.628,
+  "object_counting": 0.804,
+  "penguins_in_a_table": 0.815068493150685,
+  "reasoning_about_colored_objects": 0.884,
+  "ruin_names": 0.616,
+  "salient_translation_error_detection": 0.556,
+  "snarks": 0.6460674157303371,
+  "sports_understanding": 0.676,
+  "temporal_sequences": 0.86,
+  "tracking_shuffled_objects_five_objects": 0.84,
+  "tracking_shuffled_objects_seven_objects": 0.672,
+  "tracking_shuffled_objects_three_objects": 0.904,
+  "web_of_lies": 0.88,
+  "word_sorting": 0.256
+ },
+ "_meta": {
+  "ckpt": "allenai/Olmo-3-7B-Instruct-DPO",
+  "size": "full",
+  "seconds": 250
+ }
+}

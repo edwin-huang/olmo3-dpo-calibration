@@ -1,0 +1,10 @@
+{
+ "n": 300,
+ "mean_tokens": 629.6366666666667,
+ "truncated": 0.09666666666666666,
+ "_meta": {
+  "ckpt": "allenai/Olmo-3-7B-Instruct-DPO",
+  "size": "fast",
+  "seconds": 52
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "sc_mmlu": {
+  "n": 500,
+  "k": 8,
+  "acc": 0.71,
+  "conf": 0.8005,
+  "ece": 0.095,
+  "auroc": 0.770296260320544,
+  "no_answer": 0.02775,
+  "mean_distinct": 1.81,
+  "all_agree": 0.41
+ },
+ "sc_arc": {
+  "n": 250,
+  "k": 8,
+  "acc": 0.892,
+  "conf": 0.896,
+  "ece": 0.046,
+  "auroc": 0.7893207108453745,
+  "no_answer": 0.0025,
+  "mean_distinct": 1.452,
+  "all_agree": 0.652
+ }
+}

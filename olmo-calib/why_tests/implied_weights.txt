@@ -1,0 +1,18 @@
+pairs 259922, agreed 0.6309, mean SFT margin +0.182
+
+method                                                     share on agreed  agreed/disagreed  Spearman w~margin
+DPO (dpo_norm, beta 5)                                               0.631             1.000                nan
+IPO                                                                  0.631             1.000                nan
+agreement-weighted (ours, k 5)                                       0.307             0.260             -1.000
+SimPO Llama3-Instruct v0.2: beta 10, gamma/beta 0.3                  0.448             0.475             -1.000
+SimPO Llama3-Instruct: beta 2.5, gamma/beta 0.55                     0.524             0.645             -1.000
+SimPO Mistral-Instruct: beta 2.5, gamma/beta 0.1                     0.443             0.465             -1.000
+SimPO our small test: beta 5, gamma/beta 0.3                         0.451             0.481             -1.000
+ORPO odds-ratio term                                                 0.459             0.496             -0.979
+WPO (open-instruct)                                                  0.574             0.789             -0.277
+
+agreed share and weight share by preference type
+  delta_learning                 n  124942  agreed 0.742 | DPO 0.481 | agreement-weighted 0.393 | SimPO our small test 0.427
+  llm_judged                     n  124980  agreed 0.540 | DPO 0.481 | agreement-weighted 0.552 | SimPO our small test 0.525
+  multiturn_self_talk            n    5000  agreed 0.286 | DPO 0.019 | agreement-weighted 0.031 | SimPO our small test 0.026
+  multiturn_synthetic_context    n    5000  agreed 0.456 | DPO 0.019 | agreement-weighted 0.024 | SimPO our small test 0.022

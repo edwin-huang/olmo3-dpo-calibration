@@ -1,0 +1,28 @@
+{
+ "n": 1000,
+ "acc": 0.708,
+ "acc_ref": 0.628,
+ "d_logp_chosen": 0.07641305795385234,
+ "d_logp_rejected": -0.17353200661031587,
+ "ref_disagreed": {
+  "n": 372,
+  "acc": 0.25,
+  "margin_ref": -0.46827427799061916,
+  "margin": -0.2619041683443669,
+  "margin_change": 0.20637010964625224,
+  "slope": 0.7004253737062456
+ },
+ "ref_agreed": {
+  "n": 628,
+  "acc": 0.9792993630573248,
+  "margin_ref": 0.5650863329934671,
+  "margin": 0.8408433135281206,
+  "margin_change": 0.2757569805346535,
+  "slope": 1.2487146704267575
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/fx_nll1",
+  "size": "fast",
+  "seconds": 78
+ }
+}

@@ -1,0 +1,41 @@
+{
+ "n": 1080,
+ "acc_micro": 0.45,
+ "acc_macro": 0.45,
+ "truncated": 7,
+ "mean_tokens": 214.70555555555555,
+ "by_task": {
+  "boolean_expressions": 0.85,
+  "causal_judgement": 0.6,
+  "date_understanding": 0.375,
+  "disambiguation_qa": 0.55,
+  "dyck_languages": 0.0,
+  "formal_fallacies": 0.55,
+  "geometric_shapes": 0.2,
+  "hyperbaton": 0.575,
+  "logical_deduction_five_objects": 0.35,
+  "logical_deduction_seven_objects": 0.425,
+  "logical_deduction_three_objects": 0.625,
+  "movie_recommendation": 0.5,
+  "multistep_arithmetic_two": 0.425,
+  "navigate": 0.6,
+  "object_counting": 0.7,
+  "penguins_in_a_table": 0.575,
+  "reasoning_about_colored_objects": 0.475,
+  "ruin_names": 0.425,
+  "salient_translation_error_detection": 0.45,
+  "snarks": 0.6,
+  "sports_understanding": 0.575,
+  "temporal_sequences": 0.5,
+  "tracking_shuffled_objects_five_objects": 0.15,
+  "tracking_shuffled_objects_seven_objects": 0.05,
+  "tracking_shuffled_objects_three_objects": 0.325,
+  "web_of_lies": 0.675,
+  "word_sorting": 0.025
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_ipolo_s1",
+  "size": "fast",
+  "seconds": 181
+ }
+}

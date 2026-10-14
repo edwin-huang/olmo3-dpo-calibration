@@ -1,0 +1,41 @@
+{
+ "n": 1080,
+ "acc_micro": 0.4787037037037037,
+ "acc_macro": 0.47870370370370374,
+ "truncated": 7,
+ "mean_tokens": 212.15648148148148,
+ "by_task": {
+  "boolean_expressions": 0.925,
+  "causal_judgement": 0.675,
+  "date_understanding": 0.525,
+  "disambiguation_qa": 0.525,
+  "dyck_languages": 0.0,
+  "formal_fallacies": 0.525,
+  "geometric_shapes": 0.25,
+  "hyperbaton": 0.7,
+  "logical_deduction_five_objects": 0.325,
+  "logical_deduction_seven_objects": 0.35,
+  "logical_deduction_three_objects": 0.75,
+  "movie_recommendation": 0.45,
+  "multistep_arithmetic_two": 0.45,
+  "navigate": 0.575,
+  "object_counting": 0.8,
+  "penguins_in_a_table": 0.525,
+  "reasoning_about_colored_objects": 0.475,
+  "ruin_names": 0.45,
+  "salient_translation_error_detection": 0.45,
+  "snarks": 0.625,
+  "sports_understanding": 0.475,
+  "temporal_sequences": 0.575,
+  "tracking_shuffled_objects_five_objects": 0.4,
+  "tracking_shuffled_objects_seven_objects": 0.175,
+  "tracking_shuffled_objects_three_objects": 0.4,
+  "web_of_lies": 0.55,
+  "word_sorting": 0.0
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_simporef_s1",
+  "size": "fast",
+  "seconds": 162
+ }
+}

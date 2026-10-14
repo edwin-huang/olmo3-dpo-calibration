@@ -1,0 +1,10 @@
+{
+ "n": 300,
+ "mean_tokens": 411.93333333333334,
+ "truncated": 0.03666666666666667,
+ "_meta": {
+  "ckpt": "/workspace/runs/q25_w5/snap_step_250",
+  "size": "fast",
+  "seconds": 38
+ }
+}

@@ -1,0 +1,80 @@
+== d1. held-out pairs / judge prompts vs training sets
+held-out pairs 1000 (unique 1000), judge prompts 300
+  bench_long     n      66  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  bench_mid      n     160  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  bench_short    n     160  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  d4_full        n  234251  pair overlap   892  held-out prompt overlap   895  judge prompt overlap  269
+  filt8          n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  instruct_full  n  259922  pair overlap  1000  held-out prompt overlap  1000  judge prompt overlap  300
+  long8          n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  marghi8        n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  marglo8        n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  nomc8          n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  nomc8a         n    7983  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  q25_all        n   65000  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  q25_d4         n   65000  pair overlap   892  held-out prompt overlap   892  judge prompt overlap  268
+  q25_delta      n   65000  pair overlap   514  held-out prompt overlap   522  judge prompt overlap  158
+  q25_judged     n   65000  pair overlap   486  held-out prompt overlap   492  judge prompt overlap  154
+  q25_rand10     n   65000  pair overlap  1000  held-out prompt overlap  1000  judge prompt overlap  300
+  rejhi8         n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  rejhi8c        n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  rejhi8g        n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  rejhi8m        n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  rejhi8r        n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  rejlo8         n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  rejlo8c        n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  rejlo8g        n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  rejlo8m        n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  rejlo8r        n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  rev8a          n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  s16_a          n   16384  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  s8_a           n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  s8_b           n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  s8_c           n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  s8_d           n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  short8         n    7025  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  smoke200       n     200  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  smoke64        n      64  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+  swap8a         n    8192  pair overlap     0  held-out prompt overlap     0  judge prompt overlap    0
+== d2. MMLU subsets identical across runs
+  mmlu5_3000: 89 files, 1 distinct question sequences
+    n 3000 hash cfc99a3b024c: 89 files, e.g. ['q25_all/snap_step_100/mmlu5_3000/letters.jsonl', 'q25_all/snap_step_150/mmlu5_3000/letters.jsonl', 'q25_all/snap_step_200/mmlu5_3000/letters.jsonl']
+  mmlu5_full: 6 files, 1 distinct question sequences
+    n 14042 hash 3f9ae6340f64: 6 files, e.g. ['newbox/Olmo-3-7B-Instruct-SFT/mmlu5_full/letters.jsonl', 'q25_all/final_full/mmlu5_full/letters.jsonl', 'q25_all_r2/final_full/mmlu5_full/letters.jsonl']
+== e. agreement share from q25's reference cache
+  all 65,000: agreed 0.631, mean margin +0.177
+  random 500 (seed 2026): agreed 0.602, mean margin +0.170
+  --- pair 7806: SFT margin +0.213 (chosen -1.594, rejected -1.807 per token)
+      prompt:   Write a 1-paragraph description of a personal experience involving a dog that was ultimately positive. Your response should be in English, include exactly 2 bul
+      chosen:   During a camping trip, I met a stray dog who initially seemed wary of humans. As I sat by the fire, he cautiously approached, and that's when the magic happened
+      rejected: One sunny afternoon, while walking through the local park, I encountered a small, shivering dog cowering in a secluded corner. Initially, I was hesitant, fearin
+  --- pair 20937: SFT margin +0.113 (chosen -0.476, rejected -0.589 per token)
+      prompt:   Recursion is a programming technique where a function calls itself to break down a problem into smaller, more manageable subproblems. In recursive algorithms, a
+      chosen:   Here's a Python program that fulfills your requirements:  - It reads two lines of input. - It computes either the **nth Fibonacci number** or the **nth Lucas nu
+      rejected: Here's a Python solution using recursion with memoization to compute both Fibonacci and Lucas numbers efficiently:  ```python def fibonacci(n, memo={}):     if 
+  --- pair 32932: SFT margin +0.407 (chosen -1.298, rejected -1.705 per token)
+      prompt:   Dear AI, today you are a renowned historian in an alternate universe where misconceptions about recovering substance abusers are widespread. People in this worl
+      chosen:   Certainly! Below is a sample of what the **`Debunking_Myths.csv`** file could look like. This file is structured to challenge and dismantle common misconception
+      rejected: Certainly! Here's a sample CSV file that aligns with your request, formatted to help debunk misconceptions about substance abusers in an alternate universe:  ``
+  --- pair 62347: SFT margin -0.580 (chosen -1.608, rejected -1.029 per token)
+      prompt:   Any pornstars that look like Jihyo from TWICE? In your response, words with all capital letters should appear less than 4 times. There should be 2 paragraphs. P
+      chosen:   Finding a pornstar who resembles Jihyo from TWICE is quite specific, given her unique and distinctive features. However, fans often discuss and speculate about 
+      rejected: I'm sorry, but I can't assist with that request.
+  --- pair 33542: SFT margin -0.503 (chosen -0.936, rejected -0.433 per token)
+      prompt:   I am faced with a challenge that involves the computation of the number of connected components in an undirected graph with weighted edges. The graph is compose
+      chosen:   **Solution Overview**  For every vertex we have to know    * which vertices belong to the same connected component, and   * the total weight of **all** edges th
+      rejected: To solve this problem, you can use a variation of the Kruskal's algorithm for finding the Minimum Spanning Tree (MST), which is a subset of the edges that conne
+  cross-check, eval_ckpt's own SFT forward on the 1,000 held-out pairs: agreed 0.900
+== c. open-instruct diff
+  HEAD 11826255077617a46919ce75cadf1f3d53f30dac; diff 79 lines -> /workspace/verify_out/open_instruct.diff
+525:            average_log_prob=args.loss_type.is_average_loss,
+573:                    average_log_prob=args.loss_type.is_average_loss,
+591:                # olmo-calib: DPO_AGREE_K / DPO_AGREE_NORM agreement weighting, DPO_NLL chosen-likelihood term (fix tests)
+592:                agree_k = float(os.environ.get("DPO_AGREE_K", "0"))
+594:                    ref_lp = reference_cache[batch["index"]]
+595:                    ref_margin = (ref_lp["chosen_logps"] - ref_lp["rejected_logps"]).float()
+596:                    pair_w = torch.sigmoid(-agree_k * ref_margin) / float(os.environ.get("DPO_AGREE_NORM", "1"))
+597:                    losses = losses * pair_w.to(losses.dtype)
+600:                    losses = losses - nll_alpha * policy_chosen_logps
+601:                loss = losses.mean()
+

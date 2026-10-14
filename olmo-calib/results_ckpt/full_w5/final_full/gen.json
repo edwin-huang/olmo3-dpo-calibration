@@ -1,0 +1,10 @@
+{
+ "n": 300,
+ "mean_tokens": 906.86,
+ "truncated": 0.26,
+ "_meta": {
+  "ckpt": "/workspace/runs/full_w5",
+  "size": "full",
+  "seconds": 52
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "n": 1000,
+ "acc": 0.698,
+ "acc_ref": 0.628,
+ "d_logp_chosen": -0.05970694889815786,
+ "d_logp_rejected": -0.29288249066891514,
+ "ref_disagreed": {
+  "n": 372,
+  "acc": 0.22043010752688172,
+  "margin_ref": -0.46827427799061916,
+  "margin": -0.3549864126458996,
+  "margin_change": 0.11328786534471957,
+  "slope": 0.9829221768113914
+ },
+ "ref_agreed": {
+  "n": 628,
+  "acc": 0.9808917197452229,
+  "margin_ref": 0.5650863329934671,
+  "margin": 0.86927814169175,
+  "margin_change": 0.3041918086982829,
+  "slope": 1.352597286176654
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_simporef_s3",
+  "size": "fast",
+  "seconds": 78
+ }
+}

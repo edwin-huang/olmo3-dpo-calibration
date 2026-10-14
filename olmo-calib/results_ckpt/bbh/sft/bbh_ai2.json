@@ -1,0 +1,41 @@
+{
+ "n": 6511,
+ "acc_micro": 0.44755029949316544,
+ "acc_macro": 0.4517698474299258,
+ "truncated": 61,
+ "mean_tokens": 214.79035478421133,
+ "by_task": {
+  "boolean_expressions": 0.848,
+  "causal_judgement": 0.5401069518716578,
+  "date_understanding": 0.52,
+  "disambiguation_qa": 0.564,
+  "dyck_languages": 0.02,
+  "formal_fallacies": 0.548,
+  "geometric_shapes": 0.284,
+  "hyperbaton": 0.7,
+  "logical_deduction_five_objects": 0.404,
+  "logical_deduction_seven_objects": 0.384,
+  "logical_deduction_three_objects": 0.624,
+  "movie_recommendation": 0.456,
+  "multistep_arithmetic_two": 0.512,
+  "navigate": 0.62,
+  "object_counting": 0.672,
+  "penguins_in_a_table": 0.6095890410958904,
+  "reasoning_about_colored_objects": 0.524,
+  "ruin_names": 0.316,
+  "salient_translation_error_detection": 0.376,
+  "snarks": 0.5280898876404494,
+  "sports_understanding": 0.544,
+  "temporal_sequences": 0.368,
+  "tracking_shuffled_objects_five_objects": 0.2,
+  "tracking_shuffled_objects_seven_objects": 0.148,
+  "tracking_shuffled_objects_three_objects": 0.348,
+  "web_of_lies": 0.536,
+  "word_sorting": 0.004
+ },
+ "_meta": {
+  "ckpt": "allenai/Olmo-3-7B-Instruct-SFT",
+  "size": "full",
+  "seconds": 798
+ }
+}

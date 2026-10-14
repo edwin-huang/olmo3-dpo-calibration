@@ -1,0 +1,11 @@
+{
+ "n": 541,
+ "prompt_strict": 0.7818853974121996,
+ "inst_strict": 0.8489208633093526,
+ "unknown_instruction_ids": [],
+ "_meta": {
+  "ckpt": "/workspace/runs/q25_w5",
+  "size": "fast",
+  "seconds": 42
+ }
+}

@@ -1,0 +1,10 @@
+{
+ "n": 300,
+ "mean_tokens": 371.47333333333336,
+ "truncated": 0.04,
+ "_meta": {
+  "ckpt": "allenai/Olmo-3-7B-Instruct-SFT",
+  "size": "fast",
+  "seconds": 39
+ }
+}

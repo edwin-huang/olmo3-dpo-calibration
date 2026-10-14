@@ -1,0 +1,10 @@
+{
+ "n": 300,
+ "mean_tokens": 450.02,
+ "truncated": 0.04,
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_easy_s3",
+  "size": "fast",
+  "seconds": 44
+ }
+}

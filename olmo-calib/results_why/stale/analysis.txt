@@ -1,0 +1,15 @@
+4000 pairs; corr(SFT margin re-scored, training cache) 0.9977, mean abs diff 0.0066; SFT agrees 65.6%
+
+state                   agrees  margin agreed slope | weight share on pairs agreed NOW:  plain  static  dynamic | static push left | static on crossed
+sft                      65.6%  +0.226         1.00                                      0.656   0.338    0.337               1.00               0.000
+q25_weighted             77.6%  +0.431         0.86                                      0.748   0.500    0.422               0.59               0.141
+full_s406                78.6%  +0.456         0.83                                      0.739   0.492    0.402               0.58               0.146
+full_s812                87.4%  +0.718         0.70                                      0.726   0.527    0.355               0.33               0.206
+full_s1218               90.1%  +0.904         0.64                                      0.703   0.495    0.307               0.25               0.199
+full_s1624               91.0%  +1.013         0.59                                      0.694   0.471    0.290               0.22               0.188
+full_s2030               91.2%  +1.029         0.58                                      0.702   0.478    0.297               0.21               0.189
+q25_plain                76.8%  +0.547         1.31                                      0.643   0.412    0.316               0.63               0.123
+dpo_released             85.4%  +0.874         1.24                                      0.609   0.412    0.259               0.35               0.177
+
+weight share = sum of that method's per-pair gradient weight on pairs with margin > 0 under this state, / total.
+static push left = total static gradient weight vs step 0. crossed = SFT disagreed, this state agrees.

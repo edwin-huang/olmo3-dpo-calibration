@@ -16,7 +16,7 @@ fail() { echo "$1" > $WS/runs/$NAME.ALL_FAILED; echo "$NAME FAILED: $1"; exit 1;
 rm -f $WS/runs/$NAME.ALL_DONE $WS/runs/$NAME.ALL_FAILED
 export LOG_BATCH_INDEX=1
 if [ ! -f $WS/runs/$NAME.DONE ]; then
-  ZERO=1 CONCAT=True N_FULL=10 bash $T/launch_dpo.sh $NAME $DATA $M 1e-6 || fail "training (see runs/$NAME.log)"
+  ZERO=1 CONCAT=True N_FULL=${N_FULL:-10} bash $T/launch_dpo.sh $NAME $DATA $M 1e-6 || fail "training (see runs/$NAME.log)"
 fi
 PRUNE=1 bash $T/eval_run.sh $NAME $M --fast || fail "snapshot evals (see runs/$NAME.EVAL_FAILED)"
 cd $WS/olmo-calib

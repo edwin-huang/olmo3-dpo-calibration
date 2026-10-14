@@ -1,0 +1,6 @@
+model          Ai2 score   fixed  correct  bare-letter right  no answer   wrong  answer phrase  truncated  mean tok
+sft                0.448   0.448    0.448              0.000      0.037   0.515          0.952      0.009       215
+dpo_released       0.567   0.576    0.567              0.010      0.040   0.383          0.846      0.004       607
+q25_plain          0.478   0.480    0.478              0.001      0.034   0.487          0.929      0.004       200
+q25_weighted       0.534   0.549    0.534              0.011      0.046   0.410          0.821      0.005       447
+full_weighted      0.641   0.637    0.641              0.008      0.034   0.317          0.704      0.037      2685

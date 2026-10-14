@@ -30,6 +30,7 @@ Usage: python why.py decomp --n 1000 ; python why.py patch --n 400 ; python why.
 Writes results_why/<test>__<A>__<B>.json
 """
 import argparse
+import itertools
 import json
 import math
 import os
@@ -836,6 +837,219 @@ def cmd_firsttok(args):
     save(args, "firsttok", res)
 
 
+# ---------------------------------------------------------------- A7: causal test of the gain account
+
+
+def gain_hooks(model, heads, mlps, s):
+    """Scale the selected heads' and MLP blocks' contributions to the residual stream by s, at every position.
+    heads = {layer: [head, ...]}: each head's share of the post-attention-norm output, with that norm's scale held
+    fixed (the same split decomp uses), gets multiplied by s. mlps = [layer, ...]: the whole normalized MLP output."""
+    n_heads = model.config.num_attention_heads
+    hd = model.config.hidden_size // n_heads
+    hooks, z = [], {}
+    for l, hs in heads.items():
+        layer = model.model.layers[l]
+        cols = torch.cat([torch.arange(h * hd, (h + 1) * hd) for h in hs]).cuda()
+        W = layer.self_attn.o_proj.weight[:, cols].float()  # [d, k*hd]
+        g = layer.post_attention_layernorm.weight.float()
+        eps = layer.post_attention_layernorm.variance_epsilon
+
+        def grab(m, a, l=l, cols=cols):
+            z[l] = a[0][..., cols]
+
+        def scale(m, a, o, l=l, W=W, g=g, eps=eps):  # returns the new output on purpose
+            x = a[0].float()
+            rms = x.pow(2).mean(-1, keepdim=True).add(eps).sqrt()
+            contrib = (z.pop(l).float() @ W.T) * g / rms
+            return (o.float() + (s - 1) * contrib).to(o.dtype)
+        hooks.append(layer.self_attn.o_proj.register_forward_pre_hook(grab))
+        hooks.append(layer.post_attention_layernorm.register_forward_hook(scale))
+    for l in mlps:
+        hooks.append(model.model.layers[l].post_feedforward_layernorm.register_forward_hook(lambda m, a, o: o * s))
+    return hooks
+
+
+@torch.no_grad()
+def wiki_stats(model, chunks):
+    """Mean next-token NLL and mean top-two log-prob gap on wikitext chunks (positions 32+)."""
+    nll = gap = n = 0.0
+    for ids in chunks:
+        ids = ids.cuda()
+        lp = F.log_softmax(model(ids).logits[0, 31:-1].float(), -1)
+        y = ids[0, 32:]
+        nll += -lp.gather(1, y[:, None]).sum().item()
+        top2 = lp.topk(2, -1).values
+        gap += (top2[:, 0] - top2[:, 1]).sum().item()
+        n += len(y)
+    return nll / n, gap / n
+
+
+@torch.no_grad()
+def cmd_gain(args):
+    """Is the overconfidence CAUSED by a gain on SFT's existing answer components? In SFT, scale the top-k heads by
+    their SFT letter-gap contribution (and/or late MLPs) by s and see whether T* rises to DPO's level with answers,
+    accuracy and AUROC unchanged (sufficiency); in DPO, scale the same components by 1/s and see whether T* falls back
+    (necessity). Controls: k random heads; side effects on wikitext NLL and top-two gap."""
+    from mechanism import text_batches
+    from temp_scaling import auroc
+    tok = AutoTokenizer.from_pretrained(args.a)
+    tok.padding_side = "left"
+    test, prompts = mmlu(tok, args.n)
+    lid = letter_ids(tok)
+    chunks = [ids for src, ids, _ in itertools.islice(text_batches(tok, 32), 32) if src == "wikitext"]
+    A = load(args.a)
+    dla = run_decomp(A, tok, prompts, lid)["dla_head"]  # [L, H] mean contribution to SFT's letter gap
+    L, H = dla.shape
+    order = torch.argsort(dla.flatten(), descending=True).tolist()
+    top = lambda k: order[:k]
+    rnd = random.Random(0).sample(order[100:], 30)
+    as_map = lambda flat: {l: [i % H for i in flat if i // H == l] for l in sorted({i // H for i in flat})}
+    late_mlps = list(range(19, 31))
+    late_all = {l: list(range(H)) for l in range(15, L)}
+    print("top-10 SFT answer heads:", ", ".join(f"L{i // H}H{i % H} {dla.flatten()[i].item():+.3f}" for i in top(10)))
+    rows, base = [], {}
+
+    def run(model, tag, name, heads, mlps, s):
+        hooks = gain_hooks(model, heads, mlps, s) if (heads or mlps) and s != 1 else []
+        try:
+            Z = letter_logits(model, tok, prompts, lid)
+            wnll, wgap = wiki_stats(model, chunks)
+        finally:
+            for h in hooks:
+                h.remove()
+        cal = calib_from_logits(Z, test)
+        p = F.softmax(Z, -1)
+        conf = p.max(-1).values.tolist()
+        corr = [int(a == t["answer"]) for a, t in zip(p.argmax(-1).tolist(), test)]
+        if name == "baseline":
+            base[tag] = (Z, wnll, wgap)
+        c, r2 = scale_fit(Z, base["SFT"][0])
+        r = {"model": tag, "condition": name, "s": s, "n_heads": sum(len(v) for v in heads.values()), "n_mlps": len(mlps),
+             "letter_scale_vs_sft": c, "scale_r2": r2, "same_pred_as_own_baseline": (Z.argmax(-1) == base[tag][0].argmax(-1)).float().mean().item(),
+             "acc": cal["acc"], "ece": cal["ece"], "t_star": cal["t_star"], "auroc": auroc(conf, corr),
+             "wiki_nll": wnll, "wiki_dnll": wnll - base[tag][1], "wiki_gap_ratio": wgap / base[tag][2]}
+        rows.append(r)
+        print(f"{tag:<4} {name:<34} s={s:<5.3g} scale {c:5.3f} (R2 {r2:.3f}) same {r['same_pred_as_own_baseline']:.3f} "
+              f"acc {r['acc']:.3f} ECE {r['ece']:.3f} T* {r['t_star']:.2f} AUROC {r['auroc']:.3f} | wiki dNLL {r['wiki_dnll']:+.4f} "
+              f"gap x{r['wiki_gap_ratio']:.3f}", flush=True)
+
+    run(A, "SFT", "baseline", {}, [], 1)
+    for s in (1.3, 1.5):
+        for k in (10, 30, 100):
+            run(A, "SFT", f"top-{k} answer heads", as_map(top(k)), [], s)
+        run(A, "SFT", "30 random heads (control)", as_map(rnd), [], s)
+        run(A, "SFT", "late MLPs (L19-30)", {}, late_mlps, s)
+        run(A, "SFT", "top-30 heads + late MLPs", as_map(top(30)), late_mlps, s)
+    run(A, "SFT", "all heads + MLPs, L15-31", late_all, list(range(15, L)), 1.3)
+    del A
+    torch.cuda.empty_cache()
+    B = load(args.b)
+    run(B, "DPO", "baseline", {}, [], 1)
+    for s in (1.3, 1.5):
+        run(B, "DPO", "top-30 heads + late MLPs", as_map(top(30)), late_mlps, 1 / s)
+        run(B, "DPO", "top-30 answer heads", as_map(top(30)), [], 1 / s)
+        run(B, "DPO", "late MLPs (L19-30)", {}, late_mlps, 1 / s)
+    run(B, "DPO", "all heads + MLPs, L15-31", late_all, list(range(15, L)), 1 / 1.3)
+    save(args, "gain", {"a": args.a, "b": args.b, "n": len(prompts), "top_heads": [(i // H, i % H, dla.flatten()[i].item()) for i in top(30)],
+                        "random_heads": [(i // H, i % H) for i in rnd], "rows": rows})
+
+
+@torch.no_grad()
+def cmd_transplant(args):
+    """Follow-up to gain: does DPO's change live in what the attributed components WRITE? At the answer position,
+    replace selected heads' contributions (post-attention-norm, each block's norm scale held fixed as in decomp),
+    whole attention blocks, or MLP blocks in A (SFT) with B's (DPO) values on the same prompt; later layers then run
+    as A. Metric: letter scale vs A and its share of B's (log c / log c_B)."""
+    tok = AutoTokenizer.from_pretrained(args.a)
+    tok.padding_side = "left"
+    test, prompts = mmlu(tok, args.n)
+    lid = letter_ids(tok)
+    A, B = load(args.a), load(args.b)
+    dla = run_decomp(A, tok, prompts, lid)["dla_head"]
+    L, H = dla.shape
+    hd = A.config.hidden_size // H
+    order = torch.argsort(dla.flatten(), descending=True).tolist()
+    dpath = os.path.join(args.out, f"decomp__{short(args.a)}__{short(args.b)}.json")
+    changed = [int(l) * H + int(h) for l, h, *_ in json.load(open(dpath))["top_heads_d"][:20]]
+    rnd = random.Random(0).sample(order[100:], 30)
+    union = sorted(set(order[:100]) | set(changed) | set(rnd))
+    by_layer = lambda flat: {l: [i % H for i in flat if i // H == l] for l in sorted({i // H for i in flat})}
+    late = list(range(15, L))
+    conds = [("top-10 answer heads", order[:10], [], []), ("top-30 answer heads", order[:30], [], []),
+             ("top-100 answer heads", order[:100], [], []), ("20 most-changed heads", changed, [], []),
+             ("30 random heads (control)", rnd, [], []), ("late MLPs L19-30", [], list(range(19, 31)), []),
+             ("top-30 heads + late MLPs", order[:30], list(range(19, 31)), []),
+             ("all attention L15-31", [], [], late), ("all attention + MLPs L15-31", [], late, late)]
+    W = {(m, l): mod.model.layers[l].self_attn.o_proj.weight.float() for m, mod in (("A", A), ("B", B)) for l in range(L)}
+
+    def head_contrib(m, l, z, x, heads):
+        """[b, k, d] contributions of `heads` at the last position: g * (W_O[:, h] z_h) / rms(x)."""
+        norm = (A if m == "A" else B).model.layers[l].post_attention_layernorm
+        rms = x.pow(2).mean(-1, keepdim=True).add(norm.variance_epsilon).sqrt()  # [b, 1]
+        out = []
+        for h in heads:
+            sl = slice(h * hd, (h + 1) * hd)
+            out.append((z[:, sl] @ W[(m, l)][:, sl].T) * norm.weight.float() / rms)
+        return torch.stack(out, 1)
+
+    Z = {name: torch.zeros(len(prompts), 4, device="cuda") for name, *_ in conds}
+    ZA, ZB = torch.zeros(len(prompts), 4, device="cuda"), torch.zeros(len(prompts), 4, device="cuda")
+    ul = by_layer(union)
+    for ix, enc in batches(tok, prompts, args.bs):
+        # 1. B's last-position values
+        cap, hooks = {}, []
+        for l, layer in enumerate(B.model.layers):
+            hooks.append(layer.self_attn.o_proj.register_forward_pre_hook(lambda m, a, l=l: cap.__setitem__(("z", l), a[0][:, -1].float())))
+            def attn_b(m, a, o, l=l):
+                cap[("attn", l)] = o[:, -1].clone()
+                if l in ul:
+                    cap[("heads", l)] = dict(zip(ul[l], head_contrib("B", l, cap[("z", l)], a[0][:, -1].float(), ul[l]).unbind(1)))
+            hooks.append(layer.post_attention_layernorm.register_forward_hook(attn_b))
+            hooks.append(layer.post_feedforward_layernorm.register_forward_hook(lambda m, a, o, l=l: cap.__setitem__(("mlp", l), o[:, -1].clone())))
+        ZB[ix] = B(**enc, logits_to_keep=1).logits[:, -1].float()[:, lid]
+        for h_ in hooks:
+            h_.remove()
+        ZA[ix] = A(**enc, logits_to_keep=1).logits[:, -1].float()[:, lid]
+        # 2. A with B's values transplanted at the last position
+        for name, heads, mlps, attn_layers in conds:
+            hl, hooks, za = by_layer(heads), [], {}
+            for l, layer in enumerate(A.model.layers):
+                if l in hl or l in attn_layers:
+                    hooks.append(layer.self_attn.o_proj.register_forward_pre_hook(lambda m, a, l=l: za.__setitem__(l, a[0][:, -1].float())))
+                    def attn_a(m, a, o, l=l, hs=hl.get(l, []), whole=l in attn_layers):
+                        o = o.clone()
+                        if whole:
+                            o[:, -1] = cap[("attn", l)]
+                        else:
+                            own = head_contrib("A", l, za[l], a[0][:, -1].float(), hs)
+                            new = torch.stack([cap[("heads", l)][h] for h in hs], 1)
+                            o[:, -1] = (o[:, -1].float() + (new - own).sum(1)).to(o.dtype)
+                        return o
+                    hooks.append(layer.post_attention_layernorm.register_forward_hook(attn_a))
+                if l in mlps:
+                    def mlp_a(m, a, o, l=l):
+                        o = o.clone()
+                        o[:, -1] = cap[("mlp", l)]
+                        return o
+                    hooks.append(layer.post_feedforward_layernorm.register_forward_hook(mlp_a))
+            Z[name][ix] = A(**enc, logits_to_keep=1).logits[:, -1].float()[:, lid]
+            for h_ in hooks:
+                h_.remove()
+    cB, _ = scale_fit(ZB, ZA)
+    rows = []
+    for name, heads, mlps, attn_layers in conds:
+        c, r2 = scale_fit(Z[name], ZA)
+        cal = calib_from_logits(Z[name], test)
+        r = {"condition": name, "letter_scale": c, "r2": r2, "share_of_dpo": math.log(c) / math.log(cB), "t_star": cal["t_star"],
+             "acc": cal["acc"], "ece": cal["ece"], "same_pred_as_sft": (Z[name].argmax(-1) == ZA.argmax(-1)).float().mean().item()}
+        rows.append(r)
+        print(f"{name:<30} scale {c:.3f} (R2 {r2:.3f}) share {r['share_of_dpo']:+.2f}  T* {r['t_star']:.2f}  acc {r['acc']:.3f}  same {r['same_pred_as_sft']:.3f}", flush=True)
+    calA, calB = calib_from_logits(ZA, test), calib_from_logits(ZB, test)
+    print(f"SFT T* {calA['t_star']:.2f}  DPO T* {calB['t_star']:.2f}  DPO letter scale {cB:.3f}")
+    save(args, "transplant", {"a": args.a, "b": args.b, "n": len(prompts), "dpo_scale": cB, "sft_t": calA["t_star"],
+                              "dpo_t": calB["t_star"], "changed_heads": [(i // H, i % H) for i in changed], "rows": rows})
+
+
 def save(args, test, obj):
     os.makedirs(args.out, exist_ok=True)
     path = os.path.join(args.out, f"{test}__{short(args.a)}__{short(args.b)}.json")
@@ -845,7 +1059,7 @@ def save(args, test, obj):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("test", choices=["decomp", "patch", "squeeze", "firsttok", "norm", "neurons", "pairs", "bridge"])
+    ap.add_argument("test", choices=["decomp", "patch", "squeeze", "firsttok", "norm", "neurons", "pairs", "bridge", "gain", "transplant"])
     ap.add_argument("--data", default="instruct", choices=["instruct", "think"], help="pairs: which DPO data")
     ap.add_argument("--max-resp", type=int, default=1024, help="pairs: response tokens scored")
     ap.add_argument("--k-null", type=int, default=64, help="norm/neurons: bottom singular directions of W_U counted as null space")
@@ -858,7 +1072,7 @@ def main():
     ap.add_argument("--out", default="results_why")
     args = ap.parse_args()
     {"decomp": cmd_decomp, "patch": cmd_patch, "squeeze": cmd_squeeze, "firsttok": cmd_firsttok,
-     "norm": cmd_norm, "neurons": cmd_neurons, "pairs": cmd_pairs, "bridge": cmd_bridge}[args.test](args)
+     "norm": cmd_norm, "neurons": cmd_neurons, "pairs": cmd_pairs, "bridge": cmd_bridge, "gain": cmd_gain, "transplant": cmd_transplant}[args.test](args)
 
 
 if __name__ == "__main__":

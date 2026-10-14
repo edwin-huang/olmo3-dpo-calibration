@@ -1,0 +1,28 @@
+{
+ "n": 1000,
+ "acc": 0.7,
+ "acc_ref": 0.628,
+ "d_logp_chosen": -0.07291206145169417,
+ "d_logp_rejected": -0.3142472896587897,
+ "ref_disagreed": {
+  "n": 372,
+  "acc": 0.22311827956989247,
+  "margin_ref": -0.46827427799061916,
+  "margin": -0.34905386364435576,
+  "margin_change": 0.1192204143462634,
+  "slope": 0.9896002527326432
+ },
+ "ref_agreed": {
+  "n": 628,
+  "acc": 0.982484076433121,
+  "margin_ref": 0.5650863329934671,
+  "margin": 0.8787570878824568,
+  "margin_change": 0.31367075488898966,
+  "slope": 1.349323890714785
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/wy_simporef_s1",
+  "size": "fast",
+  "seconds": 76
+ }
+}

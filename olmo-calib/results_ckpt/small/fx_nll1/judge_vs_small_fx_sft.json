@@ -1,0 +1,9 @@
+{
+ "ref": "small/fx_sft",
+ "n": 300,
+ "win": 0.55,
+ "se": 0.025110865288865605,
+ "win_length_adjusted": 0.5596758016931699,
+ "length_ratio": 1.1659599828765355,
+ "truncated": 0.02
+}

@@ -1,0 +1,41 @@
+{
+ "n": 6511,
+ "acc_micro": 0.47811396098909537,
+ "acc_macro": 0.48022466703327554,
+ "truncated": 27,
+ "mean_tokens": 200.35601290124404,
+ "by_task": {
+  "boolean_expressions": 0.852,
+  "causal_judgement": 0.5401069518716578,
+  "date_understanding": 0.572,
+  "disambiguation_qa": 0.528,
+  "dyck_languages": 0.004,
+  "formal_fallacies": 0.564,
+  "geometric_shapes": 0.392,
+  "hyperbaton": 0.736,
+  "logical_deduction_five_objects": 0.408,
+  "logical_deduction_seven_objects": 0.396,
+  "logical_deduction_three_objects": 0.64,
+  "movie_recommendation": 0.472,
+  "multistep_arithmetic_two": 0.528,
+  "navigate": 0.596,
+  "object_counting": 0.712,
+  "penguins_in_a_table": 0.5273972602739726,
+  "reasoning_about_colored_objects": 0.596,
+  "ruin_names": 0.376,
+  "salient_translation_error_detection": 0.412,
+  "snarks": 0.550561797752809,
+  "sports_understanding": 0.588,
+  "temporal_sequences": 0.408,
+  "tracking_shuffled_objects_five_objects": 0.32,
+  "tracking_shuffled_objects_seven_objects": 0.228,
+  "tracking_shuffled_objects_three_objects": 0.44,
+  "web_of_lies": 0.576,
+  "word_sorting": 0.004
+ },
+ "_meta": {
+  "ckpt": "/workspace/runs/q25_all",
+  "size": "full",
+  "seconds": 361
+ }
+}

@@ -117,3 +117,47 @@ Accuracy .613-.619 and AUROC .765-.774 in every run.
 | 5. IPO lowers T* but agreement still matters (>= 0.15) | Confirmed (1.70 vs 2.26; hi - lo 0.23) |
 
 All 27 models: ehuang5/olmotestmodels, wave/wy_*. Results: results_ckpt/small/wy_*.
+
+## 5. Addendum 1: agreement weighting on the 99%-agreed set (3 runs; finished 2026-10-14 15:43 UTC)
+
+wy_w5hi_s1-s3: why_hi8, LR 4e-6, seeds 1-3, DPO_AGREE_K 5, set-specific DPO_AGREE_NORM 0.1179 (mean raw weight over
+why_hi8; mean SFT margin +0.82, so most raw weights are tiny). The 0.9% disagreed pairs carry 4.6% of the weight;
+the top 10% of pairs carry 31%. Correction to the addendum's rationale (not a tested prediction): the regular-data
+normalizer would have cut the total push to about 29% (0.118 / 0.41), not "roughly a sixth".
+
+| Condition | T* (s1 / s2 / s3) | Mean | ECE | Chat T* | Learned | Agreed kept | Tokens | BBH |
+|---|---|---|---|---|---|---|---|---|
+| Plain DPO (wy_hi, wave) | 2.28 / 2.26 / 2.26 | 2.26 | .187 | 4.11 | 22.9 | .986 | 404 | .471 |
+| Agreement-weighted (wy_w5hi) | 2.18 / 2.19 / 2.20 | 2.19 | .181 | 3.73 | 27.8 | .984 | 456 | .483 |
+
+Accuracy .618-.619, AUROC .768-.770.
+
+- **6a: NOT SUPPORTED.** Mean T* is 0.07 below plain (needed 0.2; seed spread 0.02).
+- **6b: holds** (mean 2.19 >= 1.45), trivially.
+- Reading (as pre-specified): weighting needs disagreed pairs to shift weight onto. On this set it can only move
+  weight from strongly to weakly agreed pairs, and those sharpen almost as much, while learning more (27.8% vs 22.9%).
+  What drives the overconfidence is training on pairs SFT already gets right, largely regardless of how strongly it
+  prefers them: the sign of SFT's margin, not its size.
+
+## 6. Addendum 2: agreement weighting on a 100%-agreed set (2 runs; finished 2026-10-14 ~17:30 UTC)
+
+why_hiall8: why_hi8 minus its 73 disagreed pairs (8,119 pairs; margins from the 25%-scale reference cache that built
+why_hi8; recomputing why_hi8's normalizer from that cache gives 0.1179, identical to the trainer's own cache).
+Set-specific DPO_AGREE_NORM 0.1135. **Deviation from the pre-registration:** after the plain check seed and weighted
+seed 1, the user stopped the queue (seeds 2-3 not run), since Addendum 1 already predicted the outcome and seeds vary
+by about 0.02 in T*. 7b and 7c are therefore checked on seed 1, not on 3-seed means.
+
+| Run (seed 1) | T* | ECE | Chat T* | Learned | Agreed kept | Tokens | BBH |
+|---|---|---|---|---|---|---|---|
+| Plain DPO (wy_hiall_s1) | 2.32 | .197 | 4.29 | 22.6 | .987 | 402 | .474 |
+| Agreement-weighted (wy_w5all_s1) | 2.24 | .187 | 3.88 | 27.7 | .982 | 453 | .494 |
+
+- **7a: holds.** Plain DPO on why_hiall8 (2.32) is within 0.08 of wy_hi_s1 (2.28); dropping the disagreed pairs
+  moved it up slightly, as the account expects.
+- **7b: NOT SUPPORTED** (single seed). Weighting lowers T* by 0.08 (needed 0.2).
+- **7c: holds** (single seed). 2.24 is within 0.1 of Addendum 1's weighted mean (2.19): the 73 disagreed pairs did
+  not drive that result.
+- Reading: with no disagreed pairs at all, moving the push from strongly to weakly agreed pairs removes only about
+  0.08 of T*. Whether SFT already gets a pair right matters far more than by how much (sign, not size); margin size
+  has a small effect. Weighting fixes overconfidence by shifting weight onto disagreed pairs, so it does little on
+  data that has almost none.

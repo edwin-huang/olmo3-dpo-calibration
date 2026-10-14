@@ -129,3 +129,10 @@ Every change to a number in the write-up ("Why DPO Makes Olmo 3 Overconfident") 
 | Main | Related | "account predicted which standard variants would work (label smoothing, chosen-likelihood would not)" | pre-registered SimPO with/without reference | Controls removed | — |
 | Main | Limits, softening | small-test ×0.94–0.95 / ×0.82 and "may explain their longer responses" | 25% ×0.96 / ×0.86, full ×0.91 / ×0.79; length tied to full scale | Small-test values came from the removed 8× runs; contradicted "no lengthening at 4e-6" | results_why/fixscale/bridge.*.log |
 | Main | Mechanism, Why, Limits | wording | letter score defined (logits, letter scale), "answer heads" defined, "between SFT and DPO", Ai2's data-building LLM judge named, Limits rewritten | User reading pass | — |
+
+## 2026-10-14 — Addenda 1-2 (99% / 100% agreed weighting) added
+
+| Doc | Where | Old | New | Reason | Source |
+|---|---|---|---|---|---|
+| Main | Summary Why; Why (after replication); Fix definition | — | "what matters is whether SFT already gets a pair right, not by how much"; follow-up paragraph (2.26 → 2.19, 3 seeds; 2.32 → 2.24, 1 seed; mixed 1.80 → 1.50); "works by moving weight onto disagreed pairs, so on data with almost none it does little" | New pre-registered results | why_tests/WHY_RESULTS.md §5-6; results_ckpt/small/wy_w5hi_*, wy_hiall_s1, wy_w5all_s1 |
+| Log | §12 follow-ups; retracted claims | — | two tables (runs, predictions 6a-7c) + paragraph; row "weighting helps on almost fully agreed data: not supported" | same | same |

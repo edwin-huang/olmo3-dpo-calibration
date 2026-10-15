@@ -1,5 +1,5 @@
 diff --git a/open_instruct/dpo_tune_cache.py b/open_instruct/dpo_tune_cache.py
-index b164c84a0..79bfb138d 100644
+index b164c84a..4cde3fab 100644
 --- a/open_instruct/dpo_tune_cache.py
 +++ b/open_instruct/dpo_tune_cache.py
 @@ -561,6 +561,10 @@ def main(args: dpo_utils.DPOExperimentConfig, tc: TokenizerConfig):
@@ -27,10 +27,20 @@ index b164c84a0..79bfb138d 100644
  
                  losses, chosen_rewards, rejected_rewards = dpo_utils.compute_loss(
                      args,
-@@ -577,6 +588,16 @@ def main(args: dpo_utils.DPOExperimentConfig, tc: TokenizerConfig):
+@@ -577,6 +588,26 @@ def main(args: dpo_utils.DPOExperimentConfig, tc: TokenizerConfig):
                      policy_rejected_logps,
                      reference_cache if args.loss_type.needs_reference_model else None,
                  )
++                # olmo-calib: DPO_GAMMA (SimPO-with-reference) / DPO_IPO_TAU (IPO) on the reference-relative margin
++                ref_gamma = os.environ.get("DPO_GAMMA")
++                ipo_tau = os.environ.get("DPO_IPO_TAU")
++                if ref_gamma or ipo_tau:
++                    ref_lp6 = reference_cache[batch["index"]]
++                    h6 = (policy_chosen_logps - ref_lp6["chosen_logps"]) - (policy_rejected_logps - ref_lp6["rejected_logps"])
++                    if ipo_tau:
++                        losses = (h6 - 1 / (2 * float(ipo_tau))) ** 2
++                    else:
++                        losses = -torch.nn.functional.logsigmoid(args.beta * (h6 - float(ref_gamma)))
 +                # olmo-calib: DPO_AGREE_K / DPO_AGREE_NORM agreement weighting, DPO_NLL chosen-likelihood term (fix tests)
 +                agree_k = float(os.environ.get("DPO_AGREE_K", "0"))
 +                if agree_k:
@@ -44,7 +54,7 @@ index b164c84a0..79bfb138d 100644
                  loss = losses.mean()
                  if args.load_balancing_loss:
                      weighted_aux_loss = args.load_balancing_weight * aux_loss
-@@ -700,6 +721,15 @@ def main(args: dpo_utils.DPOExperimentConfig, tc: TokenizerConfig):
+@@ -700,6 +731,15 @@ def main(args: dpo_utils.DPOExperimentConfig, tc: TokenizerConfig):
                          clean_last_n_checkpoints(args.output_dir, args.keep_last_n_checkpoints)
                      accelerator.wait_for_everyone()
  
@@ -61,7 +71,7 @@ index b164c84a0..79bfb138d 100644
                      break
  
 diff --git a/open_instruct/model_utils.py b/open_instruct/model_utils.py
-index 30db06e06..9e141e310 100644
+index 30db06e0..9e141e31 100644
 --- a/open_instruct/model_utils.py
 +++ b/open_instruct/model_utils.py
 @@ -662,6 +662,12 @@ def save_with_accelerate(

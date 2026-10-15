@@ -1,6 +1,6 @@
 # Verification audit (Task 2)
 
-Audited 2026-10-13 against the main write-up "Why DPO Makes Olmo 3 Overconfident" (doc rev 37) and the experiment log. Paths are relative to `olmo-calib/` unless they start with `/workspace` (the rental box). Box-side checks: `train/verify_box.py` (log copied to `verification/verify_box.log`).
+Audited 2026-10-13 against the main write-up "Why DPO Makes Olmo 3 Overconfident" (doc rev 37; retitled "Why Does DPO Make Olmo 3 Overconfident?" on 2026-10-15) and the experiment log. Paths are relative to `olmo-calib/` unless they start with `/workspace` (the rental box). Box-side checks: `train/verify_box.py` (log copied to `verification/verify_box.log`).
 
 ## Failures and surprises first
 

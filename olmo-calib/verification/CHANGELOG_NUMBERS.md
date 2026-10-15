@@ -1,6 +1,6 @@
 # Changelog of reported numbers
 
-Every change to a number in the write-up ("Why DPO Makes Olmo 3 Overconfident") or the experiment log, with old value, new value and reason. Entries before 2026-10-13 are reconstructed from the review session of 2026-10-12 (four reviewer passes, including a numbers audit against the result files); from now on, changes are logged here when they are made.
+Every change to a number in the write-up ("Why Does DPO Make Olmo 3 Overconfident?", titled "Why DPO Makes Olmo 3 Overconfident" until 2026-10-15) or the experiment log, with old value, new value and reason. Entries before 2026-10-13 are reconstructed from the review session of 2026-10-12 (four reviewer passes, including a numbers audit against the result files); from now on, changes are logged here when they are made.
 
 ## 2026-10-12 — review round
 

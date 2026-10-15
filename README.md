@@ -1,22 +1,11 @@
-# Why DPO makes Olmo 3 overconfident
+# olmo3-dpo-calibration
 
-<!-- DRAFT SUMMARY: rewrite in your own words -->
-Olmo 3 7B's Instruct DPO stage is the largest single source of the model's overconfidence on multiple-choice
-questions: it raises the temperature needed to recalibrate the model (T*) from 1.52 to 2.34 while leaving its answers,
-accuracy and ranking of right vs wrong answers unchanged. This project traces that to which preference pairs DPO
-trains on. About two thirds of Olmo 3's pairs are ones the SFT model already gets right, and because DPO measures
-progress against the SFT model, those pairs get the same weight as the ones it gets wrong; training on them sharpens
-the model's existing answer machinery. In pre-registered small-scale tests, training sets with 99% vs 18%
-already-right pairs give T* 2.26 vs 1.46, and adding DPO's reference model to the reference-free SimPO objective
-brings all of the overconfidence back. Down-weighting the already-right pairs keeps SFT's calibration on 25% of Ai2's
-DPO data, but on the full data it removes only about 60% of the rise and makes responses much longer, so it is a test
-of the explanation rather than a recipe change.
-<!-- END DRAFT -->
-
-**Write-up:** [writeup/why-dpo-makes-olmo3-overconfident.pdf](writeup/why-dpo-makes-olmo3-overconfident.pdf)
-(16 pages; definitions, all results, mechanism, limits).
+This repository contains code and results for the "Why DPO Makes Olmo 3 Overconfident" writeup [writeup/why-dpo-makes-olmo3-overconfident.pdf](writeup/why-dpo-makes-olmo3-overconfident.pdf) (16 pages, definitions, results, limits). The code contains analysis of Olmo 3 7B's Instruct DPO stage and how it affects overconfidence on multiple-choice
+questions. It also tests the claim that most of the overconfidence comes from training on DPO pairs that the SFT model already gets right.
 
 ## Headline results
+
+Training less on already-right pairs keeps SFT's calibration in small and 25%-scale runs, and removes about 60% of the rise at full scale.
 
 MMLU T* (1 = calibrated, higher = more overconfident). Accuracy and AUROC are flat in every run.
 
@@ -53,7 +42,7 @@ Git commit times are self-reported, so treat them as a record, not proof. Outcom
 | 2. 99% vs 18% already-right pairs, matched on source and length | Confirmed (2.26 vs 1.46, every seed) |
 | 3a. SimPO (no reference) below plain DPO | Confirmed (1.52; learns more) |
 | 3b. Adding the reference to SimPO restores the overconfidence | Confirmed (1.86, all of plain's excess) |
-| 4. "Easy" pairs more overconfident at matched learning | Not supported (they also learn far more) |
+| 4. "Easy" pairs more overconfident with no increase in learning | Not supported (they also learn far more) |
 | 5. IPO lowers T*, but agreement still matters | Confirmed (1.70 vs 1.47) |
 | 6a / 7b. Weighting helps on almost or fully agreed data | Not supported (2.26 → 2.19; 2.32 → 2.24, one seed) |
 | 6b / 7a / 7c. No overshoot; dropping the few disagreed pairs changes little | Confirmed |
@@ -113,14 +102,12 @@ One model (Olmo 3 7B Instruct) and one preference dataset. The causal tests are 
 the LLM judge are coarse, and Ai2's full post-training eval suite was not run. Why SFT itself makes the model
 overconfident is not addressed. See the write-up's Limits section.
 
-## How this was made
+## AI use
 
-<!-- DRAFT: adjust to describe your role accurately -->
-The code was written by AI coding agents (Claude) working under my direction. I chose the questions, designed and
-pre-registered the experiments, decided what to run, and reviewed the results and the write-up.
-<!-- END DRAFT -->
+The repository was created with human-AI collaboration. Claude wrote the code, ran the experiments, drafted the pre-registered predictions and thresholds, and drafted the write-up. I directed the project, chose which questions to pursue, decided which experiments to run or stop, and reviewed and edited the results and the write-up.
 
 ## License
 
-Code: Apache-2.0 (see [LICENSE](LICENSE)). Data and outputs derived from Ai2's Dolci data: ODC-BY. Please credit
-Ai2's Olmo 3 and Dolci releases.
+Code: Apache-2.0 (see [LICENSE](LICENSE)). The outputs on Hugging Face are derived from Ai2's Dolci preference data,
+which is released under ODC-BY, a license that requires attribution; they are released under ODC-BY too. If you
+reuse them, cite Ai2's Olmo 3 release and the Dolci datasets as well as this repository.

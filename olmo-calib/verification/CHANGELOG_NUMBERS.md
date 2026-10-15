@@ -136,3 +136,13 @@ Every change to a number in the write-up ("Why DPO Makes Olmo 3 Overconfident") 
 |---|---|---|---|---|---|
 | Main | Summary Why; Why (after replication); Fix definition | — | "what matters is whether SFT already gets a pair right, not by how much"; follow-up paragraph (2.26 → 2.19, 3 seeds; 2.32 → 2.24, 1 seed; mixed 1.80 → 1.50); "works by moving weight onto disagreed pairs, so on data with almost none it does little" | New pre-registered results | why_tests/WHY_RESULTS.md §5-6; results_ckpt/small/wy_w5hi_*, wy_hiall_s1, wy_w5all_s1 |
 | Log | §12 follow-ups; retracted claims | — | two tables (runs, predictions 6a-7c) + paragraph; row "weighting helps on almost fully agreed data: not supported" | same | same |
+
+## 2026-10-15 — prediction table and chart (user review)
+
+| Doc | Where | Old | New | Reason | Source |
+|---|---|---|---|---|---|
+| Main, Log, README | Prediction 4 wording | "more overconfident at matched learning" | "more overconfident with no increase in learning" (still Not supported) | Clearer statement of the same pre-registered premise | why_tests/PREDICTIONS.md |
+| Main | Replication table | wave predictions only | adds the two follow-up rows (99%: 2.26 → 2.19; 100%, one seed: 2.32 → 2.24; both Not supported); intro sentence and follow-up paragraph adjusted, numbers now only in the table | Predictions in one place | WHY_RESULTS.md §5–6 |
+| Main | Replication chart | easy-pairs row carried a "Not supported" note | note removed (predictions kept out of the chart); dashed plain-DPO reference kept | User | — |
+| Log, WHY_RESULTS | Addendum 1 effect size | 0.07 (and "about 0.07–0.08") | 0.08 (0.075; 100% set 0.079) | Mean of seeds 2.2647 − 2.1893 = 0.0754, rounded from unrounded means | wy_hi_s*, wy_w5hi_s* summary.json |
+| Main | Replication chart | groups: weighting, reference, agreement (DPO, IPO), easy | adds "Weighting (99%)" group (plain 2.26 vs weighted 2.19, Δ 0.08); first group renamed "Weighting (mixed)"; legend now "push shifted onto pairs SFT gets wrong" / "push stays on pairs SFT already gets right" | Shows the follow-up next to the main contrasts; old legend did not fit the weighted 99% run | same |

@@ -132,7 +132,7 @@ normalizer would have cut the total push to about 29% (0.118 / 0.41), not "rough
 
 Accuracy .618-.619, AUROC .768-.770.
 
-- **6a: NOT SUPPORTED.** Mean T* is 0.07 below plain (needed 0.2; seed spread 0.02).
+- **6a: NOT SUPPORTED.** Mean T* is 0.08 below plain (2.2647 - 2.1893 = 0.075; needed 0.2; seed spread 0.02).
 - **6b: holds** (mean 2.19 >= 1.45), trivially.
 - Reading (as pre-specified): weighting needs disagreed pairs to shift weight onto. On this set it can only move
   weight from strongly to weakly agreed pairs, and those sharpen almost as much, while learning more (27.8% vs 22.9%).

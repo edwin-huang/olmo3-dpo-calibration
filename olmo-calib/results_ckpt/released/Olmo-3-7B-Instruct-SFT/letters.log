@@ -1,15 +1,0 @@
-Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights:   0%|          | 1/355 [00:00<01:41,  3.50it/s]Loading weights:   5%|▌         | 19/355 [00:00<00:06, 50.98it/s]Loading weights:  12%|█▏        | 41/355 [00:00<00:03, 83.71it/s]Loading weights:  19%|█▉        | 67/355 [00:00<00:02, 128.19it/s]Loading weights:  24%|██▎       | 84/355 [00:00<00:02, 124.49it/s]Loading weights:  28%|██▊       | 99/355 [00:01<00:02, 115.03it/s]Loading weights:  33%|███▎      | 118/355 [00:01<00:01, 119.82it/s]Loading weights:  38%|███▊      | 134/355 [00:01<00:01, 127.52it/s]Loading weights:  44%|████▎     | 155/355 [00:01<00:01, 146.06it/s]Loading weights:  48%|████▊     | 171/355 [00:01<00:01, 133.27it/s]Loading weights:  53%|█████▎    | 188/355 [00:01<00:01, 141.60it/s]Loading weights:  57%|█████▋    | 203/355 [00:01<00:01, 129.17it/s]Loading weights:  62%|██████▏   | 219/355 [00:01<00:01, 118.12it/s]Loading weights:  68%|██████▊   | 241/355 [00:02<00:00, 127.98it/s]Loading weights:  73%|███████▎  | 258/355 [00:02<00:00, 136.69it/s]Loading weights:  77%|███████▋  | 273/355 [00:02<00:00, 121.69it/s]Loading weights:  84%|████████▍ | 298/355 [00:02<00:00, 150.81it/s]Loading weights:  89%|████████▊ | 315/355 [00:02<00:00, 124.56it/s]Loading weights:  94%|█████████▍| 334/355 [00:02<00:00, 138.25it/s]Loading weights:  99%|█████████▊| 350/355 [00:02<00:00, 141.42it/s]Loading weights: 100%|██████████| 355/355 [00:02<00:00, 124.16it/s]
-[transformers] The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
-letters mmlu:5:0: 16/14042
-letters mmlu:5:0: 1616/14042
-letters mmlu:5:0: 3216/14042
-letters mmlu:5:0: 4816/14042
-letters mmlu:5:0: 6416/14042
-letters mmlu:5:0: 8016/14042
-letters mmlu:5:0: 9616/14042
-letters mmlu:5:0: 11216/14042
-letters mmlu:5:0: 12816/14042
-{"tag": "letters", "eval": "mmlu:5:0", "model": "allenai/Olmo-3-7B-Instruct-SFT", "revision": null, "chat": false, "n": 14042, "acc": 0.608033043725965, "avg_conf": 0.722439907500492, "ece": 0.11528014616948375, "brier": 0.5219344495803495, "avg_letter_mass": 0.9875693223799543}
-letters arc:5:0: 16/1165
-{"tag": "letters", "eval": "arc:5:0", "model": "allenai/Olmo-3-7B-Instruct-SFT", "revision": null, "chat": false, "n": 1165, "acc": 0.784549356223176, "avg_conf": 0.8244791037693113, "ece": 0.04192881050579292, "brier": 0.3063458632178386, "avg_letter_mass": 0.9981628389201815}

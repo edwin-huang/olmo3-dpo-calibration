@@ -1,2 +1,0 @@
-pilot8d: 8192 pairs, 1 GPUs x 1 x accum 128 = batch 128, 64 steps, LR 8e-6, snapshot every 64, full state every 1000000000, ZeRO-1, concat True
-pilot8d SMALL DONE

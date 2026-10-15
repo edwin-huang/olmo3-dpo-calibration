@@ -1,14 +1,0 @@
-Loading weights:   0%|          | 0/355 [00:00<?, ?it/s]Loading weights:   1%|          | 2/355 [00:00<00:39,  8.95it/s]Loading weights:   5%|▍         | 16/355 [00:00<00:05, 59.49it/s]Loading weights:  10%|█         | 36/355 [00:00<00:03, 105.92it/s]Loading weights:  16%|█▋        | 58/355 [00:00<00:02, 139.02it/s]Loading weights:  22%|██▏       | 78/355 [00:00<00:01, 155.89it/s]Loading weights:  27%|██▋       | 95/355 [00:00<00:01, 156.45it/s]Loading weights:  32%|███▏      | 114/355 [00:00<00:01, 162.01it/s]Loading weights:  38%|███▊      | 135/355 [00:00<00:01, 171.40it/s]Loading weights:  43%|████▎     | 153/355 [00:01<00:01, 171.71it/s]Loading weights:  48%|████▊     | 171/355 [00:01<00:01, 170.00it/s]Loading weights:  54%|█████▍    | 191/355 [00:01<00:00, 173.88it/s]Loading weights:  60%|█████▉    | 212/355 [00:01<00:00, 179.26it/s]Loading weights:  65%|██████▌   | 232/355 [00:01<00:00, 182.88it/s]Loading weights:  71%|███████   | 251/355 [00:01<00:00, 178.37it/s]Loading weights:  76%|███████▌  | 269/355 [00:01<00:00, 170.34it/s]Loading weights:  82%|████████▏ | 290/355 [00:01<00:00, 170.17it/s]Loading weights:  88%|████████▊ | 312/355 [00:01<00:00, 179.30it/s]Loading weights:  94%|█████████▍| 333/355 [00:02<00:00, 182.92it/s]Loading weights:  99%|█████████▉| 353/355 [00:02<00:00, 185.69it/s]Loading weights: 100%|██████████| 355/355 [00:02<00:00, 161.80it/s]
-Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-letters mmlu:5:0: 16/14042
-letters mmlu:5:0: 1616/14042
-letters mmlu:5:0: 3216/14042
-letters mmlu:5:0: 4816/14042
-letters mmlu:5:0: 6416/14042
-letters mmlu:5:0: 8016/14042
-letters mmlu:5:0: 9616/14042
-letters mmlu:5:0: 11216/14042
-letters mmlu:5:0: 12816/14042
-{"tag": "letters", "eval": "mmlu:5:0", "model": "/workspace/runs/q25_d4", "revision": null, "chat": false, "n": 14042, "acc": 0.614869676684233, "avg_conf": 0.7869936752911381, "ece": 0.17231525262343594, "brier": 0.5499270183456221, "avg_letter_mass": 0.98552089895578}
-letters arc:5:0: 16/1165
-{"tag": "letters", "eval": "arc:5:0", "model": "/workspace/runs/q25_d4", "revision": null, "chat": false, "n": 1165, "acc": 0.7905579399141631, "avg_conf": 0.8827457076127586, "ece": 0.09218776769859557, "brier": 0.3194273859664064, "avg_letter_mass": 0.9989205754312858}

@@ -2,3 +2,17 @@
 data/
 .env
 tmp/
+# Raw per-question / per-response outputs and logs live in the Hugging Face dataset
+# ehuang5/olmo3-calibration-results (same paths); keep them out of git.
+__pycache__/
+olmo-calib/results_q25/results_ckpt/
+olmo-calib/results_box2/
+olmo-calib/results_smoke/
+olmo-calib/results_q25/runs/
+olmo-calib/**/*.jsonl
+!olmo-calib/**/*per_pair.jsonl
+!olmo-calib/**/judge_*.jsonl
+olmo-calib/**/*.log
+!olmo-calib/results_why/**/*.log
+!olmo-calib/verification/**/*.log
+!olmo-calib/why_tests/**/*.log

@@ -6,7 +6,7 @@
 #      (plain ln 2 = 0.693; SimPO-with-reference -log sigmoid(-10 x 0.3) = 3.049; IPO (0 - 0.5)^2 = 0.25)
 #   3. scoring smoke on GPU 1: score_pool.py on 16 pool pairs
 # If everything passes it starts train/why_wave.sh; otherwise it writes /workspace/WHY_SMOKE_FAILED and stops.
-WS=/workspace; T=$WS/olmo-calib/train; PY=$WS/open-instruct/.venv/bin/python; M=allenai/Olmo-3-7B-Instruct-SFT
+export WS=${WS:-/workspace}; T=$WS/olmo-calib/train; PY=$WS/open-instruct/.venv/bin/python; M=allenai/Olmo-3-7B-Instruct-SFT
 LOG=$WS/why_smoke.log
 until grep -q BBH_DONE $WS/bbh_wave.log 2>/dev/null; do sleep 60; done
 while [ -f $WS/WHY_HOLD ]; do sleep 60; done  # touch /workspace/WHY_HOLD to keep the wave from starting

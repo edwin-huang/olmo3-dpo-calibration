@@ -4,7 +4,7 @@
 # Starts only after test_resume.sh passed. Snapshots: --fast evals, deleted after (PRUNE); final model: full evals.
 # Writes /workspace/Q25_DONE or Q25_FAILED. Run: cd /workspace && nohup bash olmo-calib/train/run_q25.sh > q25.log 2>&1 &
 set -uo pipefail
-WS=/workspace
+export WS=${WS:-/workspace}
 T=$WS/olmo-calib/train
 PY=$WS/open-instruct/.venv/bin/python
 M=allenai/Olmo-3-7B-Instruct-SFT
@@ -37,13 +37,14 @@ if [ ! -f $WS/runs/order_check.OK ]; then
   wc -l $WS/runs/idx/batch_index_rank0.txt > $WS/runs/idx_part1_lines.txt
   BATCH=16 N_SNAP=1 N_FULL=4 bash $T/launch_dpo.sh idx $D $M 1e-6 || fail "order check: resumed idx"
   $PY - <<'EOF' || fail "order check: resumed run did not continue the same data order"
-import glob, sys
-part1 = int(open("/workspace/runs/idx_part1_lines.txt").read().split()[0])
+import glob, os, sys
+WS = os.environ["WS"]
+part1 = int(open(WS + "/runs/idx_part1_lines.txt").read().split()[0])
 ok = True
-for f in sorted(glob.glob("/workspace/runs/idx_ref/batch_index_rank*.txt")):
+for f in sorted(glob.glob(WS + "/runs/idx_ref/batch_index_rank*.txt")):
     ref = open(f).read().splitlines()
     got = open(f.replace("/idx_ref/", "/idx/")).read().splitlines()
-    skip = 6 * (16 // len(glob.glob("/workspace/runs/idx_ref/batch_index_rank*.txt")))  # 6 steps x (batch 16 / n GPUs) micro-batches per rank
+    skip = 6 * (16 // len(glob.glob(WS + "/runs/idx_ref/batch_index_rank*.txt")))  # 6 steps x (batch 16 / n GPUs) micro-batches per rank
     first, resumed = got[:part1], got[part1:]
     same_start = first[:skip] == ref[:skip]
     same_rest = resumed == ref[skip:]

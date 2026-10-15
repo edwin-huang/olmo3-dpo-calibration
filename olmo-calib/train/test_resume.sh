@@ -7,7 +7,7 @@
 #   4. eval_run.sh on rt with PRUNE=1 (--smoke evals): every checkpoint evaluated, snapshots deleted, final kept
 # Writes /workspace/RTEST_OK or RTEST_FAILED. Run: cd /workspace && nohup bash olmo-calib/train/test_resume.sh > rtest.log 2>&1 &
 set -uo pipefail
-WS=/workspace
+export WS=${WS:-/workspace}
 T=$WS/olmo-calib/train
 PY=$WS/open-instruct/.venv/bin/python
 D=$WS/dpo_data/smoke200.parquet
@@ -37,12 +37,13 @@ bash $T/launch_dpo.sh rt $D $M 1e-6 || fail "resumed rt training"
 grep -m1 "Resumed from checkpoint" $WS/runs/rt.log || fail "rt did not resume from a checkpoint"
 
 $PY - <<'EOF' || fail "resumed run differs from the uninterrupted run"
-import re, glob, sys
+import re, glob, os, sys
+WS = os.environ["WS"]
 from safetensors import safe_open
 def steps(path):
     return {int(s): (float(lr), float(loss)) for s, lr, loss in
             re.findall(r"Step: (\d+), LR: ([^,]+), Loss: ([0-9.]+)", open(path).read())}
-ref, part1, res = steps("/workspace/runs/rt_ref.log"), steps("/workspace/runs/rt_part1.log"), steps("/workspace/runs/rt.log")
+ref, part1, res = steps(WS + "/runs/rt_ref.log"), steps(WS + "/runs/rt_part1.log"), steps(WS + "/runs/rt.log")
 print("resumed log covers steps", min(res), "-", max(res), "| part 1 covered", min(part1), "-", max(part1))
 bad = False
 for s in sorted(res):
@@ -51,7 +52,7 @@ for s in sorted(res):
     bad |= flag
     print(f"  step {s:>2}: LR {lr0:.3e} vs {lr1:.3e}   loss {l0:.4f} vs {l1:.4f}" + ("   <-- MISMATCH" if flag else ""))
 maxd, n, ndiff = 0.0, 0, 0
-for fa in sorted(glob.glob("/workspace/runs/rt_ref/*.safetensors")):
+for fa in sorted(glob.glob(WS + "/runs/rt_ref/*.safetensors")):
     fb = fa.replace("/rt_ref/", "/rt/")
     with safe_open(fa, "pt") as a, safe_open(fb, "pt") as b:
         for k in a.keys():

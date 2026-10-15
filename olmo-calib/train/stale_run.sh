@@ -1,13 +1,14 @@
 #!/bin/bash
 # Experiment A: download full_w5 snapshots from HF, score 4,000 training pairs under each model (2 GPUs), analyze.
 set -uo pipefail
-WS=/workspace; PY=$WS/open-instruct/.venv/bin/python; S=$WS/olmo-calib/train/stale_weights.py
+export WS=${WS:-/workspace}; PY=$WS/open-instruct/.venv/bin/python; S=$WS/olmo-calib/train/stale_weights.py
 SNAP=$WS/stale_snaps; mkdir -p $SNAP $WS/results_why/stale
 $PY - <<'EOF'
+import os
 from huggingface_hub import snapshot_download
 for s in (406, 812, 1218, 1624):
     snapshot_download("ehuang5/olmotestmodels", allow_patterns=[f"full_weighted/snap_step_{s}/*"],
-                      local_dir="/workspace/stale_snaps")
+                      local_dir=os.environ["WS"] + "/stale_snaps")
     print("downloaded", s, flush=True)
 EOF
 score() { CUDA_VISIBLE_DEVICES=$1 $PY $S score $2 $3; }

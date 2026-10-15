@@ -81,7 +81,7 @@ def unit_direction(model, params, tok, rows, shots, letter_ids):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="results_edit")
-    ap.add_argument("--save-dir", default="/workspace/models")
+    ap.add_argument("--save-dir", default=os.environ.get("WS", "/workspace") + "/models")
     ap.add_argument("--save", default="", help="variants to save for IFEval, comma-separated")
     ap.add_argument("--smoke", action="store_true", help="tiny question sets, nothing saved")
     args = ap.parse_args()

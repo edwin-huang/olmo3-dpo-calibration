@@ -3,7 +3,7 @@
 # lock and runs each with run_small.sh on its GPU. Waits while the queue is empty; exits when /workspace/small_STOP
 # exists. Start one per GPU:  nohup bash olmo-calib/train/small_worker.sh 0 > worker0.log 2>&1 &
 GPU=$1
-WS=/workspace
+export WS=${WS:-/workspace}
 Q=$WS/small_queue.txt
 touch $Q
 while [ ! -f $WS/small_STOP ]; do

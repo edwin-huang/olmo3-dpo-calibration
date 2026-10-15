@@ -19,17 +19,18 @@ import os
 import random
 import sys
 
-OUT = "/workspace/results_why/stale"
+WS = os.environ.get("WS", "/workspace")  # data root; override with the WS environment variable
+OUT = f"{WS}/results_why/stale"
 N, MAX_RESP = 4000, 2048
 
 
 def pairs():
     import pyarrow.parquet as pq
-    meta_n = pq.read_metadata("/workspace/dpo_data/instruct_meta.parquet").num_rows
+    meta_n = pq.read_metadata(f"{WS}/dpo_data/instruct_meta.parquet").num_rows
     perm = list(range(meta_n))
     random.Random(0).shuffle(perm)  # make_dpo_data.py's shuffle: q25_all row i = instruct_full row perm[i]
-    q25 = pq.read_table("/workspace/dpo_data/q25_all.parquet").slice(0, 30000).to_pylist()
-    full = pq.read_table("/workspace/dpo_data/instruct_full.parquet", columns=["chosen"])
+    q25 = pq.read_table(f"{WS}/dpo_data/q25_all.parquet").slice(0, 30000).to_pylist()
+    full = pq.read_table(f"{WS}/dpo_data/instruct_full.parquet", columns=["chosen"])
     for i in range(0, 30000, 3000):  # mapping check
         assert q25[i]["chosen"][-1]["content"] == full.column("chosen")[perm[i]].as_py()[-1]["content"], i
     rows = [(i, r) for i, r in enumerate(q25) if len(r["chosen"]) == 2]
@@ -76,7 +77,7 @@ def cmd_score(name, path):
 
 def cmd_analyze(names):
     import torch
-    cache = torch.load("/workspace/ref_cache/89203f41147b0c40.pt", map_location="cpu")
+    cache = torch.load(f"{WS}/ref_cache/89203f41147b0c40.pt", map_location="cpu")
     R = {n: json.load(open(f"{OUT}/{n}.json"))["pairs"] for n in names}
     idx = [p["idx"] for p in R[names[0]]]
     assert all([p["idx"] for p in R[n]] == idx for n in names)

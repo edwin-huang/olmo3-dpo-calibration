@@ -41,6 +41,8 @@ import torch
 import torch.nn.functional as F
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+WS = os.environ.get("WS", "/workspace")  # data root; override with the WS environment variable
+
 from calib_eval import build_prompts, load_task
 
 LETTERS = "ABCD"
@@ -508,7 +510,7 @@ def cmd_pairs(args):
     Is B's margin a rescaled copy of A's (gain) or a shift? How often does A already agree (margin > 0)? And the
     token-level sharpening s* of B vs A on chosen responses, split by whether A agrees with the pair."""
     import pyarrow.parquet as pq
-    src = {"instruct": "/workspace/dpo_data/q25_all.parquet", "think": "/workspace/dpo_data/think_full.parquet"}[args.data]
+    src = {"instruct": f"{WS}/dpo_data/q25_all.parquet", "think": f"{WS}/dpo_data/think_full.parquet"}[args.data]
     rows = pq.read_table(src).slice(0, 30000).to_pylist()
     rows = [r for r in rows if len(r["chosen"]) == 2]
     random.Random(7).shuffle(rows)
@@ -637,7 +639,7 @@ def cmd_bridge(args):
     n = args.n
     _, mmlu_prompts = mmlu(tok, n)
     lid = letter_ids(tok)
-    rows = pq.read_table("/workspace/dpo_data/q25_all.parquet").slice(30000, 30000).to_pylist()
+    rows = pq.read_table(f"{WS}/dpo_data/q25_all.parquet").slice(30000, 30000).to_pylist()
     commit = []
     for r in rows:
         if len(r["chosen"]) != 2:
@@ -705,7 +707,7 @@ def cmd_bridge(args):
 
 def dpo_pairs(n, seed=0):
     import pyarrow.parquet as pq
-    rows = pq.read_table("/workspace/dpo_data/q25_all.parquet").slice(0, 20000).to_pylist()
+    rows = pq.read_table(f"{WS}/dpo_data/q25_all.parquet").slice(0, 20000).to_pylist()
     rows = [r for r in rows if len(r["chosen"]) == 2]
     random.Random(seed).shuffle(rows)
     return rows[:n]
@@ -801,7 +803,7 @@ def cmd_firsttok(args):
     tok = AutoTokenizer.from_pretrained(args.a)
     ma, mb = load(args.a), load(args.b)
     import pyarrow.parquet as pq
-    rows = pq.read_table("/workspace/dpo_data/q25_all.parquet").slice(20000, 20000).to_pylist()
+    rows = pq.read_table(f"{WS}/dpo_data/q25_all.parquet").slice(20000, 20000).to_pylist()
     rows = [r for r in rows if len(r["chosen"]) == 2]
     random.Random(1).shuffle(rows)
     groups = {"option_listing": [], "short_answer": [], "long_answer": []}

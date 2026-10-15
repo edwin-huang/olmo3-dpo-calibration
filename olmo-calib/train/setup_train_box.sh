@@ -5,7 +5,7 @@
 # Run from /workspace after copying olmo-calib/ there:  bash olmo-calib/train/setup_train_box.sh
 set -euo pipefail
 OI_COMMIT=11826255077617a46919ce75cadf1f3d53f30dac   # open-instruct main, 2026-09-30 (the code we read)
-WS=/workspace
+export WS=${WS:-/workspace}
 cd $WS
 
 nvidia-smi --query-gpu=name,memory.total,driver_version --format=csv

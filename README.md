@@ -66,9 +66,16 @@ Everything lives in [olmo-calib/](olmo-calib/) (the scripts expect that folder n
 - **No GPU:** `olmo-calib/verification/recompute_inputs/*.csv` hold per-question A-D probabilities
   (`qid, subject, answer, p_A..p_D`) for SFT, released DPO and our 25%- and full-scale runs, enough to recompute
   T*, ECE and AUROC.
-- **One small test (1x B200 or H200, about an hour):** copy `olmo-calib/` to `/workspace/` on the box, run
-  `bash olmo-calib/train/setup_train_box.sh` (open-instruct at commit 11826255, transformers 5.17, our patches, data),
-  then for example
+- **Where things live:** the experiments ran on rented single-node Linux GPU machines with everything under
+  `/workspace` (the repo at `/workspace/olmo-calib`, data in `/workspace/dpo_data`, runs in `/workspace/runs`). Every
+  script reads that root from the `WS` environment variable, defaulting to `/workspace`, so elsewhere copy
+  `olmo-calib/` to `$WS/olmo-calib` and run `export WS=/your/dir` first. The setup script needs internet access and an
+  NVIDIA driver >= 570 (CUDA 12.8 wheels); it installs into `$WS` and `~/.local` and needs no root. Runs are single-node;
+  on a Slurm cluster, run the scripts inside a job allocation. Paths in the saved logs and results still show
+  `/workspace`, where they actually ran.
+- **One small test (1x B200 or H200, about an hour):** copy `olmo-calib/` to `$WS/olmo-calib` on the GPU machine,
+  run `bash olmo-calib/train/setup_train_box.sh` from `$WS` (open-instruct at commit 11826255, transformers 5.17, our
+  patches, data), then for example
   `bash olmo-calib/train/run_small.sh my_run s8_a.parquet 0 LR=4e-6 PARTS=letters,format,chat,pairs EXTRA=--seed+1`.
   Add `DPO_AGREE_K=5 DPO_AGREE_NORM=<mean weight>` for agreement weighting; the other loss variants are listed at the
   top of `train/patch_open_instruct.py`. Training sets come from `train/make_small_sets*.py` and

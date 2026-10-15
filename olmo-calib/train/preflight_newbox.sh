@@ -5,7 +5,7 @@
 #   3. every eval part (--smoke) on the auto-attention smoke model, incl. vLLM self-consistency and IFEval
 # Writes /workspace/PREFLIGHT_OK or PREFLIGHT_FAILED. Run: cd /workspace && nohup bash olmo-calib/train/preflight_newbox.sh > preflight.log 2>&1 &
 set -uo pipefail
-WS=/workspace
+export WS=${WS:-/workspace}
 T=$WS/olmo-calib/train
 PY=$WS/open-instruct/.venv/bin/python
 M=allenai/Olmo-3-7B-Instruct-SFT
@@ -17,8 +17,8 @@ echo "== 1. letters sanity"
 CUDA_VISIBLE_DEVICES=0 $PY eval_ckpt.py --ckpt $M --tag newbox/Olmo-3-7B-Instruct-SFT --parts letters --out $WS/results_ckpt \
   > $WS/results_ckpt_sanity.log 2>&1 || fail "letters eval"
 $PY - <<'EOF' || fail "letters do not reproduce earlier results"
-import json, sys
-r = json.load(open("/workspace/results_ckpt/newbox/Olmo-3-7B-Instruct-SFT/letters.json"))["mmlu"]
+import json, os, sys
+r = json.load(open(os.environ["WS"] + "/results_ckpt/newbox/Olmo-3-7B-Instruct-SFT/letters.json"))["mmlu"]
 print(f"Instruct-SFT MMLU acc {r['acc']:.3f} ECE {r['ece']:.3f} T* {r['t_star']:.2f} AUROC {r['auroc']:.3f}  (expected .608 / .115 / 1.52 / .768)")
 sys.exit(0 if abs(r["acc"] - .608) < .01 and abs(r["ece"] - .115) < .01 and abs(r["t_star"] - 1.52) < .05 else 1)
 EOF
@@ -26,10 +26,10 @@ EOF
 echo "== 2. smoke training, auto attention vs sdpa"
 D=$WS/dpo_data/smoke200.parquet
 [ -f $D ] || $PY - <<'EOF'
-import pyarrow.parquet as pq, pyarrow as pa
-rows = pq.read_table("/workspace/dpo_data/q25_all.parquet").to_pylist()
+import os, pyarrow.parquet as pq, pyarrow as pa
+rows = pq.read_table(os.environ["WS"] + "/dpo_data/q25_all.parquet").to_pylist()
 size = lambda r: sum(len(m["content"]) for m in r["chosen"] + r["rejected"])
-pq.write_table(pa.Table.from_pylist(rows[:190] + sorted(rows, key=size)[-10:]), "/workspace/dpo_data/smoke200.parquet")
+pq.write_table(pa.Table.from_pylist(rows[:190] + sorted(rows, key=size)[-10:]), os.environ["WS"] + "/dpo_data/smoke200.parquet")
 EOF
 rm -rf $WS/runs/pf_auto $WS/runs/pf_sdpa
 BATCH=16 N_SNAP=2 N_FULL=1 bash $T/launch_dpo.sh pf_auto $D $M 1e-6 || fail "smoke training (auto attention)"

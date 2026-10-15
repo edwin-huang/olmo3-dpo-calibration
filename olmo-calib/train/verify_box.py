@@ -21,7 +21,7 @@ import subprocess
 import pyarrow.parquet as pq
 import torch
 
-WS = "/workspace"
+WS = os.environ.get("WS", "/workspace")
 D = f"{WS}/dpo_data"
 OUT = f"{WS}/verify_out"
 os.makedirs(OUT, exist_ok=True)

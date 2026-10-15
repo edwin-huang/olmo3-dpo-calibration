@@ -3,7 +3,7 @@
 # learning (held-out pairs, judge responses). First the no-training references (Instruct-SFT, released Instruct-DPO,
 # our q25_all final model) on both GPUs, then 8 small runs through the small-test queue (2 workers).
 #   nohup bash olmo-calib/train/fix_wave.sh > fix_wave.log 2>&1 &
-WS=/workspace
+export WS=${WS:-/workspace}
 PY=$WS/open-instruct/.venv/bin/python
 M=allenai/Olmo-3-7B-Instruct-SFT
 P=letters,format,chat,pairs,gen,ifeval

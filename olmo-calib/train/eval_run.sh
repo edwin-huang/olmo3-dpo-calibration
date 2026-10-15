@@ -7,7 +7,7 @@
 # Ends by writing /workspace/runs/RUN.EVAL_DONE or RUN.EVAL_FAILED (listing failed checkpoints) for the watcher.
 set -uo pipefail
 RUN=$1; REF=$2; shift 2
-WS=/workspace
+export WS=${WS:-/workspace}
 PY=$WS/open-instruct/.venv/bin/python
 cd $WS/olmo-calib
 CKPTS=($(ls -d $WS/runs/$RUN/snap_step_* 2>/dev/null | sort -t_ -k3 -n))

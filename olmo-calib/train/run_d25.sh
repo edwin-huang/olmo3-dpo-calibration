@@ -8,7 +8,7 @@
 # state, evals skip finished parts). Writes /workspace/runs/NAME.ALL_DONE or NAME.ALL_FAILED.
 set -uo pipefail
 NAME=$1; DATA=$2
-WS=/workspace
+export WS=${WS:-/workspace}
 T=$WS/olmo-calib/train
 PY=$WS/open-instruct/.venv/bin/python
 M=allenai/Olmo-3-7B-Instruct-SFT

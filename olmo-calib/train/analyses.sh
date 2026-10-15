@@ -3,7 +3,7 @@
 # GPU 0: decomposition (SFT->released DPO, SFT->our q25, SFT->D4) and activation patching (SFT->DPO)
 # GPU 1: squeezing signature and first-token sharpening (SFT->DPO, SFT->q25)
 # Writes /workspace/results_why/*.json, /workspace/why_gpu{0,1}.log, and ANALYSES_DONE; removes small_PAUSE.
-WS=/workspace
+export WS=${WS:-/workspace}
 PY=$WS/open-instruct/.venv/bin/python
 SFT=allenai/Olmo-3-7B-Instruct-SFT
 cd $WS/olmo-calib

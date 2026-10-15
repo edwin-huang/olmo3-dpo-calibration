@@ -1,7 +1,7 @@
 #!/bin/bash
 # ZeRO-1 + combined chosen/rejected forward: speed on ~2K-token pairs and memory on the longest pairs (smoke200).
 # Needs configs/ds_configs/stage1_no_offloading_accelerate.conf in open-instruct (setup_train_box.sh creates it).
-WS=/workspace; T=$WS/olmo-calib/train; M=allenai/Olmo-3-7B-Instruct-SFT
+export WS=${WS:-/workspace}; T=$WS/olmo-calib/train; M=allenai/Olmo-3-7B-Instruct-SFT
 rm -f $WS/BENCHZ1C_DONE
 for d in mid smoke200; do
   name=z1c_$d; rm -rf $WS/runs/$name

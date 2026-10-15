@@ -35,7 +35,8 @@ from types import SimpleNamespace
 
 PARTS = ["letters", "format", "chat", "text", "sc", "ifeval", "pairs", "gen", "bbh", "bbh_ai2"]
 DEFAULT_PARTS = [p for p in PARTS if p not in ("bbh", "bbh_ai2")]  # bbh only on request, so default evals match runs made before it existed
-BBH_DIR = "/workspace/BIG-Bench-Hard"  # git clone https://github.com/suzgunmirac/BIG-Bench-Hard
+WS = os.environ.get("WS", "/workspace")  # data root; override with the WS environment variable
+BBH_DIR = f"{WS}/BIG-Bench-Hard"  # git clone https://github.com/suzgunmirac/BIG-Bench-Hard
 SIZES = {  # letters MMLU limit, ARC limit, format n, chat/sc MMLU, chat/sc ARC, text sequences, sc k, IFEval prompts,
            # held-out pairs, generation prompts (0 = all)
     "full": dict(mmlu=0, arc=0, fmt=2000, q_mmlu=1000, q_arc=500, n_seq=256, k=8, ifeval=0, pairs=0, gen=0, bbh=0),
@@ -338,7 +339,7 @@ def part_bbh(args, sz, d):
             "by_task": {t: sum(v) / len(v) for t, v in per.items()}}
 
 
-OLMES_DIR = "/workspace/olmes"  # git clone https://github.com/allenai/olmes (read for BBH_DESCRIPTIONS)
+OLMES_DIR = f"{WS}/olmes"  # git clone https://github.com/allenai/olmes (read for BBH_DESCRIPTIONS)
 OLMO_3_REGEXES = [  # olmes oe_eval/configs/regexes.py
     r"(?i)therefore,?\s*the\s*answer\s*is:?\s*\(?($ANS$)\b", r"(?i)so\s+the\s+answer\s+is\s+($ANS$)\.?",
     r"(?i)the\s+correct\s+answer\s+is:?\s*($ANS$)", r"(?i)the\s+answer\s+is\s+($ANS$)\.?", r"(?i)a:\s*($ANS$)",
@@ -478,8 +479,8 @@ def main():
     ap.add_argument("--fast", action="store_true")
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--out", default="results_ckpt")
-    ap.add_argument("--pairs-file", default="/workspace/dpo_data/heldout_pairs.parquet")
-    ap.add_argument("--prompts-file", default="/workspace/dpo_data/judge_prompts.jsonl")
+    ap.add_argument("--pairs-file", default=f"{WS}/dpo_data/heldout_pairs.parquet")
+    ap.add_argument("--prompts-file", default=f"{WS}/dpo_data/judge_prompts.jsonl")
     args = ap.parse_args()
     size = "smoke" if args.smoke else "fast" if args.fast else "full"
     sz = SIZES[size]

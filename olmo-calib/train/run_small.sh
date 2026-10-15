@@ -12,7 +12,7 @@
 # Writes /workspace/runs/NAME.SMALL_DONE or NAME.SMALL_FAILED.
 set -uo pipefail
 NAME=$1; DATA=$2; GPU=$3; shift 3
-WS=/workspace
+export WS=${WS:-/workspace}
 T=$WS/olmo-calib/train
 PY=$WS/open-instruct/.venv/bin/python
 M=allenai/Olmo-3-7B-Instruct-SFT

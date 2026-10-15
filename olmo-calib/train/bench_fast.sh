@@ -5,7 +5,7 @@
 #   2. equivalence: the q25_all run's first 20 steps at PDB=4 (separate forwards, so q25's reference cache is reused),
 #      killed at step 20; per-step losses compared with q25_all's log (same seed -> same 128 pairs per step)
 # Writes /workspace/bench_fast.txt and BENCHF_DONE.
-WS=/workspace
+export WS=${WS:-/workspace}
 T=$WS/olmo-calib/train
 PY=$WS/open-instruct/.venv/bin/python
 M=allenai/Olmo-3-7B-Instruct-SFT
@@ -38,11 +38,11 @@ LP=$!
 until grep -q "Step: 20," $WS/runs/$name.log 2>/dev/null || ! kill -0 $LP 2>/dev/null; do sleep 5; done
 pkill -9 -f -- "--exp_name $name --output_dir"; wait $LP 2>/dev/null; sleep 10
 echo "equivalence run: $(steps $WS/runs/$name.log); cache: $(grep -c 'Loading reference logprobs cache' $WS/runs/$name.log) loads" | tee -a $WS/bench_fast.txt
-$PY - <<'EOF' | tee -a /workspace/bench_fast.txt
-import re
+$PY - <<'EOF' | tee -a $WS/bench_fast.txt
+import os, re
 def losses(p):
     return {int(s): float(l) for s, l in re.findall(r"Step: (\d+), LR: [^,]+, Loss: ([0-9.]+)", open(p).read())}
-a, b = losses("/workspace/runs/q25_all.log"), losses("/workspace/runs/eq_pdb4.log")
+a, b = losses(os.environ["WS"] + "/runs/q25_all.log"), losses(os.environ["WS"] + "/runs/eq_pdb4.log")
 common = sorted(set(a) & set(b))[:20]
 for s in common:
     print(f"  step {s:>2}: q25 (PDB=1) {a[s]:.4f}   PDB=4 {b[s]:.4f}   diff {b[s] - a[s]:+.4f}")

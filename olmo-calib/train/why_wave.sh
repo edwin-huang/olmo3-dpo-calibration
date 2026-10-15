@@ -5,7 +5,7 @@
 #   Gate: train/why_gate.py applies the pre-registered stop rule once phase 1 is done. REFUTED -> nothing more is
 #   queued (/workspace/WHY_STOPPED); otherwise phase 2 (15 runs): agreement contrast, easy subset, IPO on the contrast.
 #   When every queued run has finished, the workers are stopped (/workspace/small_STOP) and WHY_WAVE_DONE is logged.
-WS=/workspace; T=$WS/olmo-calib/train; PY=$WS/open-instruct/.venv/bin/python; Q=$WS/small_queue.txt
+export WS=${WS:-/workspace}; T=$WS/olmo-calib/train; PY=$WS/open-instruct/.venv/bin/python; Q=$WS/small_queue.txt
 # Relaunched 2026-10-13 ~22 UTC after the BBH harness investigation: all 27 runs from scratch, Ai2-style BBH on the
 # first 40 questions per task (bbh_ai2, BBH_PER_TASK=40), each model uploaded to ehuang5/olmotestmodels wave/NAME.
 C="KEEP=0 UPLOAD=1 LR=4e-6 PARTS=letters,format,chat,pairs,gen,bbh_ai2 BBH_PER_TASK=40"

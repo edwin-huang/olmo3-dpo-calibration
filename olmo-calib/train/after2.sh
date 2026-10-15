@@ -1,7 +1,7 @@
 #!/bin/bash
 # After q25_delta's evals: normalization analyses (why.py norm) for SFT->released DPO, SFT->q25, SFT->D4, then start
 # the small-test workers. Replaces after_analyses.sh's worker start. Writes /workspace/AFTER2_DONE.
-WS=/workspace
+export WS=${WS:-/workspace}
 PY=$WS/open-instruct/.venv/bin/python
 until [ -f $WS/runs/q25_delta.ALL_DONE ] || [ -f $WS/runs/q25_delta.ALL_FAILED ]; do sleep 30; done
 cd $WS/olmo-calib

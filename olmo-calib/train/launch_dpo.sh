@@ -16,7 +16,7 @@
 set -uo pipefail
 NAME=$1; DATA=$(realpath "$2"); MODEL=$3; LR=$4; shift 4   # absolute: we cd into open-instruct below
 [ -f "$DATA" ] || { echo "no data file $DATA"; exit 1; }
-WS=/workspace
+export WS=${WS:-/workspace}
 OI=$WS/open-instruct
 BATCH=${BATCH:-128}
 CHAT_TEMPLATE=${CHAT_TEMPLATE:-tokenizer_default}

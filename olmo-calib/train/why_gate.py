@@ -50,5 +50,5 @@ else:
     else:
         decision, reason = "INCONCLUSIVE", f"3a holds (gap {gap:+.3f}); 3b ratio {ratio:.2f} between 0.25 and 0.5"
 print(f"DECISION: {decision} — {reason}")
-json.dump({"decision": decision, "reason": reason, "values": vals}, open("/workspace/why_gate.json", "w"), indent=1)
+json.dump({"decision": decision, "reason": reason, "values": vals}, open(os.environ.get("WS", "/workspace") + "/why_gate.json", "w"), indent=1)
 sys.exit(3 if decision == "REFUTED" else 0)

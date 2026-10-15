@@ -12,10 +12,11 @@ Also: share of responses with an explicit answer phrase ("answer is" / "Answer:"
 Usage: python bbh_ai2_inspect.py /workspace/results_ckpt   (run from olmo-calib/ so eval_ckpt imports)
 """
 import json
+import os
 import re
 import sys
 
-sys.path.insert(0, "/workspace/olmo-calib")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 from eval_ckpt import BBH_ANSWER_REGEX, OLMO_3_REGEXES, olmes_bbh_extract, olmes_exact_match  # noqa: E402
 
 R0 = sys.argv[1]

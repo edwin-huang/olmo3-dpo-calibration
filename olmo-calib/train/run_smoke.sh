@@ -8,7 +8,7 @@
 # Writes /workspace/SMOKE_OK or /workspace/SMOKE_FAILED (with the failing step) for the watcher.
 # Run: cd /workspace && nohup bash olmo-calib/train/run_smoke.sh > smoke.log 2>&1 &
 set -uo pipefail
-WS=/workspace
+export WS=${WS:-/workspace}
 PY=$WS/open-instruct/.venv/bin/python
 fail() { echo "$1" > $WS/SMOKE_FAILED; echo "SMOKE FAILED: $1"; exit 1; }
 rm -f $WS/SMOKE_OK $WS/SMOKE_FAILED
@@ -16,12 +16,12 @@ rm -f $WS/SMOKE_OK $WS/SMOKE_FAILED
 bash $WS/olmo-calib/train/setup_train_box.sh || fail "setup"
 
 $PY - <<'EOF' || fail "smoke data"
-import pyarrow.parquet as pq, pyarrow as pa
-t = pq.read_table("/workspace/dpo_data/q25_all.parquet")
+import os, pyarrow.parquet as pq, pyarrow as pa
+t = pq.read_table(os.environ["WS"] + "/dpo_data/q25_all.parquet")
 rows = t.to_pylist()
 size = lambda r: sum(len(m["content"]) for m in r["chosen"] + r["rejected"])
 longest = sorted(rows, key=size)[-10:]
-pq.write_table(pa.Table.from_pylist(rows[:190] + longest), "/workspace/dpo_data/smoke200.parquet")
+pq.write_table(pa.Table.from_pylist(rows[:190] + longest), os.environ["WS"] + "/dpo_data/smoke200.parquet")
 print("smoke200: 190 random + 10 longest, longest pair", size(longest[-1]), "chars")
 EOF
 

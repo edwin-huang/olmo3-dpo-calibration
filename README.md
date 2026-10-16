@@ -3,16 +3,16 @@
 Edwin Huang · Arizona State University · [ehuang19@asu.edu](mailto:ehuang19@asu.edu)
 
 > **Write-up: [Why Does DPO Make Olmo 3 Overconfident? (PDF)](writeup/why-does-dpo-make-olmo3-overconfident.pdf)**
-> Start here for the findings, methods and limits; this repository holds the code, results and audit behind it.
 
 This repository contains code and results for the "Why Does DPO Make Olmo 3 Overconfident?" writeup [writeup/why-does-dpo-make-olmo3-overconfident.pdf](writeup/why-does-dpo-make-olmo3-overconfident.pdf) (19 pages, definitions, results, limits). The code contains analysis of Olmo 3 7B's Instruct DPO stage and how it affects overconfidence on multiple-choice
 questions. It also tests the claim that most of the overconfidence comes from training on DPO pairs that the SFT model already gets right.
 
 ## Headline results
 
-Training less on already-right pairs keeps SFT's calibration in small and 25%-scale runs, and removes about 60% of the rise at full scale.
+Training less on already-right pairs keeps SFT's calibration in small runs, and removes about 60% of the rise for MMLU for a full Instruct-DPO run.
 
-MMLU T* (1 = calibrated, higher = more overconfident). Accuracy and AUROC are flat in every run.
+MMLU T* (how much confidence must be scaled down to match accuracy,1 =
+overconfident). Accuracy and AUROC are flat in every run.
 
 | Setting | SFT | Plain DPO | Agreement-weighted DPO |
 | --- | --- | --- | --- |
@@ -109,7 +109,7 @@ on single RTX PRO 6000s for evaluation and the mechanism probes.
 
 ## Limits
 
-One model (Olmo 3 7B Instruct) and one preference dataset. The causal tests are 8K-pair runs; the fix has one run at
+One model (Olmo 3 7B Instruct) and one preference dataset. The causal tests are 8K-pair runs; the intervention has one run at
 25% scale and one at full scale, where it holds only partly and the drift is unexplained. The learning metric and
 the LLM judge are coarse, and Ai2's full post-training eval suite was not run. Why SFT itself makes the model
 overconfident is not addressed. See the write-up's Limits section.

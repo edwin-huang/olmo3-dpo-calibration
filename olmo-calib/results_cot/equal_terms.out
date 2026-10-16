@@ -1,0 +1,16 @@
+
+== MMLU (1000 questions): conf, acc, excess (conf - acc) ==
+measure                                              SFT conf   acc  excess  DPO conf   acc  excess  DPO-SFT            95% CI
+immediate, letter probability (write-up)                0.738 0.575  +0.163     0.855 0.578  +0.277   +0.114  [+0.097, +0.133]
+immediate, agreement of 8 samples at T 0.7 (new)        0.822 0.570  +0.253     0.904 0.579  +0.325   +0.072  [+0.060, +0.086]
+after one greedy chain, letter probability              0.975 0.667  +0.308     0.986 0.677  +0.309   +0.001  [-0.028, +0.030]
+after reasoning, agreement of 8 chains (write-up)       0.791 0.690  +0.101     0.792 0.706  +0.087   -0.014  [-0.041, +0.011]
+after reasoning, 8 chains, missing answers dropped      0.810 0.690  +0.120     0.847 0.706  +0.141   +0.021  [-0.005, +0.046]
+
+== ARC (500 questions): conf, acc, excess (conf - acc) ==
+measure                                              SFT conf   acc  excess  DPO conf   acc  excess  DPO-SFT            95% CI
+immediate, letter probability (write-up)                0.852 0.764  +0.088     0.936 0.784  +0.152   +0.064  [+0.044, +0.082]
+immediate, agreement of 8 samples at T 0.7 (new)        0.910 0.765  +0.145     0.958 0.782  +0.176   +0.031  [+0.018, +0.044]
+after one greedy chain, letter probability              0.995 0.832  +0.163     0.999 0.878  +0.121   -0.042  [-0.072, -0.013]
+after reasoning, agreement of 8 chains (write-up)       0.888 0.892  -0.004     0.929 0.910  +0.019   +0.023  [-0.003, +0.048]
+after reasoning, 8 chains, missing answers dropped      0.893 0.892  +0.001     0.939 0.910  +0.029   +0.028  [+0.003, +0.051]

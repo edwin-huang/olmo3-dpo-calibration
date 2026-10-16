@@ -1,4 +1,4 @@
-# Verification audit (Task 2)
+# Verification audit
 
 Audited 2026-10-13 against the main write-up "Why DPO Makes Olmo 3 Overconfident" (doc rev 37; retitled "Why Does DPO Make Olmo 3 Overconfident?" on 2026-10-15) and the experiment log. Paths are relative to `olmo-calib/` unless they start with `/workspace` (the rental box). Box-side checks: `train/verify_box.py` (log copied to `verification/verify_box.log`).
 
@@ -7,7 +7,7 @@ Audited 2026-10-13 against the main write-up "Why DPO Makes Olmo 3 Overconfident
 | # | Finding | Status | What it affects |
 |---|---|---|---|
 | 1 | The 1,000 held-out pairs and 300 judge prompts are **inside `instruct_full`**, the data Ai2's released Instruct-DPO and our full run trained on (1,000/1,000 pairs, 300/300 prompts). They are disjoint from every small-test and 25%-scale training set. | FAIL for full-scale numbers | Released DPO's "learned 57%" and judge .51/.55 are measured on pairs/prompts it trained on. The same will hold for the full run. Small-test and 25%-scale "learned" and judge numbers are clean. The main doc's Limits cites the released model's 55% judge win rate as evidence that the judge is insensitive; that inference is weaker than stated (it was even in-distribution). |
-| 2 | D4's "weights moved 21% further from SFT" (relative L2 4.57e-4 vs 3.77e-4; update cosine 0.586) came from a one-off inline script in an earlier session, compared against `q25_all_r2`. Both models have since been deleted. | UNTRACEABLE to a saved file | One clause in the main doc's Why and Mechanism sections and the log §7. Only the session transcript records it. Options: keep with "(from a one-off computation; models no longer available)", or drop. |
+| 2 | D4's "weights moved 21% further from SFT" (relative L2 4.57e-4 vs 3.77e-4; update cosine 0.586) came from a one-off script that was not saved, compared against `q25_all_r2`. Both models have since been deleted. | UNTRACEABLE to a saved file | Resolved: the claim was removed from the write-up (CHANGELOG_NUMBERS.md). |
 | 3 | IFEval: Ai2 reports 81.7 (SFT) / 82.0 (DPO); we get prompt-strict .769 / .789 and instruction-strict .842 / .855. Ai2's number sits between our two variants. | UNCLEAR | Absolute IFEval only; our relative comparisons use one harness throughout. Likely a loose-vs-strict or generation-settings difference; not resolved. |
 | 4 | `verify_box.py`'s held-out cross-check first printed 90.0% agreed: its glob picked the 10-pair smoke file `pairs__…__20.json`. The real 1,000-pair file gives 62.8%. | Script bug, no doc impact | Fixed by reading the 2000-entry file; see §e. |
 | 5 | Released DPO's MMLU ECE is .205 in the main doc (from `calib_eval.py`, `results_robust/mmlu5_full`) and .2061 in `results_ckpt/released` (`eval_ckpt.py`). Same model, two harness paths that bin identically; difference is in the 4th decimal. | PASS (note only) | None. |
@@ -17,7 +17,7 @@ Audited 2026-10-13 against the main write-up "Why DPO Makes Olmo 3 Overconfident
 | Check | Result | Status |
 |---|---|---|
 | Full run's weight normalizer (DPO_AGREE_NORM) | Computed on the 25% sample: 0.4135. True mean over all 259,922 pairs (from the full run's reference cache `89203f41147b0c40.pt`): 0.4130, 63.09% agreed. Every pair's loss is scaled by 0.9988 instead of 1; relative weights between pairs are exact. Adam is insensitive to a constant loss scale; the only path to an effect is gradient clipping, whose threshold for this run (DeepSpeed `gradient_clipping: auto`) was not verified | PASS (negligible); clipping setting UNVERIFIED |
-| Brief 2 data sets vs held-out pairs and judge prompts | why_hi8, why_lo8, why_pool and s8_a: zero pair, prompt or judge-prompt overlap; why_hi8 and why_lo8 disjoint | PASS |
+| Pre-registered wave data sets vs held-out pairs and judge prompts | why_hi8, why_lo8, why_pool and s8_a: zero pair, prompt or judge-prompt overlap; why_hi8 and why_lo8 disjoint | PASS |
 | Scoring pool vs the scoring model's training data | First pool shared 4 exact-duplicate pairs with q25_all (instruct_full contains duplicate pairs at different rows). Rebuilt before any scoring, excluding duplicates by content; 4 rows swapped; overlap now 0; `train/make_why_sets.py` updated to match | FIXED (before use) |
 
 ## a. Harness sanity vs Ai2's reported numbers — PASS (MMLU), UNCLEAR (IFEval)
@@ -125,7 +125,7 @@ Main write-up, in reading order. "Script" is the producer; "File" is where the v
 | 91% vs 27% → 3.30 vs 1.80 | Why | marghi8, marglo8 | run_small.sh; agreement_analysis.py | results_ckpt/small/marg*/summary.json; verification/agreement_analysis.out | ✓ |
 | 2.37 / 2.37 at equal agreement | Why | rejlo8g, rejhi8g | same | results_ckpt/small/rej*8g | ✓ |
 | Swap 2.39 / 1.50 / 1.12; accuracy .61 → .59 | Why | pilot8a, swap8a, rev8a | run_small.sh | results_ckpt/small/{pilot8a,swap8a,rev8a} | ✓ |
-| Margin slope 1.25–1.48 agreed / .85–1.01 disagreed | Why | SFT → released DPO, 2,999 pairs | why.py pairs + length split | results_why/pairs_instruct_perpair.json | ⚠ split computed in-session from this file; no saved script |
+| Margin slope 1.25–1.48 agreed / .85–1.01 disagreed | Why | SFT → released DPO, 2,999 pairs | why.py pairs + length split | results_why/pairs_instruct_perpair.json | ⚠ split computed from this file by a one-off script that was not saved |
 | Long vs short 2.89 / 1.92 at 62–64% | Why | long8, short8 | run_small.sh | results_ckpt/small/{long8,short8}; agreement_analysis.out | ✓ |
 | Random subsets 63–64%, T* 1.95–2.39 | Why | pilot8a–d | same | agreement_analysis.out | ✓ |
 | r = .78 (17 runs) | chart 2 | 17 small tests | agreement_analysis.py | verification/agreement_analysis.out | ✓ |
@@ -135,7 +135,7 @@ Main write-up, in reading order. "Script" is the producer; "File" is where the v
 | 12.5× lower LR | Why | Ai2 recipe | — | calibration-literature notes (1e-6 vs 8e-8) | ✓ |
 | Delta 74% vs judged 54%; removed pairs 48%; 63% → 65% | Why | q25 pairs | agreement_analysis.py | verification/agreement_analysis.out (65% = unflagged 64.7%) | ✓ |
 | T* 2.02 (delta-only), 2.02 (D4), predicted 2.04 / 1.88 | Why | q25_delta, q25_d4 | run_d25.sh; fit from agreement_analysis.out | results_ckpt/q25_d4, q25_delta final_full | ✓ (prediction is derived: exp(0.91·Δagree) × 1.85) |
-| D4 weights moved 21% further | Why, Mechanism | q25_d4 vs q25_all_r2 | inline session script | session transcript only | ⚠ finding 2 |
+| D4 weights moved 21% further | Why, Mechanism | q25_d4 vs q25_all_r2 | one-off script (not saved) | none | removed from the write-up (finding 2) |
 | 64% → 31% of weight; 0.08 / 0.82; norm 0.4106 | Fix | s8_a | make_fix_sets.py | verification/fix_sets_stats.txt | ✓ |
 | Filter: 23% agreed | Fix | filt8 | make_fix_sets.py | verification/fix_sets_stats.txt | ✓ |
 | Small-test fix results (T*, learned, slopes, IFEval, tokens) | Fix, chart 3 | fx_* | fix_wave.sh → eval_ckpt.py | results_ckpt/small/fx_*/{summary,pairs,gen}.json | ✓ |
@@ -151,7 +151,7 @@ Main write-up, in reading order. "Script" is the producer; "File" is where the v
 | Free-form commits ×1.44 | Mechanism | released | why.py bridge | bridge__…DPO.json | ✓ |
 | Judge 55% (released DPO) | Limits | fx_rel_dpo | judge_winrate.py | small/fx_rel_dpo/judge_vs_small_fx_sft_neutral.json | ⚠ finding 1: prompts were in its training data |
 | Fixed models softer: text ×0.93–0.95, first token ×0.72–0.82 | Limits | fx_w5/filt/simpo | why.py bridge | results_why/fix/bridge__*.json | ✓ |
-| Chat T* 3.97 | Limits | released DPO | cot_test.py | results_cot/Olmo-3-7B-Instruct-DPO.json | ✓ |
+| Chat T* 3.77 | Limits, Intervention table | released DPO, chat format, all 14,042 MMLU questions | eval_ckpt.py chat | results_ckpt/released/Olmo-3-7B-Instruct-DPO/summary.json `chat_mmlu_t_star` 3.765 | ✓ (updated 2026-10-16; this row previously listed 3.97, which is cot_test.py's direct-answer T* on a 1,000-question subset, results_cot/Olmo-3-7B-Instruct-DPO.json `direct_mmlu`) |
 | SFT T* 1.03 → 1.52 | Limits | base, Instruct-SFT | temp_scaling.py | results_robust/mmlu5_full | ✓ |
 
 The experiment log's numbers were checked by the earlier reviewer audit (about 400 values); its 15 mismatches are listed with fixes in `verification/CHANGELOG_NUMBERS.md`.

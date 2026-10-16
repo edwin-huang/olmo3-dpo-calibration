@@ -1,6 +1,6 @@
 # Testing the "why": results
 
-Brief 2 (tmp/brief2.md). The account under test: DPO's per-pair gradient weight is computed relative to the reference
+The pre-registered wave (predictions in PREDICTIONS.md and its two addenda). The account under test: DPO's per-pair gradient weight is computed relative to the reference
 model, so at the start of training every pair gets the same push whether or not the SFT model already prefers the
 chosen response; pushing pairs the model already agrees with makes it overconfident.
 
@@ -144,7 +144,7 @@ Accuracy .618-.619, AUROC .768-.770.
 why_hiall8: why_hi8 minus its 73 disagreed pairs (8,119 pairs; margins from the 25%-scale reference cache that built
 why_hi8; recomputing why_hi8's normalizer from that cache gives 0.1179, identical to the trainer's own cache).
 Set-specific DPO_AGREE_NORM 0.1135. **Deviation from the pre-registration:** after the plain check seed and weighted
-seed 1, the user stopped the queue (seeds 2-3 not run), since Addendum 1 already predicted the outcome and seeds vary
+seed 1, the queue was stopped by choice (seeds 2-3 not run), since Addendum 1 already predicted the outcome and seeds vary
 by about 0.02 in T*. 7b and 7c are therefore checked on seed 1, not on 3-seed means.
 
 | Run (seed 1) | T* | ECE | Chat T* | Learned | Agreed kept | Tokens | BBH |

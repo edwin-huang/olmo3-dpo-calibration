@@ -37,7 +37,7 @@ Every change to a number in the write-up ("Why Does DPO Make Olmo 3 Overconfiden
 
 | Doc | Where | Old | New | Reason | Source |
 |---|---|---|---|---|---|
-| Main | Why | D4 "its weights moved 21% further from SFT" | removed ("another, unidentified cause") | Untraceable to a saved file; both models deleted (VERIFICATION.md finding 2) | session transcript only |
+| Main | Why | D4 "its weights moved 21% further from SFT" | removed ("another, unidentified cause") | Untraceable to a saved file; both models deleted (VERIFICATION.md finding 2) | one-off script, not saved |
 | Log | §7, retracted-claims table | "weights moved 21% further (update cosine with the control 0.59)" | removed | same | same |
 | Main | Limits | "barely separates even the released DPO model from SFT (55% win rate)" | cites our 25%-scale plain run (56%) instead; states the held-out pairs and judge prompts are training data for the released model and the full run; full-scale comparison moves to BigBenchHard | Held-out set is inside instruct_full (finding 1) | verify_box.log |
 | Log | §10 | "released DPO model 57.3% … judge .55" listed as references | same values, marked not held-out | same | same |

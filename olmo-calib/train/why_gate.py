@@ -1,4 +1,4 @@
-"""Stop rule for the Brief 2 wave (why_tests/PREDICTIONS.md), applied after the 12 runs of predictions 1 and 3.
+"""Stop rule for the pre-registered wave (why_tests/PREDICTIONS.md), applied after the 12 runs of predictions 1 and 3.
 
 Reads results_ckpt/small/wy_{plain,w5,simpo,simporef}_s{1,2,3}/summary.json (+ pairs.json) and prints per-condition
 means and seed ranges of MMLU T* and learned. Decision, exactly as pre-registered:

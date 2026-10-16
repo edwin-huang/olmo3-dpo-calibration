@@ -1,4 +1,4 @@
-"""Brief 2 data sets (run on the box, CPU only).
+"""Data sets for the pre-registered wave (run on the box, CPU only).
 
   why_hi8 / why_lo8   8,192 pairs each from q25_all, high vs low Instruct-SFT agreement, matched on preference source
                       and response length: strata = preference type x chosen-length decile x rejected-length 20-quantile

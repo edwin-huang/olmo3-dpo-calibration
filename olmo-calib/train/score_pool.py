@@ -1,4 +1,4 @@
-"""Brief 2, Experiment 5 input: Selective-DPO-style difficulty scores (GPU).
+"""Pre-registered wave, experiment 5 input: Selective-DPO-style difficulty scores (GPU).
 
 Selective DPO ranks preference pairs by how easy they are for a model already trained with DPO, via the implicit
 reward margin h = (log pi(y_c) - log ref(y_c)) - (log pi(y_r) - log ref(y_r)), and trains on the easiest. Here pi is

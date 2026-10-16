@@ -1,4 +1,4 @@
-"""Export per-question A-D probabilities for an independent T*/ECE/AUROC recompute (Task 2b). Writes one CSV per
+"""Export per-question A-D probabilities for an independent T*/ECE/AUROC recompute. Writes one CSV per
 model x benchmark into verification/recompute_inputs/, plus reported_values.json with the numbers our pipeline
 (eval_ckpt.py calib()) reported for the same files, so a recompute can be checked against them.
 

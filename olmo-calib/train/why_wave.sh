@@ -1,5 +1,5 @@
 #!/bin/bash
-# Brief 2 wave (why_tests/PREDICTIONS.md). 2 workers (1 GPU each) pull from /workspace/small_queue.txt.
+# Pre-registered wave (why_tests/PREDICTIONS.md). 2 workers (1 GPU each) pull from /workspace/small_queue.txt.
 #   Phase 1 (12 runs): plain, agreement-weighted, SimPO, SimPO-with-reference x seeds 1-3, interleaved by seed.
 #   GPU 1 first runs the difficulty scoring (score_pool.py, ~1.5 h) for the easy subset, then joins.
 #   Gate: train/why_gate.py applies the pre-registered stop rule once phase 1 is done. REFUTED -> nothing more is

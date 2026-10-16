@@ -1,0 +1,4 @@
+# Pre-registration files must stay byte-identical to their recorded SHA-256 hashes on every platform,
+# so git never converts their line endings.
+olmo-calib/why_tests/PREDICTIONS*.md -text
+olmo-calib/why_tests/PREDICTIONS*.sha256 -text

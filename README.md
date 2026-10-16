@@ -11,8 +11,8 @@ questions. It also tests the claim that most of the overconfidence comes from tr
 
 Training less on already-right pairs keeps SFT's calibration in small runs, and removes about 60% of the rise for MMLU for a full Instruct-DPO run.
 
-MMLU T* (how much confidence must be scaled down to match accuracy,1 =
-overconfident). Accuracy and AUROC are flat in every run.
+MMLU T* (how much confidence must be scaled down to match accuracy; 1 = calibrated,
+above 1 = overconfident). Accuracy and AUROC are flat in every run.
 
 | Setting | SFT | Plain DPO | Agreement-weighted DPO |
 | --- | --- | --- | --- |
@@ -68,6 +68,9 @@ Everything lives in [olmo-calib/](olmo-calib/) (the scripts expect that folder n
 
 ## Reproduce
 
+- **Clone shallow:** `git clone --depth 1 https://github.com/edwin-huang/olmo3-dpo-calibration` (about 15 MB). The
+  full history is about 300 MB because raw outputs were committed before they moved to Hugging Face; it is kept
+  because the commit times are part of the pre-registration record.
 - **No GPU:** `olmo-calib/verification/recompute_inputs/*.csv` hold per-question A-D probabilities
   (`qid, subject, answer, p_A..p_D`) for SFT, released DPO and our 25%- and full-scale runs, enough to recompute
   T*, ECE and AUROC.

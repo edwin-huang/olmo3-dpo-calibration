@@ -1,5 +1,5 @@
 #!/bin/bash
-# Brief 2 smoke test, then the wave. Waits for the full run's BBH wave to free the GPUs, then:
+# Smoke test for the pre-registered wave, then the wave. Waits for the full run's BBH wave to free the GPUs, then:
 #   1. applies patch 6 (SimPO-with-reference, IPO) to open-instruct
 #   2. 4-step training runs on smoke64 (GPU 0): plain DPO with --seed, SimPO beta 10, SimPO-with-reference, IPO;
 #      checks every run exits 0 and the first-step losses equal their analytic values at init

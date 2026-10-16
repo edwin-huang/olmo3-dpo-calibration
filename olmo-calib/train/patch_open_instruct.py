@@ -16,7 +16,7 @@
    DPO_AGREE_NORM (reference margin = mean per-token log-prob chosen minus rejected under the SFT model, from the
    reference cache), so pairs the SFT model already agrees with count less. DPO_NLL=alpha adds alpha x the chosen
    response's mean per-token negative log-likelihood (RPO-style).
-6. dpo_tune_cache.py, Brief 2 tests (use with --loss_type dpo_norm, so the reference cache holds per-token-averaged
+6. dpo_tune_cache.py, pre-registered wave tests (use with --loss_type dpo_norm, so the reference cache holds per-token-averaged
    log-probs): DPO_GAMMA=g gives SimPO-with-reference, loss -log sigmoid(beta * (h - g)); DPO_IPO_TAU=t gives IPO on
    the same margin, loss (h - 1/(2t))^2; h = (pi(y_c) - ref(y_c)) - (pi(y_r) - ref(y_r)), the reference-relative margin.
 

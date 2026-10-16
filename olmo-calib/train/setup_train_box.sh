@@ -1,7 +1,7 @@
 #!/bin/bash
 # Set up a vast box for the DPO reruns: open-instruct (pinned commit, its own uv venv) + our eval scripts + data.
 # Needs an NVIDIA driver >= 570 (CUDA 12.8). Use a plain CUDA/PyTorch template, not the vLLM one (that one starts a
-# vLLM server holding ~88GB per GPU; if you do use it, stop it first, see memory/vast-box).
+# vLLM server holding ~88GB per GPU; if you do use it, stop it first: supervisorctl stop vllm).
 # Run from /workspace after copying olmo-calib/ there:  bash olmo-calib/train/setup_train_box.sh
 set -euo pipefail
 OI_COMMIT=11826255077617a46919ce75cadf1f3d53f30dac   # open-instruct main, 2026-09-30 (the code we read)

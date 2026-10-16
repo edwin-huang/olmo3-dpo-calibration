@@ -1,4 +1,4 @@
-"""Brief 2, Experiment 1: implied per-pair gradient weights at the start of training (no GPU).
+"""Pre-registered wave, experiment 1: implied per-pair gradient weights at the start of training (no GPU).
 
 At step 0 the policy equals the reference (Instruct-SFT), so each method's weight on a pair is a function of SFT's
 own per-token-averaged log-probs (open-instruct's reference cache for all 259,922 Instruct DPO pairs). For each method:

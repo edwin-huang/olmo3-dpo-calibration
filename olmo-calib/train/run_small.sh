@@ -32,8 +32,8 @@ CUDA_VISIBLE_DEVICES=$GPU $PY eval_ckpt.py --ckpt $WS/runs/$NAME --tag small/$NA
   --parts ${PARTS:-letters,format,chat} --fast > $WS/results_ckpt/small/$NAME.log 2>&1 || fail "evals (see results_ckpt/small/$NAME/)"
 grep -m1 -oE "Step: 1, LR: [^,]+, Loss: [0-9.]+" $WS/runs/$NAME.log > $WS/results_ckpt/small/$NAME/train_first_step.txt
 grep -oE "Step: [0-9]+, LR: [^,]+, Loss: [0-9.]+" $WS/runs/$NAME.log > $WS/results_ckpt/small/$NAME/train_losses.txt
-if [ "${UPLOAD:-0}" = 1 ]; then  # UPLOAD=1: push the model to ehuang5/olmotestmodels wave/NAME in the background; delete only after it succeeds
-  ( $PY $WS/hf_upload.py $WS/runs/$NAME wave/$NAME ehuang5/olmotestmodels model > $WS/runs/$NAME.upload.log 2>&1 \
+if [ "${UPLOAD:-0}" = 1 ]; then  # UPLOAD=1: push the model to ehuang5/olmo3-calibration-models wave/NAME in the background; delete only after it succeeds
+  ( $PY $WS/hf_upload.py $WS/runs/$NAME wave/$NAME ehuang5/olmo3-calibration-models model > $WS/runs/$NAME.upload.log 2>&1 \
       && touch $WS/runs/$NAME.UPLOADED && { [ "${KEEP:-0}" = 1 ] || rm -rf $WS/runs/$NAME; } ) &
 else
   [ "${KEEP:-0}" = 1 ] || rm -rf $WS/runs/$NAME

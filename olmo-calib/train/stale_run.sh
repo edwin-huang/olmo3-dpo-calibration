@@ -7,7 +7,7 @@ $PY - <<'EOF'
 import os
 from huggingface_hub import snapshot_download
 for s in (406, 812, 1218, 1624):
-    snapshot_download("ehuang5/olmotestmodels", allow_patterns=[f"full_weighted/snap_step_{s}/*"],
+    snapshot_download("ehuang5/olmo3-calibration-models", allow_patterns=[f"full_weighted/snap_step_{s}/*"],
                       local_dir=os.environ["WS"] + "/stale_snaps")
     print("downloaded", s, flush=True)
 EOF

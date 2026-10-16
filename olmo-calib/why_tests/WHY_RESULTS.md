@@ -116,7 +116,7 @@ Accuracy .613-.619 and AUROC .765-.774 in every run.
 | 4. Easy subset more overconfident at matched learning | Not supported as stated (T* +0.18 but learns +11.5) |
 | 5. IPO lowers T* but agreement still matters (>= 0.15) | Confirmed (1.70 vs 2.26; hi - lo 0.23) |
 
-All 27 models: ehuang5/olmotestmodels, wave/wy_*. Results: results_ckpt/small/wy_*.
+All 27 models: ehuang5/olmo3-calibration-models, wave/wy_*. Results: results_ckpt/small/wy_*.
 
 ## 5. Addendum 1: agreement weighting on the 99%-agreed set (3 runs; finished 2026-10-14 15:43 UTC)
 

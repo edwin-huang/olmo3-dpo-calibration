@@ -89,7 +89,7 @@ Everything lives in [olmo-calib/](olmo-calib/) (the scripts expect that folder n
 ## Data and models
 
 - Raw outputs (per-question probabilities, generations, logs): [ehuang5/olmo3-calibration-results](https://huggingface.co/datasets/ehuang5/olmo3-calibration-results), same paths as in `olmo-calib/`.
-- Trained models: [ehuang5/olmotestmodels](https://huggingface.co/ehuang5/olmotestmodels), with the 25%-scale plain
+- Trained models: [ehuang5/olmo3-calibration-models](https://huggingface.co/ehuang5/olmo3-calibration-models), with the 25%-scale plain
   and agreement-weighted runs (`q25_plain/`, `q25_weighted/`), the full-scale weighted run and its five snapshots
   (`full_weighted/`), and every small test from the pre-registered wave and its follow-ups (`wave/`). Two other
   25%-scale runs cited in the write-up (delta-learning pairs only; short or degenerate rejected responses removed) were

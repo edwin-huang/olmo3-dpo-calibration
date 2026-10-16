@@ -4,7 +4,7 @@ Edwin Huang · Arizona State University · [ehuang19@asu.edu](mailto:ehuang19@as
 
 > **Write-up: [Why Does DPO Make Olmo 3 Overconfident? (PDF, working draft)](writeup/why-does-dpo-make-olmo3-overconfident.pdf)**
 
-This repository contains code and results for the "Why Does DPO Make Olmo 3 Overconfident?" writeup [writeup/why-does-dpo-make-olmo3-overconfident.pdf](writeup/why-does-dpo-make-olmo3-overconfident.pdf) (20 pages, definitions, results, limits). The code contains analysis of Olmo 3 7B's Instruct DPO stage and how it affects overconfidence on multiple-choice
+This repository contains code and results for the "Why Does DPO Make Olmo 3 Overconfident?" writeup [writeup/why-does-dpo-make-olmo3-overconfident.pdf](writeup/why-does-dpo-make-olmo3-overconfident.pdf) (19 pages, definitions, results, limits). The code contains analysis of Olmo 3 7B's Instruct DPO stage and how it affects overconfidence on multiple-choice
 questions. It also tests the claim that most of the overconfidence comes from training on DPO pairs that the SFT model already gets right.
 
 ## Headline results
